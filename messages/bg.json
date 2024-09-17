@@ -1,0 +1,37 @@
+{
+  "general": {
+    "name": "Име",
+    "email": "Имейл",
+    "password": "Парола",
+    "continue": "Продължи",
+    "language": "Език",
+		"error": "Грешка",
+		"success": "Успех"
+  },
+  "dashboard": {},
+  "auth": {
+    "login": {
+      "title": "Влезте в администрацията на ПБХ",
+      "description": "Моля въведете вашите данни за вход."
+    },
+    "signup": {
+      "title": "Създайте акаунт",
+      "description": "Моля въведете вашите данни за регистрация."
+    },
+    "errors": {
+      "already_signed_in": "Вече сте се вписали.",
+      "invalid_credentials": "Невалидни данни за вход.",
+      "user_not_found": "Потребителят не е намерен.",
+      "unknown_error": "Нещо се обърка! Моля опитайте отново.",
+      "invalid_fields": "Невалидни данни.",
+      "email_already_in_use": "Имейлът вече се използва.",
+      "no_changes": "Не бяха направени промени."
+    },
+    "success": {
+      "signed_in": "Вписахте се успешно!",
+      "password_updated": "Паролата е обновена успешно!",
+      "account_created": "Успешно създаден акаунт!",
+      "changed_successfully": "Промените бяха направени успешно!"
+    }
+  }
+}

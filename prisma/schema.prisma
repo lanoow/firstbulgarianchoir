@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum ContactTypes {
+  EMAIL
+  PHONE
+  ADDRESS
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  email         String    @unique
+  password      String
+  role          UserRole  @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  posts         Post[]
+  galleryPosts  GalleryPost[]
+  events        Event[]
+}
+
+model Post {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  slug          String
+  content       String
+  translations  String[]
+  cover         String
+  images        String[]
+  location      String
+  date          DateTime
+  authorId      String    @db.ObjectId
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  author        User      @relation(fields: [authorId], references: [id])
+}
+
+model GalleryPost {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  media         String
+  mediaType     String
+  authorId      String    @db.ObjectId
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  author        User      @relation(fields: [authorId], references: [id])
+}
+
+model Event {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  slug          String
+  content       String
+  translations  String[]
+  cover         String
+  images        String[]
+  location      String
+  date          DateTime
+  authorId      String    @db.ObjectId
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  author        User      @relation(fields: [authorId], references: [id])
+}
+
+model Contact {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  key           ContactTypes
+  value         String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}

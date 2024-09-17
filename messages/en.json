@@ -1,0 +1,37 @@
+{
+  "general": {
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "continue": "Continue",
+    "language": "Language",
+    "error": "Error",
+    "success": "Success"
+  },
+  "dashboard": {},
+  "auth": {
+    "login": {
+      "title": "Sign in to the FBC Dashboard",
+      "description": "Please enter your credentials."
+    },
+    "signup": {
+      "title": "Create an account",
+      "description": "Please enter your registration details."
+    },
+    "errors": {
+      "already_signed_in": "You're already signed in.",
+      "invalid_credentials": "Invalid credentials.",
+      "user_not_found": "User not found.",
+      "unknown_error": "Something went wrong! Please try again.",
+      "invalid_fields": "Невалидни данни.",
+      "email_already_in_use": "Email is already in use.",
+      "no_changes": "No changes were made."
+    },
+    "success": {
+      "signed_in": "Successfully signed in!",
+      "password_updated": "Password updated successfully!",
+      "account_created": "Successfully created an account!",
+      "changed_successfully": "Changed made successfully!"
+    }
+  }
+}
