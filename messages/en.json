@@ -1,5 +1,7 @@
 {
   "general": {
+    "fbc": "FBC \"Yanko Mustakov\"",
+    "fbcShort": "FBC",
     "name": "Name",
     "email": "Email",
     "password": "Password",
@@ -8,15 +10,33 @@
     "error": "Error",
     "success": "Success"
   },
-  "dashboard": {},
+  "dashboard": {
+    "nav": {
+      "home": "Home",
+      "content": "Content",
+      "users": "Users",
+      "settings": "Settings",
+      "toSite": "To site",
+      "logout": "Logout"
+    }
+  },
   "auth": {
     "login": {
-      "title": "Sign in to the FBC Dashboard",
-      "description": "Please enter your credentials."
+      "title": "Sign into your account",
+      "description": "Please enter your credentials.",
+      "button": "Already have an account? Sign in"
     },
     "signup": {
       "title": "Create an account",
-      "description": "Please enter your registration details."
+      "description": "Please enter your registration details.",
+      "button": "Don't have an account? Sign up"
+    },
+    "logout": {
+      "title": "Logging you out... please wait."
+    },
+    "password": {
+      "show": "Show password",
+      "hide": "Hide password"
     },
     "errors": {
       "already_signed_in": "You're already signed in.",

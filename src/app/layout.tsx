@@ -1,5 +1,6 @@
 import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
+import NextTopLoader from "nextjs-toploader";
 import { Inter } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({locale}));
+  return routing.locales.map((locale) => ({ locale }));
 }
 
 export default async function RootLayout({
@@ -28,6 +29,10 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={`${font.className} antialiased`}>
+        <NextTopLoader
+          color="#000"
+          showSpinner
+        />
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

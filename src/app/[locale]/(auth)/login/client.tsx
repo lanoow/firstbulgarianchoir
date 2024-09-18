@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { LoginSchema, LoginSchemaType } from "@/schemas";
@@ -11,6 +11,9 @@ import { Input } from "@/components/ui/input";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { login } from "@/lib/actions";
+import { PasswordInput } from "@/components/ui/password-input";
+import Link from "next/link";
+import Logo from "@/components/logo";
 
 const LoginClient = () => {
 	const t = useTranslations();
@@ -73,7 +76,9 @@ const LoginClient = () => {
 
 	return (
 		<div className="flex items-center w-full min-h-screen">
-			<div className="flex flex-col m-auto space-y-4">
+			<div className="flex flex-col items-center m-auto space-y-4">
+				<Logo link="/" />
+
 				<Card className="w-full max-w-sm mx-auto">
 					<CardHeader>
 						<CardTitle className="text-2xl">{t("auth.login.title")}</CardTitle>
@@ -110,8 +115,7 @@ const LoginClient = () => {
 										<FormItem>
 											<FormLabel>{t("general.password")}</FormLabel>
 											<FormControl>
-												<Input
-													type="password"
+												<PasswordInput
 													required
 													disabled={isPending}
 													{...field}
@@ -127,8 +131,15 @@ const LoginClient = () => {
 							</form>
 						</Form>
 					</CardContent>
+					<CardFooter className="flex flex-col items-center">
+						<Button variant="link">
+							<Link href="/signup">
+								{t("auth.signup.button")}
+							</Link>
+						</Button>
+					</CardFooter>
 				</Card>
-				
+
 				{error && (
 					<Alert className="w-full max-w-sm mx-auto text-white bg-danger">
 						<AlertTitle>{t("general.error")}</AlertTitle>
