@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/actions";
 import { redirect } from "next/navigation";
 import { UserRole } from "@prisma/client";
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
 	title: "FBC Dashboard",
@@ -34,6 +35,10 @@ export default async function DashboardLayout({
 			<div className="w-full h-screen px-4 py-3 rounded-l-large bg-neutral-100">
 				{children}
 			</div>
+
+			<Link href="https://lanoow.dev" className="absolute transition bottom-2 right-2 text-neutral-400 hover:text-black">
+				lanoow.dev
+			</Link>
 		</main>
 	);
 }

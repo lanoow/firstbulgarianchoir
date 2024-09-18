@@ -8,14 +8,19 @@
     "continue": "Продължи",
     "language": "Език",
 		"error": "Грешка",
-		"success": "Успех"
+		"success": "Успех",
+    "loading": "Зареждане..."
   },
   "dashboard": {
     "nav": {
+      "dashboard": "Администрация",
       "home": "Начало",
-      "content": "Съдържание",
       "users": "Потребители",
       "settings": "Настройки",
+      "content": "Съдържание",
+      "history": "История",
+      "events": "Събития",
+      "gallery": "Галерия",
       "toSite": "Към сайта",
       "logout": "Изход"
     }

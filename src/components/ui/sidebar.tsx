@@ -119,7 +119,7 @@ export const MobileSidebar = ({
         )}
         {...props}
       >
-        <div className="flex justify-end z-20 w-full">
+        <div className="z-20 flex justify-end w-full">
           <IconMenu2
             className="text-neutral-800 dark:text-neutral-200"
             onClick={() => setOpen(!open)}
@@ -141,7 +141,7 @@ export const MobileSidebar = ({
               )}
             >
               <div
-                className="absolute right-10 top-10 z-50 text-neutral-800 dark:text-neutral-200"
+                className="absolute z-50 right-10 top-10 text-neutral-800 dark:text-neutral-200"
                 onClick={() => setOpen(!open)}
               >
                 <IconX />
@@ -152,6 +152,23 @@ export const MobileSidebar = ({
         </AnimatePresence>
       </div>
     </>
+  );
+};
+
+export const SidebarCategory = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) => {
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="text-sm font-semibold uppercase text-neutral-700 dark:text-neutral-200">
+        {title}
+      </div>
+      {children}
+    </div>
   );
 };
 
@@ -169,7 +186,7 @@ export const SidebarLink = ({
     <Link
       href={link.href}
       className={cn(
-        "flex items-center justify-start gap-2  group/sidebar py-2",
+        "flex items-center justify-start gap-2  group/sidebar py-2 hover:opacity-70 transition",
         className
       )}
       {...props}
