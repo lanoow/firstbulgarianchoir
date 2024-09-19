@@ -23,7 +23,8 @@
       "gallery": "Gallery",
       "toSite": "To site",
       "logout": "Logout"
-    }
+    },
+    "startTyping": "Start typing..."
   },
   "auth": {
     "login": {
