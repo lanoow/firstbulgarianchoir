@@ -20,8 +20,8 @@ const LanguageSwitcher = () => {
   }
 
   const languages = [
-    { code: "en", label: "English" },
-    { code: "bg", label: "Български" }
+    { code: "bg", label: "Български" },
+    { code: "en", label: "English" }
   ] as Language[];
 
   const handleLocaleChange = (e: ChangeEvent<HTMLSelectElement>) => {

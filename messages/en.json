@@ -8,7 +8,8 @@
     "continue": "Continue",
     "language": "Language",
     "error": "Error",
-    "success": "Success"
+    "success": "Success",
+    "loading": "Loading..."
   },
   "dashboard": {
     "nav": {
@@ -21,8 +22,7 @@
       "events": "Events",
       "gallery": "Gallery",
       "toSite": "To site",
-      "logout": "Logout",
-      "loading": "Loading..."
+      "logout": "Logout"
     }
   },
   "auth": {
