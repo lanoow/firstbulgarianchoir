@@ -46,7 +46,7 @@ const LoginClient = () => {
 						setSuccess(callback.success);
 					}
 				})
-				.catch(() => { setError(t("auth.errors.unknown_error")) });
+				.catch(() => { setError(t("errors.unknown_error")) });
 		});
 	}
 
@@ -54,23 +54,23 @@ const LoginClient = () => {
 
 	switch (error) {
 		case "ALREADY_SIGNED_IN":
-			errorMessage = t("auth.errors.already_signed_in");
+			errorMessage = t("errors.already_signed_in");
 			break;
 		case "INVALID_CREDENTIALS":
-			errorMessage = t("auth.errors.invalid_credentials");
+			errorMessage = t("errors.invalid_credentials");
 			break;
 		case "USER_NOT_FOUND":
-			errorMessage = t("auth.errors.user_not_found");
+			errorMessage = t("errors.user_not_found");
 			break;
 		case "INVALID_FIELDS":
-			errorMessage = t("auth.errors.invalid_fields");
+			errorMessage = t("errors.invalid_fields");
 			break;
 		case "UNKNOWN_ERROR":
-			errorMessage = t("auth.errors.unknown_error");
+			errorMessage = t("errors.unknown_error");
 			break;
 
 		default:
-			errorMessage = t("auth.errors.unknown_error");
+			errorMessage = t("errors.unknown_error");
 			break;
 	}
 
@@ -150,7 +150,7 @@ const LoginClient = () => {
 				{success && (
 					<Alert className="w-full max-w-sm mx-auto text-white bg-success">
 						<AlertTitle>{t("general.success")}</AlertTitle>
-						<AlertDescription>{t("auth.success.signed_in")}</AlertDescription>
+						<AlertDescription>{t("success.signed_in")}</AlertDescription>
 					</Alert>
 				)}
 			</div>

@@ -16,6 +16,11 @@ enum ContactTypes {
   ADDRESS
 }
 
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
 enum UserRole {
   ADMIN
   USER
@@ -38,20 +43,20 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  posts         Post[]
-  galleryPosts  GalleryPost[]
   events        Event[]
+  galleryPosts  GalleryPost[]
 }
 
-model Post {
+model Event {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  title         String
-  slug          String
-  content       String
-  translations  String[]
-  cover         String
   images        String[]
-  location      String
+  titleBG       String
+  titleEN       String?
+  slug          String
+  contentBG     String
+  contentEN     String?
+  locationBG    String
+  locationEN    String?
   date          DateTime
   authorId      String    @db.ObjectId
   createdAt     DateTime  @default(now())
@@ -63,7 +68,7 @@ model Post {
 model GalleryPost {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   media         String
-  mediaType     String
+  mediaType     MediaType
   authorId      String    @db.ObjectId
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -71,26 +76,25 @@ model GalleryPost {
   author        User      @relation(fields: [authorId], references: [id])
 }
 
-model Event {
+model History {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  title         String
-  slug          String
+  language      String    @unique
   content       String
-  translations  String[]
-  cover         String
-  images        String[]
-  location      String
-  date          DateTime
-  authorId      String    @db.ObjectId
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-
-  author        User      @relation(fields: [authorId], references: [id])
 }
 
 model Contact {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   key           ContactTypes
+  value         String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model SocialMedia {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  key           String
   value         String
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt

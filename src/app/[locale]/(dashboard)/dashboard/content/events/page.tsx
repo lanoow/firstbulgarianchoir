@@ -3,6 +3,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { getTranslations } from "next-intl/server";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
+import DashboardHeader from "@/components/dashboard-header";
+import { Button } from "@/components/ui/button";
 
 
 const DashboardEvents = async () => {
@@ -18,7 +20,7 @@ const DashboardEvents = async () => {
 					<BreadcrumbSeparator />
 					<BreadcrumbItem>
 						<DropdownMenu>
-							<DropdownMenuTrigger className="flex items-center gap-1">
+							<DropdownMenuTrigger className="flex items-center gap-1 hover:text-black transition">
 								{t("dashboard.nav.content")}
 
 								<ChevronDown size={16} />
@@ -42,6 +44,20 @@ const DashboardEvents = async () => {
 					</BreadcrumbItem>
 				</BreadcrumbList>
 			</Breadcrumb>
+
+			<DashboardHeader
+				title={t("dashboard.nav.events")}
+				subtitle={t("dashboard.descriptions.events.index")}
+				actions={
+					<Button asChild>
+						<Link href="/dashboard/content/events/new">
+							{t("dashboard.nav.newEvent")}
+						</Link>
+					</Button>
+				}
+			/>
+
+			
 		</div>
 	)
 }

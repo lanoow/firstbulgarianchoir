@@ -29,14 +29,14 @@ export default async function DashboardLayout({
 	}
 
 	return (
-		<main className="flex flex-col flex-1 w-full h-screen overflow-hidden border md:flex-row bg-neutral-200 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700">
+		<main className="flex flex-col flex-1 w-full h-screen overflow-hidden border md:flex-row bg-neutral-200 dark:bg-neutral-800">
 			<DashboardSidebar />
 			
-			<div className="w-full h-screen px-4 py-3 rounded-l-large bg-neutral-100">
+			<div className="w-full h-screen px-4 py-3 rounded-l-large bg-neutral-100 dark:bg-neutral-900">
 				{children}
 			</div>
 
-			<Link href="https://lanoow.dev" className="absolute transition bottom-2 right-2 text-neutral-400 hover:text-black">
+			<Link href="https://lanoow.dev" className="absolute transition bottom-2 right-2 text-neutral-400 hover:text-black dark:hover:text-white">
 				lanoow.dev
 			</Link>
 		</main>

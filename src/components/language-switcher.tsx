@@ -3,6 +3,7 @@
 import { Select, SelectedItemProps, SelectItem } from "@nextui-org/react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { usePathname, useRouter } from "@/i18n/routing";
+import ReactCountryFlag from "react-country-flag";
 import { useParams } from "next/navigation";
 import { Locale } from "@/types";
 
@@ -20,8 +21,8 @@ const LanguageSwitcher = () => {
   }
 
   const languages = [
-    { code: "bg", label: "Български" },
-    { code: "en", label: "English" }
+    { code: "bg", label: "Български", flag: "BG" },
+    { code: "en", label: "English", flag: "GB" }
   ] as Language[];
 
   const handleLocaleChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -71,9 +72,16 @@ const LanguageSwitcher = () => {
         }
         renderValue={(items: SelectedItemProps<Language>[]) => {
           return items.map((item) => (
-            <span key={item.data?.code}>
-              {item.data?.label}
-            </span>
+            <div key={item.data?.code}>
+              <ReactCountryFlag
+                svg
+                countryCode={item.data?.flag || "GB"}
+                aria-label={item.data?.label}
+                className="rounded-full text-xl"
+              />
+
+              <span className="ml-2">{item.data?.label}</span>
+            </div>
           ))
         }}
       >
@@ -81,6 +89,14 @@ const LanguageSwitcher = () => {
           <SelectItem
             key={item.code}
             value={item.code}
+            startContent={
+              <ReactCountryFlag
+                svg
+                countryCode={item.flag || "GB"}
+                aria-label={item.label}
+                className="rounded-full text-xl"
+              />
+            }
           >
             {item.label}
           </SelectItem>

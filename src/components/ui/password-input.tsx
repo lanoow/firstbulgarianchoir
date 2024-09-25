@@ -5,7 +5,7 @@ import { EyeIcon, EyeOffIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Input, type InputProps } from '@/components/ui/input'
-import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/plate-ui/tooltip'
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/ui/tooltip'
 import { cn } from '@/lib/utils'
 import { useTranslations } from 'next-intl'
 

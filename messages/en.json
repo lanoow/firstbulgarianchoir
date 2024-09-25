@@ -1,15 +1,36 @@
 {
+  "locale": "en",
   "general": {
+    "bulgarian": "Bulgarian",
+    "english": "English",
     "fbc": "FBC \"Yanko Mustakov\"",
     "fbcShort": "FBC",
     "name": "Name",
     "email": "Email",
     "password": "Password",
     "continue": "Continue",
+    "back": "Back",
+    "next": "Next",
+    "create": "Create",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
     "language": "Language",
     "error": "Error",
     "success": "Success",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "new": "New",
+    "user": "User",
+    "title": "Title",
+    "content": "Content",
+    "date": "Date",
+    "time": "Time",
+    "location": "Location",
+    "image": "Image",
+    "video": "Video",
+    "images": "Images"
   },
   "dashboard": {
     "nav": {
@@ -22,9 +43,33 @@
       "events": "Events",
       "gallery": "Gallery",
       "toSite": "To site",
-      "logout": "Logout"
+      "logout": "Logout",
+      "newUser": "New user",
+      "newEvent": "New event",
+      "newPost": "New post"
     },
-    "startTyping": "Start typing..."
+    "descriptions": {
+      "events": {
+        "index": "Here you can manage your events.",
+        "new": "Add a new event."
+      },
+      "users": {
+        "index": "Here you can manage your users.",
+        "new": "Add a new user."
+      },
+      "settings": {
+        "index": "Here you can manage your website's settings."
+      },
+      "history": {
+        "index": "Here you can edit your history page."
+      },
+      "gallery": {
+        "index": "Here you can manage your gallery.",
+        "new": "Add a new photo or video."
+      }
+    },
+    "startTyping": "Start typing...",
+    "pickADate": "Pick a date..."
   },
   "auth": {
     "login": {
@@ -43,21 +88,24 @@
     "password": {
       "show": "Show password",
       "hide": "Hide password"
-    },
-    "errors": {
-      "already_signed_in": "You're already signed in.",
-      "invalid_credentials": "Invalid credentials.",
-      "user_not_found": "User not found.",
-      "unknown_error": "Something went wrong! Please try again.",
-      "invalid_fields": "Невалидни данни.",
-      "email_already_in_use": "Email is already in use.",
-      "no_changes": "No changes were made."
-    },
-    "success": {
-      "signed_in": "Successfully signed in!",
-      "password_updated": "Password updated successfully!",
-      "account_created": "Successfully created an account!",
-      "changed_successfully": "Changed made successfully!"
     }
+  },
+  "errors": {
+    "already_signed_in": "You're already signed in.",
+    "invalid_credentials": "Invalid credentials.",
+    "user_not_found": "User not found.",
+    "unknown_error": "Something went wrong! Please try again.",
+    "invalid_fields": "Невалидни данни.",
+    "email_already_in_use": "Email is already in use.",
+    "no_changes": "No changes were made.",
+    "not_authenticated": "You're not signed in."
+  },
+  "success": {
+    "signed_in": "Successfully signed in!",
+    "password_updated": "Password updated successfully!",
+    "account_created": "Successfully created an account!",
+    "changed_successfully": "Changed made successfully!",
+    "content_updated": "Content updated successfully!",
+    "event_created": "Successfully created an event!"
   }
 }

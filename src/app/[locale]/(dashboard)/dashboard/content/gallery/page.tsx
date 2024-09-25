@@ -18,7 +18,7 @@ const DashboardGallery = async () => {
 					<BreadcrumbSeparator />
 					<BreadcrumbItem>
 						<DropdownMenu>
-							<DropdownMenuTrigger className="flex items-center gap-1">
+							<DropdownMenuTrigger className="flex items-center gap-1 hover:text-black transition">
 								{t("dashboard.nav.content")}
 
 								<ChevronDown size={16} />

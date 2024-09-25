@@ -34,3 +34,16 @@ export const ChangePasswordSchema = z.object({
 });
 
 export type ChangePasswordSchemaType = z.infer<typeof ChangePasswordSchema>;
+
+export const EventSchema = z.object({
+	titleBG: z.string(),
+	titleEN: z.string().optional(),
+	contentBG: z.string(),
+	contentEN: z.string().optional(),
+	locationBG: z.string(),
+	locationEN: z.string().optional(),
+	images: z.array(z.string()),
+	date: z.date()
+});
+
+export type EventSchemaType = z.infer<typeof EventSchema>;

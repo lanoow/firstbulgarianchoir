@@ -5,9 +5,15 @@ import { getTranslations } from "next-intl/server";
 import { ChevronDown } from "lucide-react";
 import HistoryClient from "./client";
 import Link from "next/link";
+import { getHistory } from "@/lib/actions";
 
 const DashboardHistory = async () => {
 	const t = await getTranslations();
+	const contentBG = await getHistory("bg");
+	const contentEN = await getHistory("en");
+
+	const historyBGContent = contentBG?.content.substring(1, contentBG.content.length-1) || "";
+	const historyENContent = contentEN?.content.substring(1, contentEN.content.length-1) || "";
 
 	return (
 		<TooltipProvider>
@@ -19,7 +25,7 @@ const DashboardHistory = async () => {
 					<BreadcrumbSeparator />
 					<BreadcrumbItem>
 						<DropdownMenu>
-							<DropdownMenuTrigger className="flex items-center gap-1">
+							<DropdownMenuTrigger className="flex items-center gap-1 hover:text-black transition">
 								{t("dashboard.nav.content")}
 
 								<ChevronDown size={16} />
@@ -44,7 +50,10 @@ const DashboardHistory = async () => {
 				</BreadcrumbList>
 			</Breadcrumb>
 
-			<HistoryClient />
+			<HistoryClient
+				historyBGContent={historyBGContent}
+				historyENContent={historyENContent}
+			/>
 		</TooltipProvider>
 	)
 }

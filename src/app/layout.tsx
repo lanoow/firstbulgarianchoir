@@ -1,5 +1,6 @@
 import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
+import { Toaster } from "@/components/ui/sonner";
 import NextTopLoader from "nextjs-toploader";
 import { Inter } from "next/font/google";
 import { routing } from "@/i18n/routing";
@@ -35,6 +36,7 @@ export default async function RootLayout({
         />
         <NextIntlClientProvider messages={messages}>
           {children}
+          <Toaster />
         </NextIntlClientProvider>
       </body>
     </html>
