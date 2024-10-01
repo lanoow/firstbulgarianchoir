@@ -3,6 +3,8 @@
   "general": {
     "bulgarian": "Български",
     "english": "Английски",
+    "fbcLg": "Първи Български Хор",
+    "YankoMustakov": "\"Янко Мустаков\"",
     "fbc": "ПБХ \"Янко Мустаков\"",
     "fbcShort": "ПБХ",
     "name": "Име",
@@ -30,18 +32,47 @@
     "location": "Място",
     "image": "Снимка",
     "video": "Видео",
-    "images": "Снимки"
+    "images": "Снимки",
+    "or": "или",
+    "file": "Файл",
+    "files": "Файлове",
+    "admin": "Администратор",
+    "followUs": "Последвайте ни",
+    "allRightsReserved": "Всички права запазени.",
+    "developedBy": "Изработено от",
+    "phone": "Телефон",
+    "subject": "Тема",
+    "message": "Съобщение",
+    "send": "Изпрати"
+  },
+  "contacts": {
+    "writeUs": "Пишете ни"
+  },
+  "navigation": {
+    "home": "Начало",
+    "history": "История",
+    "events": "Събития",
+    "gallery": "Галерия",
+    "contacts": "Контакти"
+  },
+  "uploads": {
+    "uploadedFiles": "Качени файлове",
+    "uploadedFilesDescription": "Тук може да видите всички качени файлове.",
+    "noFilesUploaded": "Няма качени файлове",
+    "noFilesUploadedDescription": "Качете файлове за да ги видите тук.",
+    "uploading": "Качване...",
+    "uploaded": "{count, plural, =1 {качен} other {качени}}",
+    "dragNDrop": "Плъзнете и пуснете файлове тук или кликнете за качване",
+    "dropHere": "Пуснете файловете тук",
+    "youCanUploadFiles": "Може да качите {maxFileCount, plural, =1 {файл до {maxSize}} other {до # файла (до {maxSize} всеки)}}",
+    "filesTarget": "{count, plural, =1 {1 файл} other {# файла}}"
   },
   "dashboard": {
     "nav": {
       "dashboard": "Администрация",
-      "home": "Начало",
       "users": "Потребители",
       "settings": "Настройки",
       "content": "Съдържание",
-      "history": "История",
-      "events": "Събития",
-      "gallery": "Галерия",
       "toSite": "Към сайта",
       "logout": "Изход",
       "newUser": "Нов потребител",
@@ -69,7 +100,16 @@
       }
     },
     "startTyping": "Започнете да пишете...",
-    "pickADate": "Изберете дата..."
+    "pickADate": "Изберете дата...",
+    "mediaType": "Вид на публикацията",
+    "mediaTypes": {
+      "image": "Снимка",
+      "images": "Снимки",
+      "video": "Видео",
+      "videos": "Видеа"
+    },
+    "media": "Медия",
+    "youtubeLink": "YouTube линк"
   },
   "auth": {
     "login": {

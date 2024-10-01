@@ -19,6 +19,7 @@ export interface MinimalTiptapProps extends Omit<UseMinimalTiptapEditorProps, 'o
   onChange?: (value: Content) => void
   className?: string
   editorContentClassName?: string
+  renderOnly?: boolean
 }
 
 const Toolbar = ({ editor }: { editor: Editor }) => (
@@ -50,7 +51,7 @@ const Toolbar = ({ editor }: { editor: Editor }) => (
 )
 
 export const MinimalTiptapEditor = React.forwardRef<HTMLDivElement, MinimalTiptapProps>(
-  ({ value, onChange, className, editorContentClassName, ...props }, ref) => {
+  ({ value, onChange, className, editorContentClassName, renderOnly = false, ...props }, ref) => {
     const editor = useMinimalTiptapEditor({
       value,
       onUpdate: onChange,
@@ -65,14 +66,19 @@ export const MinimalTiptapEditor = React.forwardRef<HTMLDivElement, MinimalTipta
       <div
         ref={ref}
         className={cn(
-          'flex h-auto min-h-72 w-full flex-col rounded-md border border-input shadow-sm focus-within:border-black transition bg-white',
+          'flex h-auto w-full min-h-72 flex-col rounded-md transition bg-white',
+          renderOnly ? '' : 'border border-input shadow-sm focus-within:border-black',
           className
         )}
       >
-        <Toolbar editor={editor} />
+        {!renderOnly && <Toolbar editor={editor} />}
         <EditorContent editor={editor} className={cn('minimal-tiptap-editor', editorContentClassName)} />
-        <LinkBubbleMenu editor={editor} />
-        <ImageBubbleMenu editor={editor} />
+        {!renderOnly && (
+          <>
+            <LinkBubbleMenu editor={editor} />
+            <ImageBubbleMenu editor={editor} />
+          </>
+        )}
       </div>
     )
   }

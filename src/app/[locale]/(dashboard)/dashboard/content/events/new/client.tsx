@@ -59,7 +59,7 @@ const NewEventClient = () => {
 				<Breadcrumb>
 					<BreadcrumbList>
 						<BreadcrumbItem>
-							<BreadcrumbLink href="/dashboard">{t("dashboard.nav.home")}</BreadcrumbLink>
+							<BreadcrumbLink href="/dashboard">{t("navigation.home")}</BreadcrumbLink>
 						</BreadcrumbItem>
 						<BreadcrumbSeparator />
 						<BreadcrumbItem>
@@ -71,20 +71,20 @@ const NewEventClient = () => {
 								</DropdownMenuTrigger>
 								<DropdownMenuContent className="outline-none">
 									<DropdownMenuItem asChild className="cursor-pointer">
-										<Link href="/dashboard/content/history">{t("dashboard.nav.history")}</Link>
+										<Link href="/dashboard/content/history">{t("navigation.history")}</Link>
 									</DropdownMenuItem>
 									<DropdownMenuItem asChild className="cursor-pointer">
-										<Link href="/dashboard/content/events">{t("dashboard.nav.events")}</Link>
+										<Link href="/dashboard/content/events">{t("navigation.events")}</Link>
 									</DropdownMenuItem>
 									<DropdownMenuItem asChild className="cursor-pointer">
-										<Link href="/dashboard/content/gallery">{t("dashboard.nav.gallery")}</Link>
+										<Link href="/dashboard/content/gallery">{t("navigation.gallery")}</Link>
 									</DropdownMenuItem>
 								</DropdownMenuContent>
 							</DropdownMenu>
 						</BreadcrumbItem>
 						<BreadcrumbSeparator />
 						<BreadcrumbItem>
-							<BreadcrumbLink href="/dashboard/content/events">{t("dashboard.nav.events")}</BreadcrumbLink>
+							<BreadcrumbLink href="/dashboard/content/events">{t("navigation.events")}</BreadcrumbLink>
 						</BreadcrumbItem>
 						<BreadcrumbSeparator />
 						<BreadcrumbItem>

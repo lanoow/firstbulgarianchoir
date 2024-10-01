@@ -67,7 +67,7 @@ model Event {
 
 model GalleryPost {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  media         String
+  media         String[]
   mediaType     MediaType
   authorId      String    @db.ObjectId
   createdAt     DateTime  @default(now())

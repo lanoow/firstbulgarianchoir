@@ -3,6 +3,8 @@
   "general": {
     "bulgarian": "Bulgarian",
     "english": "English",
+    "fbcLg": "First Bulgarian Choir",
+    "YankoMustakov": "\"Yanko Mustakov\"",
     "fbc": "FBC \"Yanko Mustakov\"",
     "fbcShort": "FBC",
     "name": "Name",
@@ -30,7 +32,40 @@
     "location": "Location",
     "image": "Image",
     "video": "Video",
-    "images": "Images"
+    "images": "Images",
+    "or": "or",
+    "file": "File",
+    "files": "Files",
+    "admin": "Admin",
+    "followUs": "Follow us",
+    "allRightsReserved": "All rights reserved.",
+    "developedBy": "Developed by",
+    "phone": "Phone",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send"
+  },
+  "contacts": {
+    "writeUs": "Write us"
+  },
+  "navigation": {
+    "home": "Home",
+    "history": "History",
+    "events": "Events",
+    "gallery": "Gallery",
+    "contacts": "Contacts"
+  },
+  "uploads": {
+    "uploadedFiles": "Uploaded files",
+    "uploadedFilesDescription": "Here you can see all uploaded files.",
+    "noFilesUploaded": "No files uploaded",
+    "noFilesUploadedDescription": "Upload files to see them here.",
+    "uploading": "Uploading...",
+    "uploaded": "uploaded",
+    "dragNDrop": "Drag and drop files here or click to upload",
+    "dropHere": "Drop the files here",
+    "youCanUploadFiles": "You can upload {maxFileCount, plural, =1 {a file up to {maxSize}} other {up to # files (up to {maxSize} each)}}",
+    "filesTarget": "{count, plural, =1 {1 file} other {# files}}"
   },
   "dashboard": {
     "nav": {
@@ -69,7 +104,16 @@
       }
     },
     "startTyping": "Start typing...",
-    "pickADate": "Pick a date..."
+    "pickADate": "Pick a date...",
+    "mediaType": "Media type",
+    "mediaTypes": {
+      "image": "Image",
+      "images": "Images",
+      "video": "Video",
+      "videos": "Videos"
+    },
+    "media": "Media",
+    "youtubeLink": "YouTube link"
   },
   "auth": {
     "login": {

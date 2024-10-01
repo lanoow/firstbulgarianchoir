@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useCallback } from 'react'
 import { Editor } from '@tiptap/react'
 import { BubbleMenu } from '@tiptap/react'

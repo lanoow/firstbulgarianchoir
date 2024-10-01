@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useCallback } from 'react'
 import { Separator } from '@/components/ui/separator'
 import { ToolbarButton } from '../toolbar-button'

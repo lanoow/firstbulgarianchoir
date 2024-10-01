@@ -15,7 +15,7 @@ const DashboardEvents = async () => {
 			<Breadcrumb className="pb-4">
 				<BreadcrumbList>
 					<BreadcrumbItem>
-						<BreadcrumbLink href="/dashboard">{t("dashboard.nav.home")}</BreadcrumbLink>
+						<BreadcrumbLink href="/dashboard">{t("navigation.home")}</BreadcrumbLink>
 					</BreadcrumbItem>
 					<BreadcrumbSeparator />
 					<BreadcrumbItem>
@@ -27,26 +27,26 @@ const DashboardEvents = async () => {
 							</DropdownMenuTrigger>
 							<DropdownMenuContent className="outline-none">
 								<DropdownMenuItem asChild className="cursor-pointer">
-									<Link href="/dashboard/content/history">{t("dashboard.nav.history")}</Link>
+									<Link href="/dashboard/content/history">{t("navigation.history")}</Link>
 								</DropdownMenuItem>
 								<DropdownMenuItem asChild className="cursor-pointer">
-									<Link href="/dashboard/content/events">{t("dashboard.nav.events")}</Link>
+									<Link href="/dashboard/content/events">{t("navigation.events")}</Link>
 								</DropdownMenuItem>
 								<DropdownMenuItem asChild className="cursor-pointer">
-									<Link href="/dashboard/content/gallery">{t("dashboard.nav.gallery")}</Link>
+									<Link href="/dashboard/content/gallery">{t("navigation.gallery")}</Link>
 								</DropdownMenuItem>
 							</DropdownMenuContent>
 						</DropdownMenu>
 					</BreadcrumbItem>
 					<BreadcrumbSeparator />
 					<BreadcrumbItem>
-						<BreadcrumbPage>{t("dashboard.nav.events")}</BreadcrumbPage>
+						<BreadcrumbPage>{t("navigation.events")}</BreadcrumbPage>
 					</BreadcrumbItem>
 				</BreadcrumbList>
 			</Breadcrumb>
 
 			<DashboardHeader
-				title={t("dashboard.nav.events")}
+				title={t("navigation.events")}
 				subtitle={t("dashboard.descriptions.events.index")}
 				actions={
 					<Button asChild>

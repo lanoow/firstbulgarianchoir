@@ -37,11 +37,13 @@ const HistoryClient: React.FC<{
 
 	const save = () => {
 		startTransition(() => {
-			updateHistory(content)
-				.then((res) => {
+			toast.promise(updateHistory(content), {
+				loading: t("general.loading"),
+				success: t("success.content_updated"),
+				error: (data) => {
 					let errorMessage = t("errors.unknown_error");
 
-					switch (res.error) {
+					switch (data.error) {
 						case "NOT_AUTHENTICATED":
 							errorMessage = t("errors.not_authenticated");
 							break;
@@ -53,28 +55,16 @@ const HistoryClient: React.FC<{
 							break;
 					}
 
-					if (res.error) {
-						toast.error(t("general.error", { description: errorMessage }));
-						return;
-					}
-
-					if (res.success) {
-						toast.success(t("general.success"), { description: t("success.content_updated") });
-						return;
-					}
-
-					toast.error(t("errors.unknown_error"));
-				})
-				.catch(() => {
-					toast.error(t("errors.unknown_error"));
-				});
+					return t("general.error", { description: errorMessage });
+				}
+			});
 		});
 	};
 
 	return (
 		<div className="flex flex-col space-y-4">
 			<DashboardHeader
-				title={t("dashboard.nav.history")}
+				title={t("navigation.history")}
 				subtitle={t("dashboard.descriptions.history.index")}
 				actions={
 					<Button onClick={() => save()} disabled={isPending}>
@@ -82,6 +72,7 @@ const HistoryClient: React.FC<{
 					</Button>
 				}
 			/>
+			
 			<Tabs defaultValue="historyBG">
 				<TabsList>
 					<TabsTrigger value="historyBG">

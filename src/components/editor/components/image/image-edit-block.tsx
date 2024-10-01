@@ -1,3 +1,5 @@
+"use client";
+
 import type { Editor } from '@tiptap/react'
 import React, { useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'

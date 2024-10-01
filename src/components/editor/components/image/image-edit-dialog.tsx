@@ -1,3 +1,5 @@
+"use client";
+
 import type { Editor } from '@tiptap/react'
 import { useState } from 'react'
 import { ImageIcon } from '@radix-ui/react-icons'

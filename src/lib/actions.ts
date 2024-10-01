@@ -219,11 +219,11 @@ export const changeDetails = async (
 
 export const getHistory = async (language: Locale) => {
   const history = await prisma.history.findUnique({
-    where: { language }
-  }); 
+    where: { language },
+  });
 
   return history;
-}
+};
 
 export const updateHistory = async (content: historyObject[]) => {
   const currentUser = await getCurrentUser();
@@ -235,26 +235,26 @@ export const updateHistory = async (content: historyObject[]) => {
   try {
     content.forEach(async (c: historyObject) => {
       const content = JSON.stringify(c.content);
-  
+
       await prisma.history.upsert({
         where: {
-          language: c.language
+          language: c.language,
         },
         create: {
           language: c.language,
-          content
+          content,
         },
         update: {
-          content
-        }
+          content,
+        },
       });
     });
-  
+
     return { success: "CONTENT_UPDATED" };
   } catch {
     return { error: "UNKNOWN_ERROR" };
   }
-}
+};
 
 export const eventCreate = async (values: EventSchemaType) => {
   const currentUser = await getCurrentUser();
@@ -283,7 +283,7 @@ export const eventCreate = async (values: EventSchemaType) => {
   const slug = slugify(titleBG, {
     locale: "bg",
     lower: true,
-    trim: true
+    trim: true,
   });
 
   await prisma.event.create({
@@ -298,8 +298,16 @@ export const eventCreate = async (values: EventSchemaType) => {
       contentEN,
       locationEN,
       authorId: currentUser.id,
-    }
+    },
   });
 
   return { success: "EVENT_CREATED" };
 };
+
+export async function uploadThings(fd: FormData) {
+  const files = fd.getAll("files") as File[];
+
+  console.log({ files });
+
+  return files;
+}

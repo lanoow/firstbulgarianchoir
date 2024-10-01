@@ -47,3 +47,20 @@ export const EventSchema = z.object({
 });
 
 export type EventSchemaType = z.infer<typeof EventSchema>;
+
+export const GallerySchema = z.object({
+	mediaType: z.enum(['image', 'video']),
+	media: z.string()
+});
+
+export type GallerySchemaType = z.infer<typeof GallerySchema>;
+
+export const ContactUsSchema = z.object({
+	name: z.string(),
+	email: z.string().email(),
+	phone: z.string().optional(),
+	subject: z.string(),
+	message: z.string()
+});
+
+export type ContactUsSchemaType = z.infer<typeof ContactUsSchema>;

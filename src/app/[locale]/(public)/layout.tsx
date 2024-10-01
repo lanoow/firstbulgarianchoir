@@ -1,3 +1,5 @@
+import Footer from "@/components/footer";
+import Navigation from "@/components/navigation/navigation";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,8 +12,14 @@ export default async function BaseLayout({
   children: React.ReactNode;
 }>) {
   return (
-		<main>
-			{children}
-		</main>
+    <main>
+      <Navigation />
+
+      <div className="px-4 mx-auto my-8 max-w-screen-2xl">
+        {children}
+      </div>
+
+      <Footer />
+    </main>
   );
 }

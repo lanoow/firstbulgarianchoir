@@ -2,7 +2,7 @@
 
 import { IconBrowser, IconBuildingArch, IconHome, IconLogout2, IconPhoto, IconSettings, IconTicket, IconUsers } from "@tabler/icons-react";
 import { Sidebar, SidebarBody, SidebarCategory, SidebarLink } from "./ui/sidebar";
-import LanguageSwitcher from "./language-switcher";
+import DashboardLanguageSwitcher from "./dashboard-language-switcher";
 import { useTranslations } from "next-intl";
 import { signOut } from "next-auth/react";
 import { motion } from "framer-motion";
@@ -10,29 +10,29 @@ import { useState } from "react";
 import Logo from "./logo";
 
 const DashboardSidebar = () => {
-	const t = useTranslations("dashboard.nav");
+	const t = useTranslations();
 	const [open, setOpen] = useState<boolean>(false);
 
 	const links = [
 		{
-			category: t("dashboard"),
+			category: t("dashboard.nav.dashboard"),
 			links: [
 				{
-					label: t("home"),
+					label: t("navigation.home"),
 					href: "/dashboard",
 					icon: (
 						<IconHome className="flex-shrink-0 w-6 h-6 text-neutral-700 dark:text-neutral-200" />
 					)
 				},
 				{
-					label: t("users"),
+					label: t("dashboard.nav.users"),
 					href: "/dashboard/users",
 					icon: (
 						<IconUsers className="flex-shrink-0 w-6 h-6 text-neutral-700 dark:text-neutral-200" />
 					)
 				},
 				{
-					label: t("settings"),
+					label: t("dashboard.nav.settings"),
 					href: "/dashboard/settings",
 					icon: (
 						<IconSettings className="flex-shrink-0 w-6 h-6 text-neutral-700 dark:text-neutral-200" />
@@ -41,24 +41,24 @@ const DashboardSidebar = () => {
 			]
 		},
 		{
-			category: t("content"),
+			category: t("general.content"),
 			links: [
 				{
-					label: t("history"),
+					label: t("navigation.history"),
 					href: "/dashboard/content/history",
 					icon: (
 						<IconBuildingArch className="flex-shrink-0 w-6 h-6 text-neutral-700 dark:text-neutral-200" />
 					)
 				},
 				{
-					label: t("events"),
+					label: t("navigation.events"),
 					href: "/dashboard/content/events",
 					icon: (
 						<IconTicket className="flex-shrink-0 w-6 h-6 text-neutral-700 dark:text-neutral-200" />
 					)
 				},
 				{
-					label: t("gallery"),
+					label: t("navigation.gallery"),
 					href: "/dashboard/content/gallery",
 					icon: (
 						<IconPhoto className="flex-shrink-0 w-6 h-6 text-neutral-700 dark:text-neutral-200" />
@@ -85,11 +85,11 @@ const DashboardSidebar = () => {
 					</div>
 				</div>
 				<div className="flex flex-col gap-2">
-					<LanguageSwitcher />
+					<DashboardLanguageSwitcher />
 
 					<SidebarLink
 						link={{
-							label: t("toSite"),
+							label: t("dashboard.nav.toSite"),
 							href: "/",
 							icon: (
 								<IconBrowser className="flex-shrink-0 w-6 h-6 text-neutral-700 dark:text-neutral-200" />
@@ -107,7 +107,7 @@ const DashboardSidebar = () => {
 							}}
 							className="text-neutral-700 dark:text-neutral-200 group-hover/sidebar:text-danger-400 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
 						>
-							{t("logout")}
+							{t("dashboard.nav.logout")}
 						</motion.span>
 					</button>
 				</div>

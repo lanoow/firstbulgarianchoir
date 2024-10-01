@@ -10,19 +10,49 @@ const Logo: React.FC<{
 	link?: string;
 	short?: boolean;
 	classNames?: string;
-}> = ({ link, short, classNames }) => {
+	variant?: "sm" | "lg";
+}> = ({ link, short, classNames, variant = "sm" }) => {
 	const t = useTranslations("general");
 
 	return (
 		<>
 			{link ? (
-				<Link href={link} className={`${font.className} text-4xl text-black hover:opacity-70 transition ${classNames}`}>
-					{short ? t("fbcShort") : t("fbc")}
+				<Link href={link} className={`
+					${font.className} text-black hover:opacity-70 transition cursor-pointer whitespace-nowrap
+					${classNames}
+				`}>
+					{variant === "sm" ? (
+						<span className="text-2xl lg:text-4xl">
+							{short ? t("fbcShort") : t("fbc")}
+						</span>
+					) : (
+						<div className="flex flex-col items-center -space-y-2 lg:space-y-0 uppercase ">
+							<span className="text-lg lg:text-2xl">
+								{t("fbcLg")}
+							</span>
+							<span className="text-2xl lg:text-[2.75rem]">
+								{t("YankoMustakov")}
+							</span>
+						</div>
+					)}
 				</Link>
 			) : (
-				<span className={`${font.className} text-4xl text-black ${classNames}`}>
-					{short ? t("fbcShort") : t("fbc")}
-				</span>
+				<div className={`${font.className} text-black whitespace-nowrap ${classNames}`}>
+					{variant === "sm" ? (
+						<span className="text-2xl lg:text-4xl">
+							{short ? t("fbcShort") : t("fbc")}
+						</span>
+					) : (
+						<div className="flex flex-col items-center -space-y-2 lg:space-y-0 uppercase">
+							<span className="text-lg lg:text-2xl">
+								{t("fbcLg")}
+							</span>
+							<span className="text-2xl lg:text-[2.75rem]">
+								{t("YankoMustakov")}
+							</span>
+						</div>
+					)}
+				</div>
 			)}
 		</>
 	)

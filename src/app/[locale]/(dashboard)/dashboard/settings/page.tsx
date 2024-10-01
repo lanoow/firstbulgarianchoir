@@ -9,7 +9,7 @@ const DashboardSettings = async () => {
 			<Breadcrumb className="pb-4">
 				<BreadcrumbList>
 					<BreadcrumbItem>
-						<BreadcrumbLink href="/dashboard">{t("dashboard.nav.home")}</BreadcrumbLink>
+						<BreadcrumbLink href="/dashboard">{t("navigation.home")}</BreadcrumbLink>
 					</BreadcrumbItem>
 					<BreadcrumbSeparator />
 					<BreadcrumbItem>
