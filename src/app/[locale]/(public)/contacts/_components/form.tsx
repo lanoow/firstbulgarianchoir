@@ -4,11 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { createMessage } from "@/lib/actions";
 import { ContactUsSchema, ContactUsSchemaType } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const ContactForm = () => {
 	const t = useTranslations();
@@ -27,7 +29,13 @@ const ContactForm = () => {
 
 	const onSubmit = (values: ContactUsSchemaType) => {
 		startTransition(() => {
-			console.log(values);
+			toast.promise(createMessage(values), {
+				loading: t("general.loading"),
+				success: t("success.message_sent"),
+				error: t("general.error")
+			});
+
+			form.reset();
 		});
 	}
 

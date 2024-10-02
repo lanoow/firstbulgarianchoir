@@ -55,7 +55,7 @@ const HistoryClient: React.FC<{
 							break;
 					}
 
-					return t("general.error", { description: errorMessage });
+					return errorMessage;
 				}
 			});
 		});
@@ -86,9 +86,9 @@ const HistoryClient: React.FC<{
 					<MinimalTiptapEditor
 						value={historyBG}
 						onChange={setHistoryBG}
-						throttleDelay={1000}
+						throttleDelay={0}
 						className="w-full"
-						editorContentClassName="p-4"
+						editorContentClassName="p-4 [&_.ProseMirror]:min-h-[200px]"
 						output="html"
 						placeholder={t("dashboard.startTyping")}
 						autofocus={true}
@@ -102,9 +102,9 @@ const HistoryClient: React.FC<{
 					<MinimalTiptapEditor
 						value={historyEN}
 						onChange={setHistoryEN}
-						throttleDelay={1000}
+						throttleDelay={0}
 						className="w-full"
-						editorContentClassName="p-4"
+						editorContentClassName="p-4 [&_.ProseMirror]:min-h-[200px]"
 						output="html"
 						placeholder={t("dashboard.startTyping")}
 						autofocus={true}

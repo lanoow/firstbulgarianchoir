@@ -10,6 +10,7 @@ const HistoryClient: React.FC<{ content: string; }> = ({ content }) => {
 				editable={false}
 				content={content}
 				renderOnly={true}
+				immediatelyRender={false}
 			/>
 		</TooltipProvider>
 	)

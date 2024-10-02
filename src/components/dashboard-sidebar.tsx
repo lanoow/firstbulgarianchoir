@@ -1,6 +1,6 @@
 "use client";
 
-import { IconBrowser, IconBuildingArch, IconHome, IconLogout2, IconPhoto, IconSettings, IconTicket, IconUsers } from "@tabler/icons-react";
+import { IconBrowser, IconBuildingArch, IconHome, IconLogout2, IconMail, IconPhoto, IconSettings, IconTicket, IconUsers } from "@tabler/icons-react";
 import { Sidebar, SidebarBody, SidebarCategory, SidebarLink } from "./ui/sidebar";
 import DashboardLanguageSwitcher from "./dashboard-language-switcher";
 import { useTranslations } from "next-intl";
@@ -22,6 +22,13 @@ const DashboardSidebar = () => {
 					href: "/dashboard",
 					icon: (
 						<IconHome className="flex-shrink-0 w-6 h-6 text-neutral-700 dark:text-neutral-200" />
+					)
+				},
+				{
+					label: t("dashboard.nav.messages"),
+					href: "/dashboard/messages",
+					icon: (
+						<IconMail className="flex-shrink-0 w-6 h-6 text-neutral-700 dark:text-neutral-200" />
 					)
 				},
 				{

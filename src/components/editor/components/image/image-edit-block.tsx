@@ -24,21 +24,20 @@ const ImageEditBlock = ({ editor, className, close, ...props }: ImageEditBlockPr
 
   const handleLink = () => {
     editor.chain().focus().setImage({ src: link }).run()
+    editor.commands.createParagraphNear()
     close()
   }
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files) return
-
     const reader = new FileReader()
     reader.onload = e => {
       const src = e.target?.result as string
-      editor.chain().setImage({ src }).focus().run()
+      editor.chain().focus().setImage({ src }).run()
+      editor.commands.createParagraphNear()
     }
-
     reader.readAsDataURL(files[0])
-
     close()
   }
 

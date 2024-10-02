@@ -19,6 +19,8 @@ import {
   UpdateProfileSchemaType,
   EventSchemaType,
   EventSchema,
+  ContactUsSchemaType,
+  ContactUsSchema,
 } from "@/schemas";
 import { historyObject } from "@/app/[locale]/(dashboard)/dashboard/content/history/client";
 
@@ -310,4 +312,58 @@ export async function uploadThings(fd: FormData) {
   console.log({ files });
 
   return files;
+}
+
+export const createMessage = async (values: ContactUsSchemaType) => {
+  const validatedFields = ContactUsSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return { error: "INVALID_FIELDS" };
+  }
+
+  const { name, email, phone, subject, message } = validatedFields.data;
+
+  await prisma.message.create({
+    data: {
+      name,
+      email,
+      phone,
+      subject,
+      message,
+    }
+  });
+
+  return { success: "MESSAGE_SENT" };
+};
+
+export const getMessages = async () => {
+  const messages = await prisma.message.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const safeMessages = messages.map((message) => ({
+    ...message,
+    createdAt: message.createdAt.toISOString(),
+    updatedAt: message.updatedAt.toISOString(),
+  }));
+
+  return safeMessages;
+}
+
+export const deleteMessage = async (id: string) => {
+  await prisma.message.delete({
+    where: { id },
+  });
+
+  return { success: "MESSAGE_DELETED" };
+}
+
+export const deleteEvent = async (id: string) => {
+  await prisma.event.delete({
+    where: { id },
+  });
+
+  return { success: "EVENT_DELETED" };
 }

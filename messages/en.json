@@ -43,7 +43,8 @@
     "phone": "Phone",
     "subject": "Subject",
     "message": "Message",
-    "send": "Send"
+    "send": "Send",
+    "read": "Read"
   },
   "contacts": {
     "writeUs": "Write us"
@@ -81,7 +82,8 @@
       "logout": "Logout",
       "newUser": "New user",
       "newEvent": "New event",
-      "newPost": "New post"
+      "newPost": "New post",
+      "messages": "Messages"
     },
     "descriptions": {
       "events": {
@@ -101,6 +103,9 @@
       "gallery": {
         "index": "Here you can manage your gallery.",
         "new": "Add a new photo or video."
+      },
+      "messages": {
+        "index": "Here you can see your received messages."
       }
     },
     "startTyping": "Start typing...",
@@ -150,6 +155,7 @@
     "account_created": "Successfully created an account!",
     "changed_successfully": "Changed made successfully!",
     "content_updated": "Content updated successfully!",
-    "event_created": "Successfully created an event!"
+    "event_created": "Successfully created an event!",
+    "message_sent": "Message sent successfully!"
   }
 }
