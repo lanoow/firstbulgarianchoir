@@ -32,7 +32,7 @@ export default async function DashboardLayout({
 		<main className="flex flex-col flex-1 w-full h-screen overflow-hidden border md:flex-row bg-neutral-200 dark:bg-neutral-800">
 			<DashboardSidebar />
 			
-			<div className="w-full h-screen px-4 py-3 rounded-l-large bg-neutral-100 dark:bg-neutral-900">
+			<div className="w-full h-screen px-4 py-3 overflow-y-auto rounded-l-large bg-neutral-100 dark:bg-neutral-900">
 				{children}
 			</div>
 

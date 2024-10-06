@@ -13,9 +13,15 @@ export default auth(async function middleware(req: NextRequest) {
 });
 
 export const config = {
-	matcher: [
-		"/((?!api|static|.*\\..*|_next|favicon.ico|logo.png|robots.txt).*)",
-		"/(en|bg)/:path*",
-		"/dashboard/:path*"
-	]
-}
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|avif|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+
+    // Always run for API and tRPC routes
+    "/(api|trpc)/:path*",
+    
+    // mine
+    "/(en|bg)/:path*",
+    "/dashboard/:path*"
+  ]
+};

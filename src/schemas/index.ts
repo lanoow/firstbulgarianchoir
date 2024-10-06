@@ -42,15 +42,14 @@ export const EventSchema = z.object({
 	contentEN: z.string().optional(),
 	locationBG: z.string(),
 	locationEN: z.string().optional(),
-	images: z.array(z.string()),
+	cover: z.instanceof(File).or(z.string().url()),
 	date: z.date()
 });
 
 export type EventSchemaType = z.infer<typeof EventSchema>;
 
 export const GallerySchema = z.object({
-	mediaType: z.enum(['image', 'video']),
-	media: z.string()
+	media: z.array(z.instanceof(File).or(z.string().url())).or(z.string().url())
 });
 
 export type GallerySchemaType = z.infer<typeof GallerySchema>;

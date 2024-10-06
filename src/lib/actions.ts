@@ -21,8 +21,12 @@ import {
   EventSchema,
   ContactUsSchemaType,
   ContactUsSchema,
+  GallerySchemaType,
+  GallerySchema,
 } from "@/schemas";
 import { historyObject } from "@/app/[locale]/(dashboard)/dashboard/content/history/client";
+import { MediaType } from "@prisma/client";
+import { notFound } from "next/navigation";
 
 export async function getCurrentUser() {
   try {
@@ -279,7 +283,7 @@ export const eventCreate = async (values: EventSchemaType) => {
     locationBG,
     locationEN,
     date,
-    images,
+    cover
   } = validatedFields.data;
 
   const slug = slugify(titleBG, {
@@ -295,7 +299,7 @@ export const eventCreate = async (values: EventSchemaType) => {
       contentBG,
       locationBG,
       date,
-      images,
+      cover: "",
       titleEN,
       contentEN,
       locationEN,
@@ -352,6 +356,14 @@ export const getMessages = async () => {
   return safeMessages;
 }
 
+export const getMessage = async (id: string) => {
+  const message = await prisma.message.findUnique({
+    where: { id },
+  });
+
+  return message;
+}
+
 export const deleteMessage = async (id: string) => {
   await prisma.message.delete({
     where: { id },
@@ -361,9 +373,41 @@ export const deleteMessage = async (id: string) => {
 }
 
 export const deleteEvent = async (id: string) => {
-  await prisma.event.delete({
-    where: { id },
-  });
+  try {
+    await prisma.event.delete({
+      where: { id },
+    });
+  
+    return { success: "EVENT_DELETED" };
+  } catch {
+    return { error: "UNKNOWN_ERROR" };
+  }
+}
 
-  return { success: "EVENT_DELETED" };
+export const createGalleryVideo = async (values: GallerySchemaType) => {
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
+    return notFound();
+  }
+  
+  const validatedFields = GallerySchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return { error: "INVALID_FIELDS" };
+  }
+
+  const { media } = validatedFields.data;
+
+  try {
+    await prisma.galleryPost.create({
+      data: {
+        mediaType: MediaType.VIDEO,
+        media: [ media ],
+        authorId: currentUser.id
+      }
+    });
+  } catch {
+    return { error: "UNKNOWN_ERROR" };
+  }
 }

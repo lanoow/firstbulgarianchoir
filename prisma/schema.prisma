@@ -49,7 +49,7 @@ model User {
 
 model Event {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  images        String[]
+  cover         String
   titleBG       String
   titleEN       String?
   slug          String

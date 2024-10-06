@@ -2,26 +2,24 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DashboardHeader from "@/components/dashboard-header";
-import { MinimalTiptapEditor } from "@/components/editor";
 import { Button } from "@/components/ui/button";
 import { useState, useTransition } from "react";
 import { updateHistory } from "@/lib/actions";
 import { useTranslations } from "next-intl";
-import { Content } from "@tiptap/react";
 import { toast } from "sonner";
 
 export type historyObject = {
 	language: string;
-	content: Content;
+	content: any;
 }
 
 const HistoryClient: React.FC<{
-	historyBGContent: string;
-	historyENContent: string;
+	historyBGContent: any;
+	historyENContent: any;
 }> = ({ historyBGContent, historyENContent }) => {
 	const [isPending, startTransition] = useTransition();
-	const [historyBG, setHistoryBG] = useState<Content>(historyBGContent);
-	const [historyEN, setHistoryEN] = useState<Content>(historyENContent);
+	const [historyBG, setHistoryBG] = useState(historyBGContent);
+	const [historyEN, setHistoryEN] = useState(historyENContent);
 	const t = useTranslations();
 
 	const content = [
@@ -83,36 +81,10 @@ const HistoryClient: React.FC<{
 					</TabsTrigger>
 				</TabsList>
 				<TabsContent value="historyBG">
-					<MinimalTiptapEditor
-						value={historyBG}
-						onChange={setHistoryBG}
-						throttleDelay={0}
-						className="w-full"
-						editorContentClassName="p-4 [&_.ProseMirror]:min-h-[200px]"
-						output="html"
-						placeholder={t("dashboard.startTyping")}
-						autofocus={true}
-						immediatelyRender={false}
-						editable={!isPending}
-						injectCSS={true}
-						editorClassName="focus:outline-none"
-					/>
+					bg
 				</TabsContent>
 				<TabsContent value="historyEN">
-					<MinimalTiptapEditor
-						value={historyEN}
-						onChange={setHistoryEN}
-						throttleDelay={0}
-						className="w-full"
-						editorContentClassName="p-4 [&_.ProseMirror]:min-h-[200px]"
-						output="html"
-						placeholder={t("dashboard.startTyping")}
-						autofocus={true}
-						immediatelyRender={false}
-						editable={!isPending}
-						injectCSS={true}
-						editorClassName="focus:outline-none"
-					/>
+					en
 				</TabsContent>
 			</Tabs>
 		</div>

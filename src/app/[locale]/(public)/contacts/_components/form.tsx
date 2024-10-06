@@ -147,7 +147,7 @@ const ContactForm = () => {
 					)}
 				/>
 
-				<Button>
+				<Button disabled={isPending}>
 					{t("general.send")}
 				</Button>
 			</form>

@@ -32,6 +32,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -46,6 +47,7 @@ export function UsersTable<TData, TValue>({
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = useState({})
+	const t = useTranslations()
 
 	const table = useReactTable({
 		data,
@@ -70,7 +72,7 @@ export function UsersTable<TData, TValue>({
 		<div className="flex flex-col space-y-4">
 			<div className="flex items-center gap-4 w-fit">
 				<Input
-					placeholder="Filter emails"
+					placeholder={t("general.search")}
 					value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
 					onChange={(event) =>
 						table.getColumn("email")?.setFilterValue(event.target.value)
@@ -81,7 +83,7 @@ export function UsersTable<TData, TValue>({
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button variant="outline" className="ml-auto">
-							Visibility
+							{t("general.columns")}
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end">
@@ -146,7 +148,7 @@ export function UsersTable<TData, TValue>({
 						) : (
 							<TableRow>
 								<TableCell colSpan={columns.length} className="h-24 text-center">
-									No results.
+									{t("general.noResults")}
 								</TableCell>
 							</TableRow>
 						)}
@@ -156,8 +158,10 @@ export function UsersTable<TData, TValue>({
 
 			<div className="flex items-center justify-between space-x-2">
 				<div className="flex-1 text-sm text-muted-foreground">
-					{table.getFilteredSelectedRowModel().rows.length} of{" "}
-					{table.getFilteredRowModel().rows.length} row(s) selected.
+					{t("general.rowsSelected", {
+						count: table.getFilteredSelectedRowModel().rows.length,
+						total: table.getFilteredRowModel().rows.length
+					})}
 				</div>
 
 				<div className="flex items-center space-x-2">
@@ -167,7 +171,7 @@ export function UsersTable<TData, TValue>({
 						onClick={() => table.previousPage()}
 						disabled={!table.getCanPreviousPage()}
 					>
-						Previous
+						{t("general.back")}
 					</Button>
 
 					<Button
@@ -176,7 +180,7 @@ export function UsersTable<TData, TValue>({
 						onClick={() => table.nextPage()}
 						disabled={!table.getCanNextPage()}
 					>
-						Next
+						{t("general.next")}
 					</Button>
 				</div>
 			</div>

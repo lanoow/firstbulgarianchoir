@@ -3,17 +3,17 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { getTranslations } from "next-intl/server";
 import { ChevronDown } from "lucide-react";
+import { getHistory } from "@/lib/actions";
 import HistoryClient from "./client";
 import Link from "next/link";
-import { getHistory } from "@/lib/actions";
 
 const DashboardHistory = async () => {
 	const t = await getTranslations();
 	const contentBG = await getHistory("bg");
 	const contentEN = await getHistory("en");
 
-	const historyBGContent = contentBG?.content.substring(1, contentBG.content.length-1) || "";
-	const historyENContent = contentEN?.content.substring(1, contentEN.content.length-1) || "";
+	const historyBGContent = "";
+	const historyENContent = "";
 
 	return (
 		<TooltipProvider>

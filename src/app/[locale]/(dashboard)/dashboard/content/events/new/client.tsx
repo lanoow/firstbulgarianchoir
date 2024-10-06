@@ -5,7 +5,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import DashboardHeader from "@/components/dashboard-header";
-import { MinimalTiptapEditor } from "@/components/editor";
+import { MinimalTiptapEditor } from "@/components/minimal-tiptap";
 import { EventSchema, EventSchemaType } from "@/schemas";
 import { CalendarIcon, ChevronDown } from "lucide-react";
 import { TimePicker } from "@/components/ui/time-picker";

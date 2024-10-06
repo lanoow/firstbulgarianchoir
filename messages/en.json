@@ -44,7 +44,12 @@
     "subject": "Subject",
     "message": "Message",
     "send": "Send",
-    "read": "Read"
+    "read": "Read",
+    "search": "Search",
+    "noResults": "No results",
+    "columns": "Columns",
+    "rowsSelected": "{count, plural, =0 {No selected rows} other {# of {total} rows selected}}",
+    "more": "More"
   },
   "contacts": {
     "writeUs": "Write us"
@@ -67,6 +72,10 @@
     "dropHere": "Drop the files here",
     "youCanUploadFiles": "You can upload {maxFileCount, plural, =1 {a file up to {maxSize}} other {up to # files (up to {maxSize} each)}}",
     "filesTarget": "{count, plural, =1 {1 file} other {# files}}"
+  },
+  "home": {
+    "description": "He laid the foundation for choral work in Bulgaria in 1868.",
+    "latestEvents": "Latest events"
   },
   "dashboard": {
     "nav": {
@@ -105,11 +114,15 @@
         "new": "Add a new photo or video."
       },
       "messages": {
-        "index": "Here you can see your received messages."
-      }
+        "index": "Here you can see your received messages.",
+        "delete": "Are you sure you want to delete the message?"
+      },
+      "dashboard": "Welcome to your website's administration. Here you can manage your website's content."
     },
     "startTyping": "Start typing...",
     "pickADate": "Pick a date...",
+    "addImage": "Add image",
+    "addVideo": "Add video",
     "mediaType": "Media type",
     "mediaTypes": {
       "image": "Image",
@@ -156,6 +169,7 @@
     "changed_successfully": "Changed made successfully!",
     "content_updated": "Content updated successfully!",
     "event_created": "Successfully created an event!",
-    "message_sent": "Message sent successfully!"
+    "message_sent": "Message sent successfully!",
+    "message_deleted": "Message deleted successfully!"
   }
 }
