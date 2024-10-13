@@ -5,7 +5,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import DashboardHeader from "@/components/dashboard-header";
-import { MinimalTiptapEditor } from "@/components/minimal-tiptap";
+// import { MinimalTiptapEditor } from "@/components/minimal-tiptap";
 import { EventSchema, EventSchemaType } from "@/schemas";
 import { CalendarIcon, ChevronDown } from "lucide-react";
 import { TimePicker } from "@/components/ui/time-picker";
@@ -40,7 +40,7 @@ const NewEventClient = () => {
 			locationBG: "",
 			locationEN: "",
 			date: new Date(),
-			images: []
+			cover: ""
 		}
 	});
 
@@ -212,20 +212,7 @@ const NewEventClient = () => {
 							<TooltipProvider>
 								<div className="flex flex-col space-y-3">
 									<Label>{t("general.content")}</Label>
-									<MinimalTiptapEditor
-										value={contentBG}
-										onChange={setContentBG}
-										throttleDelay={2000}
-										className="w-full"
-										editorContentClassName="p-4"
-										output="html"
-										placeholder={t("dashboard.startTyping")}
-										autofocus={false}
-										immediatelyRender={false}
-										editable={!isPending}
-										injectCSS={true}
-										editorClassName="focus:outline-none"
-									/>
+									bg
 								</div>
 							</TooltipProvider>
 						</div>
@@ -323,20 +310,7 @@ const NewEventClient = () => {
 							<TooltipProvider>
 								<div className="flex flex-col space-y-3">
 									<Label>{t("general.content")}</Label>
-									<MinimalTiptapEditor
-										value={contentEN}
-										onChange={setContentEN}
-										throttleDelay={2000}
-										className="w-full"
-										editorContentClassName="p-4"
-										output="html"
-										placeholder={t("dashboard.startTyping")}
-										autofocus={false}
-										immediatelyRender={false}
-										editable={!isPending}
-										injectCSS={true}
-										editorClassName="focus:outline-none"
-									/>
+									en
 								</div>
 							</TooltipProvider>
 						</div>
