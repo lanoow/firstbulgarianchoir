@@ -1,40 +1,71 @@
 "use client";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { GallerySchema, GallerySchemaType } from '@/schemas';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { useTranslations } from 'next-intl';
-import { useForm } from 'react-hook-form';
-import { useState, useTransition } from 'react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { FileUploader } from '@/components/uploader/file-uploader';
+import { IconPhoto, IconVideo } from '@tabler/icons-react';
 import { useUploadFile } from '@/hooks/use-upload-file';
+import { Button } from '@/components/ui/button';
+import { useState, useTransition } from 'react';
+import { Input } from '@/components/ui/input';
+import { useTranslations } from 'next-intl';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { UploadedFilesCard } from '@/components/uploader/uploaded-files-card';
+import { createGalleryPhoto, createGalleryVideo } from '@/lib/actions';
+import { useRouter } from 'next/navigation';
 
 const AddMedia = () => {
 	const [isPending, startTransition] = useTransition();
 	const [isImageDialogOpen, setImageDialogOpen] = useState<boolean>(false);
 	const [isVideoDialogOpen, setVideoDialogOpen] = useState<boolean>(false);
 	const { onUpload, progresses, uploadedFiles, isUploading } = useUploadFile(
-    "imagesUploader",
-    { defaultUploadedFiles: [] }
-  )
+		"imageUploader",
+		{ defaultUploadedFiles: [] }
+	)
 	const t = useTranslations();
+	const router = useRouter();
 
-	const form = useForm<GallerySchemaType>({
-		resolver: zodResolver(GallerySchema),
+	const form = useForm({
 		defaultValues: {
 			media: undefined
 		}
 	});
 
-	const onSubmit = async (data: GallerySchemaType) => {
+	const handleUpload = async (data: any) => {
+		await onUpload(data.media)
+			.then((fileKey) => {
+				return createGalleryPhoto(fileKey);
+			});
+	}
+
+	const onSubmitPhoto = async (data: any) => {
 		startTransition(() => {
-			toast.promise()
+			toast.promise(handleUpload(data), {
+				loading: t("uploads.uploading"),
+				success: t("success.image_uploaded"),
+				error: t("errors.unknown_error"),
+				finally: () => {
+					setImageDialogOpen(false);
+					form.reset();
+					router.refresh();
+				}
+			});
+		});
+	}
+
+	const onSubmitVideo = async (data: any) => {
+		startTransition(() => {
+			toast.promise(createGalleryVideo(data), {
+				loading: t("general.loading"),
+				success: t("success.video_uploaded"),
+				error: t("errors.unknown_error"),
+				finally: () => {
+					setVideoDialogOpen(false);
+					form.reset();
+					router.refresh();
+				}
+			});
 		});
 	};
 
@@ -50,14 +81,16 @@ const AddMedia = () => {
 					<DropdownMenuItem onClick={() => {
 						setVideoDialogOpen(false);
 						setImageDialogOpen(true);
-					}}>
-						{t("dashboard.mediaTypes.image")}
+					}} className="flex items-center space-x-1 cursor-pointer">
+						<IconPhoto className="flex-shrink-0 w-5 h-5" />
+						<span>{t("dashboard.mediaTypes.image")}</span>
 					</DropdownMenuItem>
 					<DropdownMenuItem onClick={() => {
 						setImageDialogOpen(false);
 						setVideoDialogOpen(true);
-					}}>
-						{t("dashboard.mediaTypes.video")}
+					}} className="flex items-center space-x-1 cursor-pointer">
+						<IconVideo className="flex-shrink-0 w-5 h-5" />
+						<span>{t("dashboard.mediaTypes.video")}</span>
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
@@ -65,7 +98,7 @@ const AddMedia = () => {
 			<Dialog onOpenChange={setImageDialogOpen} open={isImageDialogOpen}>
 				<DialogContent>
 					<Form {...form}>
-						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+						<form onSubmit={form.handleSubmit(onSubmitPhoto)} className="space-y-4">
 							<DialogHeader>
 								<DialogTitle>
 									{t("dashboard.addImage")}
@@ -81,35 +114,32 @@ const AddMedia = () => {
 									render={({ field }) => (
 										<div className="space-y-6">
 											<FormItem className="w-full">
-												<FormLabel>{t("general.images")}</FormLabel>
+												<FormLabel>{t("general.image")}</FormLabel>
 												<FormControl>
 													<FileUploader
 														value={field.value}
 														onValueChange={field.onChange}
-														maxFileCount={4}
+														maxFileCount={1}
 														maxSize={4 * 1024 * 1024}
 														progresses={progresses}
 														// pass the onUpload function here for direct upload
 														// onUpload={uploadFiles}
-														disabled={isUploading}
+														disabled={isUploading || isPending}
 													/>
 												</FormControl>
 												<FormMessage />
 											</FormItem>
-											{uploadedFiles.length > 0 ? (
-												<UploadedFilesCard uploadedFiles={uploadedFiles} />
-											) : null}
 										</div>
 									)}
 								/>
 							</div>
-							<DialogFooter>
+							<DialogFooter className="flex flex-col gap-2 sm:flex-row sm:items-center">
 								<DialogClose asChild>
-									<Button variant="outline" onClick={() => { }}>
+									<Button variant="outline" disabled={isUploading || isPending} onClick={() => form.reset()}>
 										{t("general.cancel")}
 									</Button>
 								</DialogClose>
-								<Button type="submit">
+								<Button type="submit" disabled={isUploading || isPending}>
 									{t("general.save")}
 								</Button>
 							</DialogFooter>
@@ -121,7 +151,7 @@ const AddMedia = () => {
 			<Dialog onOpenChange={setVideoDialogOpen} open={isVideoDialogOpen}>
 				<DialogContent>
 					<Form {...form}>
-						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+						<form onSubmit={form.handleSubmit(onSubmitVideo)} className="space-y-4">
 							<DialogHeader>
 								<DialogTitle>
 									{t("dashboard.addVideo")}
@@ -130,31 +160,30 @@ const AddMedia = () => {
 									{t("dashboard.descriptions.gallery.new")}
 								</DialogDescription>
 							</DialogHeader>
-							<div>
-								<FormField
-									control={form.control}
-									name="media"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>{t("dashboard.media")}</FormLabel>
-											<FormControl>
-												<Input
-													placeholder="https://youtube.com/watch?v=..."
-													{...field}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-							</div>
+							<FormField
+								control={form.control}
+								name="media"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>{t("dashboard.media")}</FormLabel>
+										<FormControl>
+											<Input
+												{...field}
+												disabled={isPending}
+												placeholder="https://youtube.com/watch?v=..."
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
 							<DialogFooter>
 								<DialogClose asChild>
-									<Button variant="outline" onClick={() => { }}>
+									<Button variant="outline" disabled={isPending} onClick={() => form.reset()}>
 										{t("general.cancel")}
 									</Button>
 								</DialogClose>
-								<Button type="submit">
+								<Button type="submit" disabled={isPending}>
 									{t("general.save")}
 								</Button>
 							</DialogFooter>

@@ -14,6 +14,7 @@ import { useControllableState } from "@/hooks/use-controllable-state"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { useTranslations } from "next-intl"
 
 interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -93,6 +94,8 @@ interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function FileUploader(props: FileUploaderProps) {
+  const t = useTranslations();
+  
   const {
     value: valueProp,
     onValueChange,
@@ -211,19 +214,19 @@ export function FileUploader(props: FileUploaderProps) {
             <input {...getInputProps()} />
             {isDragActive ? (
               <div className="flex flex-col items-center justify-center gap-4 sm:px-5">
-                <div className="rounded-full border border-dashed p-3">
+                <div className="p-3 border border-dashed rounded-full">
                   <UploadIcon
                     className="size-7 text-muted-foreground"
                     aria-hidden="true"
                   />
                 </div>
                 <p className="font-medium text-muted-foreground">
-                  Drop the files here
+                  {t("uploads.dropHere")}
                 </p>
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center gap-4 sm:px-5">
-                <div className="rounded-full border border-dashed p-3">
+                <div className="p-3 border border-dashed rounded-full">
                   <UploadIcon
                     className="size-7 text-muted-foreground"
                     aria-hidden="true"
@@ -231,14 +234,13 @@ export function FileUploader(props: FileUploaderProps) {
                 </div>
                 <div className="flex flex-col gap-px">
                   <p className="font-medium text-muted-foreground">
-                    Drag {`'n'`} drop files here, or click to select files
+                    {t("uploads.dragNDrop")}
                   </p>
                   <p className="text-sm text-muted-foreground/70">
-                    You can upload
-                    {maxFileCount > 1
-                      ? ` ${maxFileCount === Infinity ? "multiple" : maxFileCount}
-                      files (up to ${formatBytes(maxSize)} each)`
-                      : ` a file with ${formatBytes(maxSize)}`}
+                    {t("uploads.youCanUploadFiles", {
+                      maxFileCount: maxFileCount,
+                      maxSize: formatBytes(maxSize)
+                    })}
                   </p>
                 </div>
               </div>
@@ -247,8 +249,8 @@ export function FileUploader(props: FileUploaderProps) {
         )}
       </Dropzone>
       {files?.length ? (
-        <ScrollArea className="h-fit w-full px-3">
-          <div className="flex max-h-48 flex-col gap-4">
+        <ScrollArea className="w-full px-3 h-fit">
+          <div className="flex flex-col gap-4 max-h-48">
             {files?.map((file, index) => (
               <FileCard
                 key={index}
@@ -275,9 +277,9 @@ function FileCard({ file, progress, onRemove }: FileCardProps) {
     <div className="relative flex items-center gap-2.5">
       <div className="flex flex-1 gap-2.5">
         {isFileWithPreview(file) ? <FilePreview file={file} /> : null}
-        <div className="flex w-full flex-col gap-2">
+        <div className="flex flex-col w-full gap-2">
           <div className="flex flex-col gap-px">
-            <p className="line-clamp-1 text-sm font-medium text-foreground/80">
+            <p className="text-sm font-medium line-clamp-1 text-foreground/80">
               {file.name}
             </p>
             <p className="text-xs text-muted-foreground">
@@ -320,7 +322,7 @@ function FilePreview({ file }: FilePreviewProps) {
         width={48}
         height={48}
         loading="lazy"
-        className="aspect-square shrink-0 rounded-md object-cover"
+        className="object-cover rounded-md aspect-square shrink-0"
       />
     )
   }

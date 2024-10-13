@@ -3,9 +3,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DashboardHeader from "@/components/dashboard-header";
 import { Button } from "@/components/ui/button";
-import { useState, useTransition } from "react";
+import Editor from "@/components/editor/editor";
 import { updateHistory } from "@/lib/actions";
 import { useTranslations } from "next-intl";
+import { useTransition } from "react";
 import { toast } from "sonner";
 
 export type historyObject = {
@@ -13,23 +14,18 @@ export type historyObject = {
 	content: any;
 }
 
-const HistoryClient: React.FC<{
-	historyBGContent: any;
-	historyENContent: any;
-}> = ({ historyBGContent, historyENContent }) => {
+const HistoryClient = () => {
 	const [isPending, startTransition] = useTransition();
-	const [historyBG, setHistoryBG] = useState(historyBGContent);
-	const [historyEN, setHistoryEN] = useState(historyENContent);
 	const t = useTranslations();
 
 	const content = [
 		{
 			language: "bg",
-			content: historyBG,
+			content: "bg",
 		},
 		{
 			language: "en",
-			content: historyEN,
+			content: "en",
 		}
 	] as historyObject[];
 
@@ -70,7 +66,7 @@ const HistoryClient: React.FC<{
 					</Button>
 				}
 			/>
-			
+
 			<Tabs defaultValue="historyBG">
 				<TabsList>
 					<TabsTrigger value="historyBG">
@@ -81,7 +77,7 @@ const HistoryClient: React.FC<{
 					</TabsTrigger>
 				</TabsList>
 				<TabsContent value="historyBG">
-					bg
+					<Editor />
 				</TabsContent>
 				<TabsContent value="historyEN">
 					en

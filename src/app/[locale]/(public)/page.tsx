@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import HeroImage from "./_components/hero-image";
 import EventCard from "./_components/event-card";
 import { Button } from "@/components/ui/button";
 import { Alice } from "next/font/google";
@@ -44,13 +45,7 @@ export default async function Home() {
     <div className="flex flex-col space-y-32 max-w-screen-2xl">
       <div className="flex flex-col items-center space-y-8">
         <div className="w-full h-[25rem] overflow-hidden rounded-md relative shadow-xl">
-          <Image
-            width={2000}
-            height={1000}
-            src="/home.jpg"
-            alt={t("general.fbc")}
-            className="absolute -top-1/2"
-          />
+          <HeroImage />
         </div>
 
         <div className="flex flex-col items-center mx-auto space-y-4">

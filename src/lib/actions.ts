@@ -21,8 +21,6 @@ import {
   EventSchema,
   ContactUsSchemaType,
   ContactUsSchema,
-  GallerySchemaType,
-  GallerySchema,
 } from "@/schemas";
 import { historyObject } from "@/app/[locale]/(dashboard)/dashboard/content/history/client";
 import { MediaType } from "@prisma/client";
@@ -283,7 +281,7 @@ export const eventCreate = async (values: EventSchemaType) => {
     locationBG,
     locationEN,
     date,
-    cover
+    cover,
   } = validatedFields.data;
 
   const slug = slugify(titleBG, {
@@ -334,7 +332,7 @@ export const createMessage = async (values: ContactUsSchemaType) => {
       phone,
       subject,
       message,
-    }
+    },
   });
 
   return { success: "MESSAGE_SENT" };
@@ -354,7 +352,7 @@ export const getMessages = async () => {
   }));
 
   return safeMessages;
-}
+};
 
 export const getMessage = async (id: string) => {
   const message = await prisma.message.findUnique({
@@ -362,7 +360,7 @@ export const getMessage = async (id: string) => {
   });
 
   return message;
-}
+};
 
 export const deleteMessage = async (id: string) => {
   await prisma.message.delete({
@@ -370,44 +368,90 @@ export const deleteMessage = async (id: string) => {
   });
 
   return { success: "MESSAGE_DELETED" };
-}
+};
 
 export const deleteEvent = async (id: string) => {
   try {
     await prisma.event.delete({
       where: { id },
     });
-  
+
     return { success: "EVENT_DELETED" };
   } catch {
     return { error: "UNKNOWN_ERROR" };
   }
-}
+};
 
-export const createGalleryVideo = async (values: GallerySchemaType) => {
+export const createGalleryVideo = async (values: any) => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
     return notFound();
   }
-  
-  const validatedFields = GallerySchema.safeParse(values);
 
-  if (!validatedFields.success) {
-    return { error: "INVALID_FIELDS" };
-  }
+  const { media } = values;
 
-  const { media } = validatedFields.data;
+  // regex to get only the youtube video id from a link
+  const match = media.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?([a-zA-Z0-9_-]+)/);
 
   try {
     await prisma.galleryPost.create({
       data: {
         mediaType: MediaType.VIDEO,
-        media: [ media ],
-        authorId: currentUser.id
-      }
+        media: match[1],
+        authorId: currentUser.id,
+      },
     });
   } catch {
     return { error: "UNKNOWN_ERROR" };
   }
+};
+
+export const createGalleryPhoto = async (values: any) => {
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
+    return notFound();
+  }
+
+  console.log(values);
+  console.log(values[0]);
+  
+  const { key } = values[0];
+  
+  console.log(key);
+
+  try {
+    await prisma.galleryPost.create({
+      data: {
+        mediaType: MediaType.IMAGE,
+        media: key,
+        authorId: currentUser.id,
+      },
+    });
+  } catch {
+    return { error: "UNKNOWN_ERROR" };
+  }
+};
+
+export const getGallery = async () => {
+  const gallery = await prisma.galleryPost.findMany({
+    orderBy: { createdAt: "desc" }
+  });
+
+  const safeGallery = gallery.map((post) => ({
+    ...post,
+    createdAt: post.createdAt.toISOString(),
+    updatedAt: post.updatedAt.toISOString(),
+  }));
+
+  return safeGallery;
+};
+
+export const deleteGalleryPost = async (id: string) => {
+  await prisma.galleryPost.delete({
+    where: { id },
+  });
+
+  return { success: "POST_DELETED" };
 }

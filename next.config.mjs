@@ -12,9 +12,16 @@ const nextConfig = {
 		remotePatterns: [
 			{
 				protocol: 'https',
-				hostname: '**.**.**',
+				hostname: '**.**.**'
+			},
+			{
+				protocol: 'https',
+				hostname: 'utfs.io'
 			}
 		]
+	},
+	experimental: {
+		serverComponentsExternalPackages: ["yjs"]
 	}
 };
 

@@ -34,13 +34,15 @@ export function useUploadFile(
           setProgresses((prev) => {
             return {
               ...prev,
-              [file]: progress,
+              [file.name]: progress,
             }
           })
         },
       })
 
       setUploadedFiles((prev) => (prev ? [...prev, ...res] : res))
+
+      return res
     } catch (err) {
       toast.error(getErrorMessage(err))
     } finally {

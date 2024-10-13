@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { PhoneInput } from "@/components/ui/phone-input";
 import { Textarea } from "@/components/ui/textarea";
 import { createMessage } from "@/lib/actions";
 import { ContactUsSchema, ContactUsSchemaType } from "@/schemas";
@@ -94,8 +95,14 @@ const ContactForm = () => {
 									{t("general.phone")}
 								</FormLabel>
 								<FormControl>
-									<Input
+									{/* <Input
 										{...field}
+										disabled={isPending}
+										placeholder={t("general.phone")}
+									/> */}
+									<PhoneInput
+										{...field}
+										defaultCountry="BG"
 										disabled={isPending}
 										placeholder={t("general.phone")}
 									/>

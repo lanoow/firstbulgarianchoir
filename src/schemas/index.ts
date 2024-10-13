@@ -48,12 +48,6 @@ export const EventSchema = z.object({
 
 export type EventSchemaType = z.infer<typeof EventSchema>;
 
-export const GallerySchema = z.object({
-	media: z.array(z.instanceof(File).or(z.string().url())).or(z.string().url())
-});
-
-export type GallerySchemaType = z.infer<typeof GallerySchema>;
-
 export const ContactUsSchema = z.object({
 	name: z.string(),
 	email: z.string().email(),

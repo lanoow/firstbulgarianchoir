@@ -1,4 +1,4 @@
-import { Event, Message, User } from "@prisma/client";
+import { Event, GalleryPost, Message, User } from "@prisma/client";
 import { type ClientUploadedFileData } from "uploadthing/types";
 
 export type Locale = "bg" | "en";
@@ -22,3 +22,8 @@ export type SafeEvent = Omit<Event, "createdAt" | "updatedAt"> & {
   updatedAt: string;
   author: SafeUser;
 };
+
+export type SafeGallery = Omit<GalleryPost, "createdAt" | "updatedAt"> & {
+  createdAt: string;
+  updatedAt: string;
+}

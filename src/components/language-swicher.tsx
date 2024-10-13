@@ -6,6 +6,7 @@ import ReactCountryFlag from "react-country-flag";
 import { useState, useTransition } from "react";
 import { useParams } from "next/navigation";
 import { Locale } from "@/types";
+import { Globe } from "lucide-react";
 
 const LanguageSwitcher = () => {
   const router = useRouter();
@@ -54,8 +55,9 @@ const LanguageSwitcher = () => {
           <SelectValue />
         </div>
 
-        <span className="hidden p-2 text-xl uppercase opacity-0 lg:opacity-100 lg:block">
-          {value === "bg" ? "БГ" : "EN"}
+        <span className="hidden p-2 text-xl uppercase opacity-0 lg:opacity-100 lg:block hover:opacity-70 transition">
+          {/* {value === "bg" ? "БГ" : "EN"} */}
+          <Globe />
         </span>
       </SelectTrigger>
       <SelectContent>
