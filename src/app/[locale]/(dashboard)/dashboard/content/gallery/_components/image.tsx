@@ -35,13 +35,13 @@ const GalleryImage: React.FC<GalleryImageProps> = ({ id, media }) => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<div className="overflow-hidden transition rounded-md cursor-pointer w-52 aspect-video hover:opacity-70">
+				<div className="w-full overflow-hidden transition rounded-md cursor-pointer aspect-video hover:opacity-70">
 					<Image
 						src={`https://utfs.io/f/${media}`}
 						alt="Gallery Image"
 						width={500}
 						height={500}
-						className="w-52 aspect-video"
+						className="aspect-video"
 					/>
 				</div>
 			</DialogTrigger>

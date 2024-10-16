@@ -310,7 +310,20 @@ const NewEventClient = () => {
 							<TooltipProvider>
 								<div className="flex flex-col space-y-3">
 									<Label>{t("general.content")}</Label>
-									en
+									{/* <MinimalTiptapEditor
+										value={contentEN}
+										onChange={setContentEN}
+										throttleDelay={2000}
+										className="w-full"
+										editorContentClassName="p-4"
+										output="html"
+										placeholder={t("dashboard.startTyping")}
+										autofocus={false}
+										immediatelyRender={false}
+										editable={!isPending}
+										injectCSS={true}
+										editorClassName="focus:outline-none"
+									/> */}
 								</div>
 							</TooltipProvider>
 						</div>

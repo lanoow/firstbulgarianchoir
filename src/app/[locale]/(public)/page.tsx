@@ -2,14 +2,16 @@ import { getTranslations } from "next-intl/server";
 import HeroImage from "./_components/hero-image";
 import EventCard from "./_components/event-card";
 import { Button } from "@/components/ui/button";
+import HomeGallery from "./_components/gallery";
+import { getHomeGallery } from "@/lib/actions";
 import { Alice } from "next/font/google";
-import Image from "next/image";
 import Link from "next/link";
 
 const alice = Alice({ subsets: ["latin-ext", "cyrillic-ext"], weight: "400" });
 
 export default async function Home() {
   const t = await getTranslations();
+  const gallery = await getHomeGallery();
 
   const events = [
     {
@@ -74,7 +76,11 @@ export default async function Home() {
       </div>
 
       <div className="flex flex-col items-center space-y-8">
-        <h2 className={`${alice.className} text-3xl uppercase`}>{t("home.latestEvents")}</h2>
+        <h2 className={`${alice.className} text-3xl uppercase hover:opacity-70 transition`}>
+          <Link href="/events/">
+            {t("home.latestEvents")}
+          </Link>
+        </h2>
 
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
           {events.map((event) => (
@@ -87,57 +93,13 @@ export default async function Home() {
       </div>
 
       <div className="flex flex-col items-center space-y-8">
-        <h2 className={`${alice.className} text-3xl uppercase`}>{t("navigation.gallery")}</h2>
+        <h2 className={`${alice.className} text-3xl uppercase hover:opacity-70 transition`}>
+          <Link href="/gallery/">
+            {t("navigation.gallery")}
+          </Link>
+        </h2>
 
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2">
-          <Image
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpbD6wK_XFLjPKiFZYl9fRHSx55lEOlXKUHQ&s"
-            alt="Gallery 1"
-            width={700}
-            height={700}
-            className="w-full h-64 rounded-md aspect-video"
-          />
-
-          <Image
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpbD6wK_XFLjPKiFZYl9fRHSx55lEOlXKUHQ&s"
-            alt="Gallery 1"
-            width={700}
-            height={700}
-            className="w-full h-64 rounded-md aspect-video"
-          />
-
-          <Image
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpbD6wK_XFLjPKiFZYl9fRHSx55lEOlXKUHQ&s"
-            alt="Gallery 1"
-            width={700}
-            height={700}
-            className="w-full h-64 rounded-md aspect-video"
-          />
-
-          <Image
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpbD6wK_XFLjPKiFZYl9fRHSx55lEOlXKUHQ&s"
-            alt="Gallery 1"
-            width={700}
-            height={700}
-            className="w-full h-64 rounded-md aspect-video"
-          />
-
-          <Image
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpbD6wK_XFLjPKiFZYl9fRHSx55lEOlXKUHQ&s"
-            alt="Gallery 1"
-            width={700}
-            height={700}
-            className="w-full h-64 rounded-md aspect-video"
-          />
-
-          <Image
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpbD6wK_XFLjPKiFZYl9fRHSx55lEOlXKUHQ&s"
-            alt="Gallery 1"
-            width={700}
-            height={700}
-            className="w-full h-64 rounded-md aspect-video"
-          />
-        </div>
+        <HomeGallery gallery={gallery} />
       </div>
     </div>
   )

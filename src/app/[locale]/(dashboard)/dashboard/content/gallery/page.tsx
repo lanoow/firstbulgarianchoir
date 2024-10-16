@@ -61,15 +61,13 @@ const DashboardGallery = async () => {
 			/>
 
 			<Suspense fallback={<GallerySkeleton />}>
-				<div className="flex items-start gap-4">
+				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 					{gallery.map((media: SafeGallery) => (
 						<Fragment key={media.id}>
 							{media.mediaType === MediaType.VIDEO ? (
 								<Video id={media.id} media={media.media} />
 							) : (
-								<>
-									<GalleryImage id={media.id} media={media.media} />
-								</>
+								<GalleryImage id={media.id} media={media.media} />
 							)}
 						</Fragment>
 					))}

@@ -1,39 +1,18 @@
 "use client";
 
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+import { useTranslations } from 'next-intl';
 import { Play } from 'lucide-react';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
-import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
-import { deleteGalleryPost } from '@/lib/actions';
-import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
 
 interface VideoProps {
-	id: string;
 	media: string;
 }
 
-const Video: React.FC<VideoProps> = ({ id, media }) => {
+const Video: React.FC<VideoProps> = ({ media }) => {
 	const t = useTranslations();
-	const router = useRouter();
-	const [isPending, startTransition] = useTransition();
-
-	const handleDelete = () => {
-		startTransition(() => {
-			toast.promise(deleteGalleryPost(id), {
-				loading: t("general.deleting"),
-				success: t("success.post_deleted"),
-				error: t("errors.unknown_error"),
-				finally: () => {
-					router.refresh();
-				}
-			});
-		});
-	}
 
 	return (
 		<Dialog>
@@ -65,16 +44,6 @@ const Video: React.FC<VideoProps> = ({ id, media }) => {
 						title="YouTube Embed"
 					/>
 				</div>
-				<DialogFooter>
-					<DialogClose asChild>
-						<Button variant="outline" disabled={isPending}>
-							{t("general.close")}
-						</Button>
-					</DialogClose>
-					<Button variant="destructive" onClick={handleDelete} disabled={isPending}>
-						{t("general.delete")}
-					</Button>
-				</DialogFooter>
 			</DialogContent>
 		</Dialog>
 	)

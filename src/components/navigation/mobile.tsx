@@ -13,8 +13,10 @@ import Logo from "../logo";
 const MobileNavigation: React.FC<{
 	links: NavigationProps[];
 	socials: NavigationProps[];
-}> = ({ links, socials }) => {
-	const [isOpen, setIsOpen] = useState(false)
+	showAdmin: boolean;
+	adminLabel: string;
+}> = ({ links, socials, showAdmin, adminLabel }) => {
+	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<div className="lg:hidden">
@@ -44,6 +46,17 @@ const MobileNavigation: React.FC<{
 										</Link>
 									</li>
 								))}
+								{showAdmin && (
+									<li>
+										<Link
+											href="/dashboard/"
+											className="text-lg transition hover:opacity-70"
+											onClick={() => setIsOpen(false)}
+										>
+											{adminLabel}
+										</Link>
+									</li>
+								)}
 							</ul>
 						</nav>
 						<div className="py-6 space-y-4 border-t">

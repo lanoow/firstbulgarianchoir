@@ -448,6 +448,21 @@ export const getGallery = async () => {
   return safeGallery;
 };
 
+export const getHomeGallery = async () => {
+  const gallery = await prisma.galleryPost.findMany({
+    orderBy: { createdAt: "desc" },
+    take: 6,
+  });
+
+  const safeGallery = gallery.map((post) => ({
+    ...post,
+    createdAt: post.createdAt.toISOString(),
+    updatedAt: post.updatedAt.toISOString(),
+  }));
+
+  return safeGallery;
+}
+
 export const deleteGalleryPost = async (id: string) => {
   await prisma.galleryPost.delete({
     where: { id },

@@ -1,13 +1,16 @@
 "use client";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { FaFacebook, FaYoutube } from "react-icons/fa6";
+import { FaFacebook, FaShield, FaYoutube } from "react-icons/fa6";
 import LanguageSwitcher from "../language-swicher";
 import { useTranslations } from "next-intl";
 import MobileNavigation from "./mobile";
 import Link from "next/link";
 import Logo from "../logo";
 import { Separator } from "../ui/separator";
+import { usePathname } from "@/i18n/routing";
+import { SafeUser } from "@/types";
+import { UserRole } from "@prisma/client";
 
 export type NavigationProps = {
 	label: string;
@@ -15,29 +18,29 @@ export type NavigationProps = {
 	icon?: JSX.Element;
 }
 
-const Navigation = () => {
-	const t = useTranslations("navigation");
+const Navigation: React.FC<{ currentUser?: SafeUser; }> = ({ currentUser }) => {
+	const t = useTranslations();
 
 	const links = [
 		{
-			label: t("home"),
+			label: t("navigation.home"),
 			href: "/"
 		},
 		{
-			label: t("history"),
-			href: "/history"
+			label: t("navigation.history"),
+			href: "/history/"
 		},
 		{
-			label: t("events"),
-			href: "/events"
+			label: t("navigation.events"),
+			href: "/events/"
 		},
 		{
-			label: t("gallery"),
-			href: "/gallery"
+			label: t("navigation.gallery"),
+			href: "/gallery/"
 		},
 		{
-			label: t("contacts"),
-			href: "/contacts"
+			label: t("navigation.contacts"),
+			href: "/contacts/"
 		}
 	] as NavigationProps[];
 
@@ -61,8 +64,23 @@ const Navigation = () => {
 					<Logo variant="lg" link="/" />
 				</div>
 
-				<DesktopNavigation links={links} socials={socials} />
-				<MobileNavigation links={links} socials={socials} />
+				<DesktopNavigation
+					links={links}
+					socials={socials}
+					showAdmin={currentUser
+						&& currentUser.role === UserRole.ADMIN ? true : false
+					}
+					adminLabel={t("dashboard.nav.dashboard")}
+				/>
+
+				<MobileNavigation
+					links={links}
+					socials={socials}
+					showAdmin={currentUser
+						&& currentUser.role === UserRole.ADMIN ? true : false
+					}
+					adminLabel={t("dashboard.nav.dashboard")}
+				/>
 			</div>
 
 			<Separator orientation="horizontal" className="lg:hidden" />
@@ -73,22 +91,54 @@ const Navigation = () => {
 const DesktopNavigation: React.FC<{
 	links: NavigationProps[];
 	socials: NavigationProps[];
-}> = ({ links, socials }) => {
+	showAdmin: boolean;
+	adminLabel: string;
+}> = ({ links, socials, showAdmin, adminLabel }) => {
+	const pathname = usePathname();
+
+	const isOnPath = (href: string) => {
+		if (pathname === href) {
+			return true;
+		}
+
+		return false;
+	};
+
 	return (
 		<div className="hidden w-full bg-black shadow-lg lg:block">
 			<div className="flex items-center justify-between w-full px-4 mx-auto max-w-screen-2xl">
 				<div className="flex items-center space-x-4">
 					{links.map((link) => (
-						<Link key={link.href} href={link.href} className="p-2 text-xl text-white uppercase transition hover:opacity-70">
+						<Link
+							key={link.href}
+							href={link.href}
+							className={`
+								p-2 text-xl uppercase transition text-white hover:opacity-70	
+								${isOnPath(link.href) && "border-b"}
+							`}
+						>
 							{link.label}
 						</Link>
 					))}
 				</div>
 
-				<div className="flex items-center p-2 space-x-4">
-					<LanguageSwitcher />
+				<TooltipProvider>
+					<div className="flex items-center p-2 space-x-4">
+						{showAdmin && (
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Link href="/dashboard/" className="text-white transition hover:opacity-70">
+										<FaShield size={24} />
+									</Link>
+								</TooltipTrigger>
+								<TooltipContent>
+									{adminLabel}
+								</TooltipContent>
+							</Tooltip>
+						)}
 
-					<TooltipProvider>
+						<LanguageSwitcher />
+
 						{socials.map((social) => (
 							<Tooltip key={social.href}>
 								<TooltipTrigger asChild>
@@ -101,8 +151,8 @@ const DesktopNavigation: React.FC<{
 								</TooltipContent>
 							</Tooltip>
 						))}
-					</TooltipProvider>
-				</div>
+					</div>
+				</TooltipProvider>
 			</div>
 		</div>
 	)
