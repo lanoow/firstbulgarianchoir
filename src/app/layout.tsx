@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
 
-const font = Inter({ subsets: ["latin"] });
+const font = Inter({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   title: "First Bulgarian Choir"
