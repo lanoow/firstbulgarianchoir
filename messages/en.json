@@ -154,6 +154,7 @@
     }
   },
   "errors": {
+    "not_found": "The page you're looking for has been moved or doesn't exist.",
     "already_signed_in": "You're already signed in.",
     "invalid_credentials": "Invalid credentials.",
     "user_not_found": "User not found.",
