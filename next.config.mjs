@@ -21,7 +21,9 @@ const nextConfig = {
 		]
 	},
 	experimental: {
-		serverComponentsExternalPackages: ["yjs"]
+		serverComponentsExternalPackages: ["yjs"],
+		webpackBuildWorker: true,
+		workerThreads: true,
 	}
 };
 
