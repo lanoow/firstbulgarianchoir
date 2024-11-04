@@ -12,6 +12,7 @@
   "dependencies": {
     "@ariakit/react": "^0.4.13",
     "@auth/prisma-adapter": "^2.7.2",
+    "@cloudflare/next-on-pages": "^1.13.5",
     "@hookform/resolvers": "^3.9.1",
     "@nextui-org/react": "^2.4.8",
     "@prisma/client": "^5.21.1",
