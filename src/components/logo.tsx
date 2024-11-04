@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { Alice } from "next/font/google";
 import Link from "next/link";
 
-const font = Alice({ subsets: ["cyrillic", "latin"], weight: "400" });
+const font = Alice({ subsets: ["cyrillic", "latin"], weight: "400", display: "swap" });
 
 const Logo: React.FC<{
 	link?: string;
@@ -26,7 +26,7 @@ const Logo: React.FC<{
 							{short ? t("fbcShort") : t("fbc")}
 						</span>
 					) : (
-						<div className="flex flex-col items-center -space-y-2 lg:space-y-0 uppercase ">
+						<div className="flex flex-col items-center -space-y-2 uppercase lg:space-y-0 ">
 							<span className="text-lg lg:text-2xl">
 								{t("fbcLg")}
 							</span>
@@ -43,7 +43,7 @@ const Logo: React.FC<{
 							{short ? t("fbcShort") : t("fbc")}
 						</span>
 					) : (
-						<div className="flex flex-col items-center -space-y-2 lg:space-y-0 uppercase">
+						<div className="flex flex-col items-center -space-y-2 uppercase lg:space-y-0">
 							<span className="text-lg lg:text-2xl">
 								{t("fbcLg")}
 							</span>

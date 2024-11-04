@@ -7,7 +7,7 @@ import { getHomeGallery } from "@/lib/actions";
 import { Alice } from "next/font/google";
 import Link from "next/link";
 
-const alice = Alice({ subsets: ["latin-ext", "cyrillic-ext"], weight: "400" });
+const alice = Alice({ subsets: ["latin-ext", "cyrillic-ext"], weight: "400", display: "swap" });
 
 export default async function Home() {
   const t = await getTranslations();

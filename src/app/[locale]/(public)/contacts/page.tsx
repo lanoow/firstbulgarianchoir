@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const alice = Alice({ weight: "400", subsets: ["cyrillic-ext", "latin-ext"] });
+const alice = Alice({ weight: "400", subsets: ["cyrillic-ext", "latin-ext"], display: "swap" });
 
 export default async function ContactsPage() {
 	const t = await getTranslations();
