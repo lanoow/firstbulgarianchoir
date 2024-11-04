@@ -113,8 +113,8 @@ const DesktopNavigation: React.FC<{
 							key={link.href}
 							href={link.href}
 							className={`
-								p-2 text-xl uppercase transition text-white hover:opacity-70	
-								${isOnPath(link.href) && "border-b"}
+								p-2 text-xl uppercase transition text-white	hover:opacity-70
+								${isOnPath(link.href) && "font-semibold"}
 							`}
 						>
 							{link.label}

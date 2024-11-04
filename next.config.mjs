@@ -21,10 +21,8 @@ const nextConfig = {
 		]
 	},
 	experimental: {
-		reactCompiler: true,
-	},
-	serverExternalPackages: ["yjs"],
-	poweredByHeader: false,
+		serverComponentsExternalPackages: ["yjs"]
+	}
 };
 
 export default withNextIntl(nextConfig);
