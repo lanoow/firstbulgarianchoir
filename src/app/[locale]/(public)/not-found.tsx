@@ -1,12 +1,8 @@
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { generateStaticParams } from "@/lib/generate-intl-static-params";
-import type { Locale } from "@/types";
 
-export default async function NotFound({params: {locale}}: {params: {locale: Locale}}) {
-	generateStaticParams();
-	setRequestLocale(locale);
+export default async function NotFound() {
 	const t = await getTranslations();
 
 	return (
