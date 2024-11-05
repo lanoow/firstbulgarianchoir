@@ -1,6 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
 import { getRequestConfig } from "next-intl/server";
-import { notFound } from "next/navigation";
 import { routing } from "./routing";
 import { Formats } from "next-intl";
 
@@ -25,14 +24,18 @@ export const formats = {
   },
 } satisfies Formats;
 
-export default getRequestConfig(async ({ locale }) => {
-  // Validate that the incoming `locale` parameter is valid
-  if (!routing.locales.includes(locale as any)) notFound();
+export default getRequestConfig(async ({ requestLocale }) => {
+  let locale = await requestLocale;
+
+  if (!locale || !routing.locales.includes(locale as any)) {
+    locale = routing.defaultLocale;
+  }
 
   setRequestLocale(locale);
 
   return {
-    messages: (await import(`../../messages/${locale}.json`)).default,
+    // messages: (await import(`../../messages/${locale}.json`)).default,
+    locale,
     formats,
   };
 });
