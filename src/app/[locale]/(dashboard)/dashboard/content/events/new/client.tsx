@@ -19,7 +19,6 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import { Content } from "@tiptap/core";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -27,8 +26,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const NewEventClient = () => {
 	const t = useTranslations();
 	const [isPending, startTransition] = useTransition();
-	const [contentBG, setContentBG] = useState<Content>('');
-	const [contentEN, setContentEN] = useState<Content>('');
+	const [contentBG, setContentBG] = useState('');
+	const [contentEN, setContentEN] = useState('');
 
 	const form = useForm<EventSchemaType>({
 		resolver: zodResolver(EventSchema),

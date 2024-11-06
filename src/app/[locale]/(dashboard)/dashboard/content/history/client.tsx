@@ -3,7 +3,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DashboardHeader from "@/components/dashboard-header";
 import { Button } from "@/components/ui/button";
-import Editor from "@/components/editor/editor";
 import { updateHistory } from "@/lib/actions";
 import { useTranslations } from "next-intl";
 import { useTransition } from "react";
@@ -77,7 +76,7 @@ const HistoryClient = () => {
 					</TabsTrigger>
 				</TabsList>
 				<TabsContent value="historyBG">
-					<Editor />
+					bg
 				</TabsContent>
 				<TabsContent value="historyEN">
 					en

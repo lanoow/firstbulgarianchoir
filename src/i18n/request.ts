@@ -34,8 +34,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
   setRequestLocale(locale);
 
   return {
-    // messages: (await import(`../../messages/${locale}.json`)).default,
+    messages: (await import(`../../messages/${locale}.json`)).default,
     locale,
     formats,
+    timeZone: "Europe/Sofia"
   };
 });

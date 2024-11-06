@@ -6,5 +6,6 @@ export default {
   debug: process.env.NODE_ENV === "development",
   pages: {
     signIn: "/login"
-  }
+  },
+  trustHost: true
 } satisfies NextAuthConfig;
