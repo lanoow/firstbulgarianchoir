@@ -11,11 +11,12 @@ import { Separator } from "../ui/separator";
 import { usePathname } from "@/i18n/routing";
 import { SafeUser } from "@/types";
 import { UserRole } from "@prisma/client";
+import { ReactElement } from "react";
 
 export type NavigationProps = {
 	label: string;
 	href: string;
-	icon?: JSX.Element;
+	icon?: ReactElement;
 }
 
 const Navigation: React.FC<{ currentUser?: SafeUser; }> = ({ currentUser }) => {
