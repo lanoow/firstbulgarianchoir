@@ -21,10 +21,10 @@ const nextConfig = {
 		]
 	},
 	experimental: {
-		serverComponentsExternalPackages: ["yjs"],
 		serverSourceMaps: false,
 	},
 	productionBrowserSourceMaps: false,
+	serverExternalPackages: ["yjs"],
 };
 
 export default withNextIntl(nextConfig);
