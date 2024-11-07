@@ -2,12 +2,12 @@
 
 import { IconBrowser, IconBuildingArch, IconHome, IconLogout2, IconMail, IconPhoto, IconSettings, IconTicket, IconUsers } from "@tabler/icons-react";
 import { Sidebar, SidebarBody, SidebarCategory, SidebarLink } from "./ui/sidebar";
-import DashboardLanguageSwitcher from "./dashboard-language-switcher";
 import { useTranslations } from "next-intl";
 import { signOut } from "next-auth/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Logo from "./logo";
+import LanguageSwitcher from "./language-swicher";
 
 const DashboardSidebar = () => {
 	const t = useTranslations();
@@ -77,6 +77,7 @@ const DashboardSidebar = () => {
 
 	return (
 		<Sidebar open={open} setOpen={setOpen} animate={true}>
+			{/* @ts-expect-error className is not allowed but it is working right */}
 			<SidebarBody className="justify-between gap-10 bg-neutral-200">
 				<div className="flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
 					<Logo short link="/dashboard" />
@@ -92,7 +93,7 @@ const DashboardSidebar = () => {
 					</div>
 				</div>
 				<div className="flex flex-col gap-2">
-					<DashboardLanguageSwitcher />
+					<LanguageSwitcher />
 
 					<SidebarLink
 						link={{
@@ -112,6 +113,7 @@ const DashboardSidebar = () => {
 								display: open ? "inline-block" : "none",
 								opacity: open ? 1 : 0,
 							}}
+							// @ts-expect-error className is not allowed but it is working right
 							className="text-neutral-700 dark:text-neutral-200 group-hover/sidebar:text-danger-400 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
 						>
 							{t("dashboard.nav.logout")}
