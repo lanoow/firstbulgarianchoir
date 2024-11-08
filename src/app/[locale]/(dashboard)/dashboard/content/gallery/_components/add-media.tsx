@@ -19,10 +19,7 @@ const AddMedia = () => {
 	const [isPending, startTransition] = useTransition();
 	const [isImageDialogOpen, setImageDialogOpen] = useState<boolean>(false);
 	const [isVideoDialogOpen, setVideoDialogOpen] = useState<boolean>(false);
-	const { onUpload, progresses, uploadedFiles, isUploading } = useUploadFile(
-		"imageUploader",
-		{ defaultUploadedFiles: [] }
-	)
+	const { onUpload, progresses, isUploading } = useUploadFile("imageUploader");
 	const t = useTranslations();
 	const router = useRouter();
 
@@ -120,7 +117,7 @@ const AddMedia = () => {
 														value={field.value}
 														onValueChange={field.onChange}
 														maxFileCount={1}
-														maxSize={4 * 1024 * 1024}
+														maxSize={10 * 1024 * 1024}
 														progresses={progresses}
 														// pass the onUpload function here for direct upload
 														// onUpload={uploadFiles}
