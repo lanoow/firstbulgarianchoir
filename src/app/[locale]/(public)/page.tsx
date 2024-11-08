@@ -46,21 +46,21 @@ export default async function Home() {
   return (
     <div className="flex flex-col space-y-32 max-w-screen-2xl">
       <div className="flex flex-col items-center space-y-8">
-        <div className="w-full h-[25rem] overflow-hidden rounded-md relative shadow-xl">
+        <div className="w-full max-h-[25rem] aspect-video overflow-hidden rounded-md relative shadow-xl">
           <HeroImage />
         </div>
 
         <div className="flex flex-col items-center mx-auto space-y-4">
-          <h1 className={`flex flex-col items-center text-4xl uppercase ${alice.className}`}>
+          <h1 className={`flex flex-col items-center text-3xl sm:text-4xl text-center uppercase ${alice.className}`}>
             <span>{t("general.fbcLg")}</span>
             <span>{t("general.YankoMustakov")}</span>
           </h1>
 
-          <p className={`text-2xl max-w-[25rem] text-center ${alice.className}`}>
+          <p className={`text-xl sm:text-2xl max-w-[25rem] text-center ${alice.className}`}>
             {t("home.description")}
           </p>
 
-          <div className="flex flex-col items-center gap-4 lg:flex-row">
+          <div className="flex flex-col items-center gap-4 sm:flex-row">
             <Button size="lg" className="text-lg uppercase" asChild>
               <Link href="/history">
                 {t("general.more")}

@@ -7,7 +7,6 @@ import { signOut } from "next-auth/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Logo from "./logo";
-import LanguageSwitcher from "./language-swicher";
 
 const DashboardSidebar = () => {
 	const t = useTranslations();
@@ -93,8 +92,6 @@ const DashboardSidebar = () => {
 					</div>
 				</div>
 				<div className="flex flex-col gap-2">
-					<LanguageSwitcher />
-
 					<SidebarLink
 						link={{
 							label: t("dashboard.nav.toSite"),

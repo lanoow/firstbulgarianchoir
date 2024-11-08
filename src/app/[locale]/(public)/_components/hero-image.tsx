@@ -16,7 +16,7 @@ const HeroImage = () => {
 					height={1000}
 					src="/home.jpg"
 					alt={t("fbc")}
-					className="absolute -top-1/2"
+					className="absolute lg:-top-1/3 xl:-top-1/2 2xl:-top-3/4"
 				/>
 			</PhotoView>
 		</PhotoProvider>

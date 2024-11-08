@@ -1,7 +1,7 @@
 "use client";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import LanguageSwitcher from "../language-swicher";
 import { Button } from "@/components/ui/button";
 import { NavigationProps } from "./navigation";
@@ -28,6 +28,9 @@ const MobileNavigation: React.FC<{
 					</Button>
 				</SheetTrigger>
 				<SheetContent side="right" className="w-[300px] sm:w-[400px]">
+					<SheetTitle className="hidden">
+						Navigation menu
+					</SheetTitle>
 					<div className="flex flex-col h-full">
 						<nav className="flex-grow py-6">
 							<div className="mb-8">
