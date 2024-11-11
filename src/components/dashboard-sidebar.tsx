@@ -1,7 +1,7 @@
 "use client";
 
 import { IconBrowser, IconBuildingArch, IconHome, IconLogout2, IconMail, IconPhoto, IconSettings, IconTicket, IconUsers } from "@tabler/icons-react";
-import { Sidebar, SidebarBody, SidebarCategory, SidebarLink } from "./ui/sidebar";
+import { Sidebar, SidebarBody, SidebarCategory, SidebarLink } from "./sidebar";
 import { useTranslations } from "next-intl";
 import { signOut } from "next-auth/react";
 import { motion } from "framer-motion";

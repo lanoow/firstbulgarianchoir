@@ -19,7 +19,11 @@ const AddMedia = () => {
 	const [isPending, startTransition] = useTransition();
 	const [isImageDialogOpen, setImageDialogOpen] = useState<boolean>(false);
 	const [isVideoDialogOpen, setVideoDialogOpen] = useState<boolean>(false);
-	const { onUpload, progresses, isUploading } = useUploadFile("imageUploader");
+	const { onUpload, progresses, isUploading } = useUploadFile("imageUploader",
+		{
+			defaultUploadedFiles: [],
+		}
+	);
 	const t = useTranslations();
 	const router = useRouter();
 
