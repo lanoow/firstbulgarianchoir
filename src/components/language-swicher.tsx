@@ -48,17 +48,25 @@ const LanguageSwitcher = () => {
       onValueChange={handleLocaleChange}
     >
       <SelectTrigger
-        className="outline-none lg:text-white lg:bg-transparent lg:border-0"
+        className={`
+          outline-none ${!pathname.includes('dashboard') && 'lg:text-white lg:bg-transparent lg:border-0'}  
+        `}
         disabled={isPending}
       >
-        <div className="lg:hidden">
+        {pathname.includes("dashboard") ? (
           <SelectValue />
-        </div>
+        ) : (
+          <div>
+            <div className="lg:hidden">
+              <SelectValue />
+            </div>
 
-        <span className="hidden p-2 text-xl uppercase opacity-0 lg:opacity-100 lg:block hover:opacity-70 transition">
-          {/* {value === "bg" ? "БГ" : "EN"} */}
-          <Globe />
-        </span>
+            <span className="hidden p-2 text-xl uppercase opacity-0 lg:opacity-100 lg:block lg:hover:opacity-70 transition">
+              {/* {value === "bg" ? "БГ" : "EN"} */}
+              <Globe />
+            </span>
+          </div>
+        )}
       </SelectTrigger>
       <SelectContent>
         {languages.map((language, index) => (

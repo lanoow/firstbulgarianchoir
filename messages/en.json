@@ -50,7 +50,8 @@
     "columns": "Columns",
     "rowsSelected": "{count, plural, =0 {No selected rows} other {# of {total} rows selected}}",
     "more": "More",
-    "deleting": "Deleting..."
+    "deleting": "Deleting...",
+    "event": "Event"
   },
   "contacts": {
     "writeUs": "Write us"
@@ -98,7 +99,8 @@
     "descriptions": {
       "events": {
         "index": "Here you can manage your events.",
-        "new": "Add a new event."
+        "new": "Add a new event.",
+        "delete": "Are you sure you want to delete the event?"
       },
       "users": {
         "index": "Here you can manage your users.",
@@ -175,6 +177,7 @@
     "message_deleted": "Message deleted successfully!",
     "video_uploaded": "Video uploaded successfully!",
     "images_uploaded": "Image uploaded successfully!",
-    "post_deleted": "Post deleted successfully!"
+    "post_deleted": "Post deleted successfully!",
+    "event_deleted": "Event deleted successfully!"
   }
 }

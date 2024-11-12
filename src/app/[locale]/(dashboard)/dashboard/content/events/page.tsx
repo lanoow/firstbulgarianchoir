@@ -1,14 +1,17 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { getTranslations } from "next-intl/server";
-import { ChevronDown } from "lucide-react";
-import Link from "next/link";
 import DashboardHeader from "@/components/dashboard-header";
-import { Button } from "@/components/ui/button";
-
+import { columns } from "./_components/event-table-columns";
+import { EventTable } from "./_components/event-table";
+import { getTranslations } from "next-intl/server";
+import AddEvent from "./_components/add-event";
+import { ChevronDown } from "lucide-react";
+import { getEvents } from "@/lib/actions";
+import Link from "next/link";
 
 const DashboardEvents = async () => {
 	const t = await getTranslations();
+	const events = await getEvents();
 
 	return (
 		<div>
@@ -49,15 +52,11 @@ const DashboardEvents = async () => {
 				title={t("navigation.events")}
 				subtitle={t("dashboard.descriptions.events.index")}
 				actions={
-					<Button asChild>
-						<Link href="/dashboard/content/events/new">
-							{t("dashboard.nav.newEvent")}
-						</Link>
-					</Button>
+					<AddEvent />
 				}
 			/>
 
-			
+			<EventTable columns={columns} data={events} />
 		</div>
 	)
 }

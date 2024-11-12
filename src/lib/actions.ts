@@ -41,7 +41,7 @@ export async function getCurrentUser() {
       createdAt: currentUser.createdAt.toISOString(),
       updatedAt: currentUser.updatedAt.toISOString(),
     };
-  } catch (error: any) {
+  } catch {
     return null;
   }
 }
@@ -284,11 +284,15 @@ export const eventCreate = async (values: EventSchemaType) => {
     cover,
   } = validatedFields.data;
 
+  console.log(validatedFields.data);
+
   const slug = slugify(titleBG, {
     locale: "bg",
     lower: true,
     trim: true,
   });
+
+  console.log(cover);
 
   await prisma.event.create({
     data: {
@@ -297,7 +301,7 @@ export const eventCreate = async (values: EventSchemaType) => {
       contentBG,
       locationBG,
       date,
-      cover: "",
+      cover,
       titleEN,
       contentEN,
       locationEN,
@@ -354,6 +358,22 @@ export const getMessages = async () => {
   return safeMessages;
 };
 
+export const getEvents = async () => {
+  const events = await prisma.event.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const safeEvents = events.map((events) => ({
+    ...events,
+    createdAt: events.createdAt.toISOString(),
+    updatedAt: events.updatedAt.toISOString(),
+  }));
+
+  return safeEvents;
+};
+
 export const getMessage = async (id: string) => {
   const message = await prisma.message.findUnique({
     where: { id },
@@ -371,15 +391,11 @@ export const deleteMessage = async (id: string) => {
 };
 
 export const deleteEvent = async (id: string) => {
-  try {
-    await prisma.event.delete({
-      where: { id },
-    });
+  await prisma.event.delete({
+    where: { id },
+  });
 
-    return { success: "EVENT_DELETED" };
-  } catch {
-    return { error: "UNKNOWN_ERROR" };
-  }
+  return { success: "EVENT_DELETED" };
 };
 
 export const createGalleryVideo = async (values: any) => {
@@ -392,7 +408,9 @@ export const createGalleryVideo = async (values: any) => {
   const { media } = values;
 
   // regex to get only the youtube video id from a link
-  const match = media.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?([a-zA-Z0-9_-]+)/);
+  const match = media.match(
+    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?([a-zA-Z0-9_-]+)/
+  );
 
   try {
     await prisma.galleryPost.create({
@@ -407,19 +425,12 @@ export const createGalleryVideo = async (values: any) => {
   }
 };
 
-export const createGalleryPhoto = async (values: any) => {
+export const createGalleryPhoto = async (key: string) => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
     return notFound();
   }
-
-  console.log(values);
-  console.log(values[0]);
-  
-  const { key } = values[0];
-  
-  console.log(key);
 
   try {
     await prisma.galleryPost.create({
@@ -436,7 +447,7 @@ export const createGalleryPhoto = async (values: any) => {
 
 export const getGallery = async () => {
   const gallery = await prisma.galleryPost.findMany({
-    orderBy: { createdAt: "desc" }
+    orderBy: { createdAt: "desc" },
   });
 
   const safeGallery = gallery.map((post) => ({
@@ -461,7 +472,7 @@ export const getHomeGallery = async () => {
   }));
 
   return safeGallery;
-}
+};
 
 export const deleteGalleryPost = async (id: string) => {
   await prisma.galleryPost.delete({
@@ -469,4 +480,4 @@ export const deleteGalleryPost = async (id: string) => {
   });
 
   return { success: "POST_DELETED" };
-}
+};

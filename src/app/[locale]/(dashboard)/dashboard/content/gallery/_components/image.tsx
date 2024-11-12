@@ -45,7 +45,7 @@ const GalleryImage: React.FC<GalleryImageProps> = ({ id, media }) => {
 					/>
 				</div>
 			</DialogTrigger>
-			<DialogContent className="max-w-screen-xl p-4">
+			<DialogContent className="lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl p-4">
 				<DialogHeader>
 					<DialogTitle>
 						{t("general.image")}
@@ -57,10 +57,10 @@ const GalleryImage: React.FC<GalleryImageProps> = ({ id, media }) => {
 						alt="Gallery Image"
 						width={1000}
 						height={1000}
-						className="w-full"
+						className="w-max max-h-[1/3] mx-auto"
 					/>
 				</div>
-				<DialogFooter>
+				<DialogFooter className="flex flex-col space-y-2 sm:flex-row sm:space-y-0">
 					<DialogClose asChild>
 						<Button variant="outline" disabled={isPending}>
 							{t("general.close")}

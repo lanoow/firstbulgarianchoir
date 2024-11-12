@@ -42,7 +42,7 @@ export const EventSchema = z.object({
 	contentEN: z.string().optional(),
 	locationBG: z.string(),
 	locationEN: z.string().optional(),
-	cover: z.instanceof(File).or(z.string().url()),
+	cover: z.any(),
 	date: z.date()
 });
 

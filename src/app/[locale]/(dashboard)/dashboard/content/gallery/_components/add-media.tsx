@@ -19,7 +19,7 @@ const AddMedia = () => {
 	const [isPending, startTransition] = useTransition();
 	const [isImageDialogOpen, setImageDialogOpen] = useState<boolean>(false);
 	const [isVideoDialogOpen, setVideoDialogOpen] = useState<boolean>(false);
-	const { onUpload, progresses, isUploading } = useUploadFile("imageUploader",
+	const { onUpload, uploadedFiles, progresses, isUploading } = useUploadFile("imageUploader",
 		{
 			defaultUploadedFiles: [],
 		}
@@ -35,8 +35,8 @@ const AddMedia = () => {
 
 	const handleUpload = async (data: any) => {
 		await onUpload(data.media)
-			.then((fileKey) => {
-				return createGalleryPhoto(fileKey);
+			.then(() => {
+				return createGalleryPhoto(uploadedFiles[0].key);
 			});
 	}
 
