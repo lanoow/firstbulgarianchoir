@@ -10,7 +10,7 @@ export type SafeUser = Omit<User, "createdAt" | "updatedAt"> & {
   updatedAt: string;
 };
 
-export interface UploadedFile<T = unknown> extends ClientUploadedFileData<T> {};
+export type UploadedFile<T = unknown> = ClientUploadedFileData<T>;
 
 export type SafeMessage = Omit<Message, "createdAt" | "updatedAt"> & {
   createdAt: string;

@@ -363,12 +363,20 @@ export const getEvents = async () => {
     orderBy: {
       createdAt: "desc",
     },
+    include: {
+      author: true
+    }
   });
 
   const safeEvents = events.map((events) => ({
     ...events,
     createdAt: events.createdAt.toISOString(),
     updatedAt: events.updatedAt.toISOString(),
+    author: {
+      ...events.author,
+      createdAt: events.author.createdAt.toISOString(),
+      updatedAt: events.author.updatedAt.toISOString(),
+    }
   }));
 
   return safeEvents;

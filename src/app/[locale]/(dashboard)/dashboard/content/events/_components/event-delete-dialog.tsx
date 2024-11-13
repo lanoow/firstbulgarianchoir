@@ -1,6 +1,6 @@
 "use client";
 
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { deleteEvent } from "@/lib/actions";
@@ -29,8 +29,8 @@ const EventDeleteDialog: React.FC<{ event: SafeEvent; }> = ({ event }) => {
 	}
 
 	return (
-		<Dialog>
-			<DialogTrigger>
+		<AlertDialog>
+			<AlertDialogTrigger>
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
@@ -39,24 +39,24 @@ const EventDeleteDialog: React.FC<{ event: SafeEvent; }> = ({ event }) => {
 						<TooltipContent>{t("general.delete")}</TooltipContent>
 					</Tooltip>
 				</TooltipProvider>
-			</DialogTrigger>
-			<DialogContent>
-				<DialogHeader>
-					<DialogTitle>{`${t("general.delete")} - ${event.titleBG}`}</DialogTitle>
-					<DialogDescription>{t("dashboard.descriptions.events.delete")}</DialogDescription>
-				</DialogHeader>
-				<DialogFooter className="flex items-center space-x-4">
-					<DialogClose asChild>
-						<Button type="button" disabled={isPending}>
-							{t("general.cancel")}
+			</AlertDialogTrigger>
+			<AlertDialogContent>
+				<AlertDialogHeader>
+					<AlertDialogTitle>{`${t("general.delete")} - ${event.titleBG}`}</AlertDialogTitle>
+					<AlertDialogDescription>{t("dashboard.descriptions.events.delete")}</AlertDialogDescription>
+				</AlertDialogHeader>
+				<AlertDialogFooter className="flex items-center space-x-4">
+					<AlertDialogCancel disabled={isPending}>
+						{t("general.cancel")}
+					</AlertDialogCancel>
+					<AlertDialogAction asChild>
+						<Button onClick={() => handleDelete(event.id)} variant="destructive" disabled={isPending}>
+							{t("general.delete")}
 						</Button>
-					</DialogClose>
-					<Button onClick={() => handleDelete(event.id)} variant="destructive" disabled={isPending}>
-						{t("general.delete")}
-					</Button>
-				</DialogFooter>
-			</DialogContent>
-		</Dialog>
+					</AlertDialogAction>
+				</AlertDialogFooter>
+			</AlertDialogContent>
+		</AlertDialog>
 	)
 }
 
