@@ -1,4 +1,4 @@
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useTranslations } from "next-intl";
 import { SafeMessage } from "@/types";
@@ -8,25 +8,25 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-const MessageDialog: React.FC<{ message: SafeMessage; }> = ({ message }) => {
+const MessageSheet: React.FC<{ message: SafeMessage; }> = ({ message }) => {
 	const t = useTranslations();
 
 	return (
-		<Dialog>
-			<DialogTrigger>
+		<Sheet>
+			<SheetTrigger>
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<Eye className="w-5 h-5 hover:opacity-70 transition" />
+							<Eye className="w-5 h-5 transition hover:opacity-70" />
 						</TooltipTrigger>
 						<TooltipContent>{t("general.read")}</TooltipContent>
 					</Tooltip>
 				</TooltipProvider>
-			</DialogTrigger>
-			<DialogContent>
-				<DialogHeader>
-					<DialogTitle>{`${t("general.message")} - ${message.subject}`}</DialogTitle>
-				</DialogHeader>
+			</SheetTrigger>
+			<SheetContent>
+				<SheetHeader>
+					<SheetTitle>{`${t("general.message")} - ${message.subject}`}</SheetTitle>
+				</SheetHeader>
 				<div className="flex flex-col space-y-4">
 					<div>
 						<Label>{t("general.name")}</Label>
@@ -55,16 +55,16 @@ const MessageDialog: React.FC<{ message: SafeMessage; }> = ({ message }) => {
 						<Textarea value={message.message} readOnly autoFocus={false} />
 					</div>
 				</div>
-				<DialogFooter>
-					<DialogClose asChild>
+				<SheetFooter className="mt-4">
+					<SheetClose asChild>
 						<Button type="button">
 							{t("general.close")}
 						</Button>
-					</DialogClose>
-				</DialogFooter>
-			</DialogContent>
-		</Dialog>
+					</SheetClose>
+				</SheetFooter>
+			</SheetContent>
+		</Sheet>
 	)
 }
 
-export default MessageDialog;
+export default MessageSheet;

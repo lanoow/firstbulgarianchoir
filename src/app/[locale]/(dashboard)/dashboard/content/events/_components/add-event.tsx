@@ -1,7 +1,7 @@
 "use client";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FileUploader } from '@/components/uploader/file-uploader';
@@ -25,7 +25,7 @@ import { eventCreate } from '@/lib/actions';
 
 const AddEvent = () => {
 	const [isPending, startTransition] = useTransition();
-	const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
+	const [isSheetOpen, setSheetOpen] = useState<boolean>(false);
 	const { onUpload, uploadedFiles, progresses, isUploading } = useUploadFile("imageUploader",
 		{
 			defaultUploadedFiles: [],
@@ -63,7 +63,7 @@ const AddEvent = () => {
 				success: t("success.event_created"),
 				error: t("errors.unknown_error"),
 				finally: () => {
-					setDialogOpen(false);
+					setSheetOpen(false);
 					form.reset();
 					router.refresh();
 				}
@@ -72,23 +72,23 @@ const AddEvent = () => {
 	}
 
 	return (
-		<Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
-			<DialogTrigger asChild>
+		<Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
+			<SheetTrigger asChild>
 				<Button>
 					{t("dashboard.nav.newEvent")}
 				</Button>
-			</DialogTrigger>
-			<DialogContent className="max-w-xl overflow-y-auto">
+			</SheetTrigger>
+			<SheetContent>
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-						<DialogHeader>
-							<DialogTitle>
-								{t("dashboard.addImage")}
-							</DialogTitle>
-							<DialogDescription>
-								{t("dashboard.descriptions.gallery.new")}
-							</DialogDescription>
-						</DialogHeader>
+						<SheetHeader>
+							<SheetTitle>
+								{t("dashboard.nav.newEvent")}
+							</SheetTitle>
+							<SheetDescription>
+								{t("dashboard.descriptions.events.new")}
+							</SheetDescription>
+						</SheetHeader>
 						<div>
 							<Tabs defaultValue="bg">
 								<TabsList>
@@ -289,20 +289,20 @@ const AddEvent = () => {
 								)}
 							/>
 						</div>
-						<DialogFooter className="flex flex-col gap-2 sm:flex-row sm:items-center">
-							<DialogClose asChild>
+						<SheetFooter className="flex flex-col gap-2 sm:flex-row sm:items-center">
+							<SheetClose asChild>
 								<Button variant="outline" disabled={isUploading || isPending} onClick={() => form.reset()}>
 									{t("general.cancel")}
 								</Button>
-							</DialogClose>
+							</SheetClose>
 							<Button type="submit" disabled={isUploading || isPending}>
 								{t("general.create")}
 							</Button>
-						</DialogFooter>
+						</SheetFooter>
 					</form>
 				</Form>
-			</DialogContent>
-		</Dialog>
+			</SheetContent>
+		</Sheet>
 	)
 }
 
