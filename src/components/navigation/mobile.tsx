@@ -22,7 +22,7 @@ const MobileNavigation: React.FC<{
 		<div className="lg:hidden">
 			<Sheet open={isOpen} onOpenChange={setIsOpen}>
 				<SheetTrigger asChild>
-					<Button variant="outline" size="icon">
+					<Button variant="outline" className="text-white bg-transparent border-white" size="icon">
 						<Menu className="w-6 h-6" />
 						<span className="sr-only">Toggle navigation menu</span>
 					</Button>

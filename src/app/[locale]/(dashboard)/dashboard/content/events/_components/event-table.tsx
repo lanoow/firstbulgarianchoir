@@ -50,16 +50,14 @@ export function EventTable<TData, TValue>({
 
 	return (
 		<div className="flex flex-col space-y-4">
-			<div className="flex items-center gap-4 w-fit">
-				<Input
-					placeholder={t("general.search")}
-					value={(table.getColumn("titleBG")?.getFilterValue() as string) ?? ""}
-					onChange={(event) =>
-						table.getColumn("titleBG")?.setFilterValue(event.target.value)
-					}
-					className="max-w-sm"
-				/>
-			</div>
+			<Input
+				placeholder={t("general.search")}
+				value={(table.getColumn("titleBG")?.getFilterValue() as string) ?? ""}
+				onChange={(event) =>
+					table.getColumn("titleBG")?.setFilterValue(event.target.value)
+				}
+				className="max-w-sm"
+			/>
 
 			<div className="bg-white border rounded-md">
 				<Table>

@@ -1,12 +1,13 @@
 "use client";
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import UserDeleteDialog from "./user-delete-dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
+import { ArrowUpDown } from "lucide-react";
+import UserDialog from "./user-dialog";
 import { SafeUser } from "@/types";
-import Link from "next/link";
+import UserEditDialog from "./user-edit-dialog";
 
 export const columns: ColumnDef<SafeUser>[] = [
 	{
@@ -40,7 +41,7 @@ export const columns: ColumnDef<SafeUser>[] = [
 					className="p-0"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Name
+					Име
 					<ArrowUpDown className="w-4 h-4 ml-2" />
 				</Button>
 			)
@@ -55,7 +56,7 @@ export const columns: ColumnDef<SafeUser>[] = [
 					className="p-0"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Email
+					Имейл
 					<ArrowUpDown className="w-4 h-4 ml-2" />
 				</Button>
 			)
@@ -70,7 +71,7 @@ export const columns: ColumnDef<SafeUser>[] = [
 					className="p-0"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Role
+					Роля
 					<ArrowUpDown className="w-4 h-4 ml-2" />
 				</Button>
 			)
@@ -85,7 +86,7 @@ export const columns: ColumnDef<SafeUser>[] = [
 					className="p-0"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Created At
+					Създаден на
 					<ArrowUpDown className="w-4 h-4 ml-2" />
 				</Button>
 			)
@@ -108,25 +109,11 @@ export const columns: ColumnDef<SafeUser>[] = [
 			const user = row.original;
 
 			return (
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant="ghost" className="w-8 h-8 p-0">
-							<span className="sr-only">Open actions menu</span>
-							<MoreHorizontal className="w-4 h-4" />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align="end">
-						<DropdownMenuLabel>Actions</DropdownMenuLabel>
-						<DropdownMenuItem className="cursor-pointer" asChild>
-							<Link href={`/dashboard/users/edit/${user.id}`}>
-								Edit
-							</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem className="cursor-pointer">
-							Delete
-						</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
+				<div className="flex items-center space-x-2">
+					<UserDialog user={user} />
+					<UserEditDialog user={user} />
+					<UserDeleteDialog user={user} />
+				</div>
 			)
 		}
 	},

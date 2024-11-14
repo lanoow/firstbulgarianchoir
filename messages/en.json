@@ -51,7 +51,8 @@
     "rowsSelected": "{count, plural, =0 {No selected rows} other {# of {total} rows selected}}",
     "more": "More",
     "deleting": "Deleting...",
-    "event": "Event"
+    "event": "Event",
+    "role": "Role"
   },
   "contacts": {
     "writeUs": "Write us"
@@ -104,7 +105,10 @@
       },
       "users": {
         "index": "Here you can manage your users.",
-        "new": "Add a new user."
+        "new": "Add a new user.",
+        "delete": "Are you sure you want to delete the user?",
+        "chooseRole": "Choose a role for the user.",
+        "roleDescription": "Choosing administrator, you give full access and control over your website. Be careful!"
       },
       "settings": {
         "index": "Here you can manage your website's settings."
@@ -178,6 +182,7 @@
     "video_uploaded": "Video uploaded successfully!",
     "images_uploaded": "Image uploaded successfully!",
     "post_deleted": "Post deleted successfully!",
-    "event_deleted": "Event deleted successfully!"
+    "event_deleted": "Event deleted successfully!",
+    "user_deleted": "User deleted successfully!"
   }
 }

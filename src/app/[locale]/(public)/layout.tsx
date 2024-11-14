@@ -18,7 +18,7 @@ export default async function BaseLayout({
     <main>
       <Navigation currentUser={currentUser ?? undefined} />
 
-      <div className="px-4 mx-auto my-8 max-w-screen-2xl">
+      <div className="px-4 mx-auto mt-24 mb-8 lg:mt-8 max-w-screen-2xl">
         {children}
       </div>
 

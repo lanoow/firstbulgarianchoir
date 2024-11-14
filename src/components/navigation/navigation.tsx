@@ -60,9 +60,9 @@ const Navigation: React.FC<{ currentUser?: SafeUser; }> = ({ currentUser }) => {
 
 	return (
 		<nav>
-			<div className="flex flex-row items-center justify-between gap-8 px-4 py-4 lg:px-0 lg:justify-normal lg:flex-col">
+			<div className="fixed z-10 flex flex-row items-center justify-between w-full gap-8 px-4 py-4 bg-black lg:px-0 lg:justify-normal lg:flex-col lg:bg-transparent lg:static">
 				<div className="lg:py-4">
-					<Logo variant="lg" link="/" />
+					<Logo variant="lg" link="/" classNames="text-white lg:text-black" />
 				</div>
 
 				<DesktopNavigation

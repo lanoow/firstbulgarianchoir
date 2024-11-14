@@ -75,14 +75,14 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className="flex flex-col items-center space-y-8">
+      <div className="flex flex-col items-center w-full space-y-8">
         <h2 className={`${alice.className} text-3xl uppercase hover:opacity-70 transition`}>
           <Link href="/events/">
             {t("home.latestEvents")}
           </Link>
         </h2>
 
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid w-full grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
           {events.map((event) => (
             <EventCard
               key={event.slug}

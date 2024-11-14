@@ -4,7 +4,6 @@ import {
 	ColumnDef,
 	ColumnFiltersState,
 	SortingState,
-	VisibilityState,
 	flexRender,
 	getCoreRowModel,
 	getFilteredRowModel,
@@ -22,13 +21,6 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 
-import {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
@@ -45,7 +37,6 @@ export function UsersTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = useState({})
 	const t = useTranslations()
 
@@ -58,57 +49,24 @@ export function UsersTable<TData, TValue>({
 		getSortedRowModel: getSortedRowModel(),
 		onColumnFiltersChange: setColumnFilters,
 		getFilteredRowModel: getFilteredRowModel(),
-		onColumnVisibilityChange: setColumnVisibility,
 		onRowSelectionChange: setRowSelection,
 		state: {
 			sorting,
 			columnFilters,
-			columnVisibility,
 			rowSelection,
 		},
 	})
 
 	return (
 		<div className="flex flex-col space-y-4">
-			<div className="flex items-center gap-4 w-fit">
-				<Input
-					placeholder={t("general.search")}
-					value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-					onChange={(event) =>
-						table.getColumn("email")?.setFilterValue(event.target.value)
-					}
-					className="max-w-sm"
-				/>
-
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant="outline" className="ml-auto">
-							{t("general.columns")}
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align="end">
-						{table
-							.getAllColumns()
-							.filter(
-								(column) => column.getCanHide()
-							)
-							.map((column) => {
-								return (
-									<DropdownMenuCheckboxItem
-										key={column.id}
-										className="capitalize"
-										checked={column.getIsVisible()}
-										onCheckedChange={(value) =>
-											column.toggleVisibility(!!value)
-										}
-									>
-										{column.id}
-									</DropdownMenuCheckboxItem>
-								)
-							})}
-					</DropdownMenuContent>
-				</DropdownMenu>
-			</div>
+			<Input
+				placeholder={t("general.search")}
+				value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+				onChange={(event) =>
+					table.getColumn("email")?.setFilterValue(event.target.value)
+				}
+				className="max-w-sm"
+			/>
 
 			<div className="bg-white border rounded-md">
 				<Table>

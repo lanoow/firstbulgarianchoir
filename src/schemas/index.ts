@@ -1,3 +1,4 @@
+import { UserRole } from "@prisma/client";
 import * as z from "zod";
 
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -57,3 +58,11 @@ export const ContactUsSchema = z.object({
 });
 
 export type ContactUsSchemaType = z.infer<typeof ContactUsSchema>;
+
+export const EditUserSchema = z.object({
+	name: z.string(),
+	email: z.string().email(),
+	role: z.enum([UserRole.ADMIN, UserRole.USER])
+});
+
+export type EditUserSchemaType = z.infer<typeof EditUserSchema>;

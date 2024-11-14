@@ -17,7 +17,7 @@ export const columns: ColumnDef<SafeEvent>[] = [
 					className="p-0"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Title
+					Заглавие
 					<ArrowUpDown className="w-4 h-4 ml-2" />
 				</Button>
 			)
@@ -32,7 +32,7 @@ export const columns: ColumnDef<SafeEvent>[] = [
 					className="p-0"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Location
+					Локация
 					<ArrowUpDown className="w-4 h-4 ml-2" />
 				</Button>
 			)
@@ -47,7 +47,7 @@ export const columns: ColumnDef<SafeEvent>[] = [
 					className="p-0"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Date
+					Дата
 					<ArrowUpDown className="w-4 h-4 ml-2" />
 				</Button>
 			)
@@ -72,7 +72,7 @@ export const columns: ColumnDef<SafeEvent>[] = [
 					className="p-0"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Created At
+					Създадено на
 					<ArrowUpDown className="w-4 h-4 ml-2" />
 				</Button>
 			)

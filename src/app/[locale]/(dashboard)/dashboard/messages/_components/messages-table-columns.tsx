@@ -17,7 +17,7 @@ export const columns: ColumnDef<SafeMessage>[] = [
 					className="p-0"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Name
+					Име
 					<ArrowUpDown className="w-4 h-4 ml-2" />
 				</Button>
 			)
@@ -32,7 +32,7 @@ export const columns: ColumnDef<SafeMessage>[] = [
 					className="p-0"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Email
+					Имейл
 					<ArrowUpDown className="w-4 h-4 ml-2" />
 				</Button>
 			)
@@ -47,7 +47,7 @@ export const columns: ColumnDef<SafeMessage>[] = [
 					className="p-0"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Subject
+					Тема
 					<ArrowUpDown className="w-4 h-4 ml-2" />
 				</Button>
 			)
@@ -62,7 +62,7 @@ export const columns: ColumnDef<SafeMessage>[] = [
 					className="p-0"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Created At
+					Създадено на
 					<ArrowUpDown className="w-4 h-4 ml-2" />
 				</Button>
 			)
