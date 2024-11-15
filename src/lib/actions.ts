@@ -21,10 +21,16 @@ import {
   EventSchema,
   ContactUsSchemaType,
   ContactUsSchema,
+  ForgotPasswordSchemaType,
+  ForgotPasswordSchema,
+  ResetPasswordSchemaType,
+  ResetPasswordSchema,
 } from "@/schemas";
 import { historyObject } from "@/app/[locale]/(dashboard)/dashboard/content/history/client";
 import { MediaType } from "@prisma/client";
 import { notFound } from "next/navigation";
+import { resend } from "./mail";
+import { getTranslations } from "next-intl/server";
 
 export async function getCurrentUser() {
   try {
@@ -123,6 +129,95 @@ export const logout = async () => {
   await signOut();
 };
 
+export const forgotPassword = async (values: ForgotPasswordSchemaType) => {
+  const t = await getTranslations();
+  const currentUser = await getCurrentUser();
+
+  if (currentUser) {
+    return { error: "ALREADY_SIGNED_IN" };
+  }
+
+  const validatedFields = ForgotPasswordSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return { error: "INVALID_FIELDS" };
+  }
+
+  const { email } = validatedFields.data;
+
+  const existingUser = await getUserByEmail(email);
+
+  if (!existingUser) {
+    return { error: "USER_NOT_FOUND" };
+  }
+
+  try {
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    // code expires in 30 minutes
+    const expiresAt = new Date(Date.now() + 30 * 60000);
+
+    await prisma.resetCode.create({
+      data: {
+        email,
+        code,
+        expiresAt,
+      },
+    });
+
+    await resend.emails.send({
+      from: `${t("general.fbc")} <ecom.lanoow.dev>`,
+      to: [email],
+      subject: t("auth.emails.forgotPassword.subject"),
+      html: t("auth.emails.forgotPassword.content", { code }),
+    });
+
+    return { success: "EMAIL_SENT" };
+  } catch {
+    return { error: "UNKNOWN_ERROR" };
+  }
+};
+
+export const resetPassword = async (values: ResetPasswordSchemaType) => {
+  const currentUser = await getCurrentUser();
+
+  if (currentUser) {
+    return { error: "ALREADY_SIGNED_IN" };
+  }
+
+  const validatedFields = ResetPasswordSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return { error: "INVALID_FIELDS" };
+  }
+
+  const { code, email, password } = validatedFields.data;
+
+  const resetCode = await prisma.resetCode.findFirst({
+    where: { email },
+  });
+
+  if (
+    !resetCode ||
+    resetCode.expiresAt < new Date() ||
+    resetCode.code !== code
+  ) {
+    return { error: "INVALID_CODE" };
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 12);
+
+  try {
+    await prisma.user.update({
+      where: { email },
+      data: { password: hashedPassword },
+    });
+
+    return { success: "PASSWORD_UPDATED" };
+  } catch {
+    return { error: "UNKNOWN_ERROR" };
+  }
+};
+
 export const changePassword = async (
   user: SafeUser,
   values: ChangePasswordSchemaType
@@ -147,12 +242,16 @@ export const changePassword = async (
 
   const hashedPassword = await bcrypt.hash(newPassword, 12);
 
-  await prisma.user.update({
-    where: { id: user.id },
-    data: { password: hashedPassword },
-  });
+  try {
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { password: hashedPassword },
+    });
 
-  return { success: "PASSWORD_UPDATED" };
+    return { success: "PASSWORD_UPDATED" };
+  } catch {
+    return { error: "UNKNOWN_ERROR" };
+  }
 };
 
 export const register = async (data: any) => {
@@ -364,8 +463,8 @@ export const getEvents = async () => {
       createdAt: "desc",
     },
     include: {
-      author: true
-    }
+      author: true,
+    },
   });
 
   const safeEvents = events.map((events) => ({
@@ -376,7 +475,7 @@ export const getEvents = async () => {
       ...events.author,
       createdAt: events.author.createdAt.toISOString(),
       updatedAt: events.author.updatedAt.toISOString(),
-    }
+    },
   }));
 
   return safeEvents;

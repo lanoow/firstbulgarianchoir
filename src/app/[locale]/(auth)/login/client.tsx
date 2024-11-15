@@ -113,7 +113,14 @@ const LoginClient = () => {
 									name="password"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>{t("general.password")}</FormLabel>
+											<FormLabel className="flex justify-between itmes-center">
+												<span>{t("general.password")}</span>
+												<Button variant="link" className="h-0 p-0 mt-2" asChild>
+													<Link href="/forgot-password/">
+														{t("auth.forgotPassword.button")}
+													</Link>
+												</Button>
+											</FormLabel>
 											<FormControl>
 												<PasswordInput
 													required
@@ -141,14 +148,14 @@ const LoginClient = () => {
 				</Card>
 
 				{error && (
-					<Alert className="w-full max-w-sm mx-auto text-white bg-danger">
+					<Alert className="w-full max-w-sm mx-auto text-white bg-red-500">
 						<AlertTitle>{t("general.error")}</AlertTitle>
 						<AlertDescription>{errorMessage}</AlertDescription>
 					</Alert>
 				)}
 
 				{success && (
-					<Alert className="w-full max-w-sm mx-auto text-white bg-success">
+					<Alert className="w-full max-w-sm mx-auto text-white bg-green-500">
 						<AlertTitle>{t("general.success")}</AlertTitle>
 						<AlertDescription>{t("success.signed_in")}</AlertDescription>
 					</Alert>

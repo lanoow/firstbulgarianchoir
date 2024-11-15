@@ -1,53 +1,54 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { SignUpSchema, SignUpSchemaType } from "@/schemas";
+import { ResetPasswordSchema, ResetPasswordSchemaType } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { useState, useTransition } from "react";
+import { resetPassword } from "@/lib/actions";
 import { Input } from "@/components/ui/input";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { register } from "@/lib/actions";
-import Link from "next/link";
-import { PasswordInput } from "@/components/ui/password-input";
 import Logo from "@/components/logo";
+import { redirect } from "next/navigation";
+import { PasswordInput } from "@/components/ui/password-input";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { REGEXP_ONLY_DIGITS } from "input-otp";
 
-const SignUpClient = () => {
+const ResetPasswordClient = () => {
 	const t = useTranslations();
 	const [isPending, startTransition] = useTransition();
 	const [error, setError] = useState<string | null>(null);
 	const [success, setSuccess] = useState<string | null>(null);
 
-	const form = useForm<SignUpSchemaType>({
-		resolver: zodResolver(SignUpSchema),
+	const form = useForm<ResetPasswordSchemaType>({
+		resolver: zodResolver(ResetPasswordSchema),
 		defaultValues: {
-			name: "",
+			code: "",
 			email: "",
 			password: ""
 		}
 	});
 
-	const onSubmit = (values: SignUpSchemaType) => {
+	const onSubmit = (values: ResetPasswordSchemaType) => {
 		setError(null);
 		setSuccess(null);
 
 		startTransition(() => {
-			register(values)
+			resetPassword(values)
 				.then((callback) => {
 					if (callback?.error) {
-						form.reset();
 						setError(callback.error);
 					}
 
 					if (callback?.success) {
-						form.reset();
 						setSuccess(callback.success);
+						redirect("/login/");
 					}
 				})
-				.catch(() => { setError("UNKNOWN_ERROR") });
+				.catch(() => { setError(t("errors.unknown_error")) });
 		});
 	}
 
@@ -57,8 +58,8 @@ const SignUpClient = () => {
 		case "ALREADY_SIGNED_IN":
 			errorMessage = t("errors.already_signed_in");
 			break;
-		case "EMAIL_ALREADY_IN_USE":
-			errorMessage = t("errors.email_already_in_use");
+		case "USER_NOT_FOUND":
+			errorMessage = t("errors.user_not_found");
 			break;
 		case "INVALID_FIELDS":
 			errorMessage = t("errors.invalid_fields");
@@ -76,12 +77,12 @@ const SignUpClient = () => {
 		<div className="flex items-center w-full min-h-screen">
 			<div className="flex flex-col items-center m-auto space-y-4">
 				<Logo link="/" />
-				
+
 				<Card className="w-full max-w-sm mx-auto">
 					<CardHeader>
-						<CardTitle className="text-2xl">{t("auth.signup.title")}</CardTitle>
+						<CardTitle className="text-2xl">{t("auth.resetPassword.title")}</CardTitle>
 						<CardDescription>
-							{t("auth.signup.description")}
+							{t("auth.resetPassword.description")}
 						</CardDescription>
 					</CardHeader>
 					<CardContent>
@@ -89,19 +90,26 @@ const SignUpClient = () => {
 							<form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
 								<FormField
 									control={form.control}
-									name="name"
+									name="code"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>{t("general.name")}</FormLabel>
+											<FormLabel>{t("general.code")}</FormLabel>
 											<FormControl>
-												<Input
-													type="text"
-													placeholder="John Doe"
-													required
-													disabled={isPending}
-													{...field}
-												/>
+												<InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS} {...field}>
+													<InputOTPGroup>
+														<InputOTPSlot index={0} />
+														<InputOTPSlot index={1} />
+														<InputOTPSlot index={2} />
+														<InputOTPSlot index={3} />
+														<InputOTPSlot index={4} />
+														<InputOTPSlot index={5} />
+													</InputOTPGroup>
+												</InputOTP>
 											</FormControl>
+											<FormDescription>
+												{t("auth.resetPassword.code_description")}
+											</FormDescription>
+											<FormMessage />
 										</FormItem>
 									)}
 								/>
@@ -130,7 +138,7 @@ const SignUpClient = () => {
 									name="password"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>{t("general.password")}</FormLabel>
+											<FormLabel>{t("general.newPassword")}</FormLabel>
 											<FormControl>
 												<PasswordInput
 													required
@@ -148,13 +156,6 @@ const SignUpClient = () => {
 							</form>
 						</Form>
 					</CardContent>
-					<CardFooter className="flex flex-col items-center">
-						<Button variant="link">
-							<Link href="/login">
-								{t("auth.login.button")}
-							</Link>
-						</Button>
-					</CardFooter>
 				</Card>
 
 				{error && (
@@ -167,7 +168,7 @@ const SignUpClient = () => {
 				{success && (
 					<Alert className="w-full max-w-sm mx-auto text-white bg-green-500">
 						<AlertTitle>{t("general.success")}</AlertTitle>
-						<AlertDescription>{t("success.account_created")}</AlertDescription>
+						<AlertDescription>{t("success.email_sent")}</AlertDescription>
 					</Alert>
 				)}
 			</div>
@@ -175,4 +176,4 @@ const SignUpClient = () => {
 	)
 }
 
-export default SignUpClient;
+export default ResetPasswordClient;

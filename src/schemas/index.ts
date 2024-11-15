@@ -66,3 +66,21 @@ export const EditUserSchema = z.object({
 });
 
 export type EditUserSchemaType = z.infer<typeof EditUserSchema>;
+
+export const ForgotPasswordSchema = z.object({
+	email: z.string().email()
+});
+
+export type ForgotPasswordSchemaType = z.infer<typeof ForgotPasswordSchema>;
+
+export const ResetPasswordSchema = z.object({
+	code: z.string().min(6, {
+		message: "Your code should be 6 characters long."
+	}).max(6, {
+		message: "Your code should be 6 characters long."
+	}),
+	email: z.string().email(),
+	password: z.string().regex(passwordRegex, 'Your password should contain at least one uppercase letter, one lowercase letter, and one number.').min(8)
+});
+
+export type ResetPasswordSchemaType = z.infer<typeof ResetPasswordSchema>;

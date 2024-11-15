@@ -52,7 +52,9 @@
     "more": "More",
     "deleting": "Deleting...",
     "event": "Event",
-    "role": "Role"
+    "role": "Role",
+    "code": "Code",
+    "newPassword": "New password"
   },
   "contacts": {
     "writeUs": "Write us"
@@ -144,7 +146,8 @@
     "login": {
       "title": "Sign into your account",
       "description": "Please enter your credentials.",
-      "button": "Already have an account? Sign in"
+      "button": "Already have an account? Sign in",
+      "rememberPassword": "Remember your password?"
     },
     "signup": {
       "title": "Create an account",
@@ -157,6 +160,22 @@
     "password": {
       "show": "Show password",
       "hide": "Hide password"
+    },
+    "forgotPassword": {
+      "title": "Forgotten password",
+      "description": "Enter your email and we'll send you a link to reset your password.",
+      "button": "Forgot your password?"
+    },
+    "resetPassword": {
+      "title": "Reset your password",
+      "description": "Please enter your new password.",
+      "code_description": "Enter the 6 digit code you received in your email."
+    },
+    "emails": {
+      "forgotPassword": {
+        "subject": "Change your password",
+        "content": "Your code for resetting your password is: {code}.\nWhich expires in 30 minutes.\nАко не сте поискали промяна на паролата, моля игнорирайте това съобщение."
+      }
     }
   },
   "errors": {
@@ -183,6 +202,7 @@
     "images_uploaded": "Image uploaded successfully!",
     "post_deleted": "Post deleted successfully!",
     "event_deleted": "Event deleted successfully!",
-    "user_deleted": "User deleted successfully!"
+    "user_deleted": "User deleted successfully!",
+    "email_sent": "Email sent successfully!"
   }
 }
