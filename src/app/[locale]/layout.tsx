@@ -8,7 +8,7 @@ export default async function LocaleLayout(
 		params: { locale: string };
 	}>
 ) {
-	const { locale } = props.params;
+	const { locale } = await Promise.resolve(props.params);
   const { children } = props;
 
 	setRequestLocale(locale);
