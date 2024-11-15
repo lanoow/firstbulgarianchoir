@@ -2,13 +2,12 @@
 
 import { IconBrowser, IconBuildingArch, IconHome, IconLogout2, IconMail, IconPhoto, IconSettings, IconTicket, IconUsers } from "@tabler/icons-react";
 import { Sidebar, SidebarBody, SidebarCategory, SidebarLink } from "./sidebar";
+import LanguageSwitcher from "./language-swicher";
 import { useTranslations } from "next-intl";
 import { signOut } from "next-auth/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Logo from "./logo";
-import LanguageSwitcher from "./language-swicher";
-import { Globe } from "lucide-react";
 
 const DashboardSidebar = () => {
 	const t = useTranslations();
@@ -94,11 +93,7 @@ const DashboardSidebar = () => {
 					</div>
 				</div>
 				<div className="flex flex-col gap-2">
-					{open ? (
-						<LanguageSwitcher />
-					) : (
-						<Globe className="text-neutral-700 dark:text-neutral-200" />
-					)}
+					<LanguageSwitcher />
 
 					<SidebarLink
 						link={{
