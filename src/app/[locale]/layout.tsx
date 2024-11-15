@@ -3,10 +3,10 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 
 export default async function LocaleLayout(
-	props: Readonly<{
+	props: {
 		children: React.ReactNode;
 		params: { locale: string };
-	}>
+	}
 ) {
 	const { locale } = await Promise.resolve(props.params);
   const { children } = props;
