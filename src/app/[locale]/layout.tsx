@@ -3,28 +3,21 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 
 export default async function LocaleLayout(
-    props: Readonly<{
-        children: React.ReactNode;
-        params: { locale: string };
-    }>
+	props: Readonly<{
+		children: React.ReactNode;
+		params: { locale: string };
+	}>
 ) {
-    const params = await props.params;
+	const { locale } = props.params;
+  const { children } = props;
 
-    const {
-        locale
-    } = params;
+	setRequestLocale(locale);
 
-    const {
-        children
-    } = props;
+	const messages = await getMessages();
 
-    setRequestLocale(locale);
+	generateStaticParams();
 
-    const messages = await getMessages();
-
-    generateStaticParams();
-
-    return (
+	return (
 		<NextIntlClientProvider messages={messages}>
 			{children}
 		</NextIntlClientProvider>
