@@ -1,3 +1,5 @@
+"use client";
+
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -67,6 +69,7 @@ const UserEditDialog: React.FC<{ user: SafeUser; }> = ({ user }) => {
 				},
 				finally: () => {
 					setIsOpen(false);
+					form.resetField("password");
 					router.refresh();
 				}
 			});

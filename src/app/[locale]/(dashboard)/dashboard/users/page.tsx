@@ -5,7 +5,7 @@ import { UsersTable } from "./_components/users-table";
 import { columns } from "./_components/users-table-columns";
 import { getUsers } from "@/lib/actions";
 
-const DashboardUsers = async () => {
+export default async function DashboardUsers () {
 	const t = await getTranslations();
 	const data = await getUsers();
 
@@ -32,5 +32,3 @@ const DashboardUsers = async () => {
 		</div>
 	)
 }
-
-export default DashboardUsers;
