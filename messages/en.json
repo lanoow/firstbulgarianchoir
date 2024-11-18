@@ -110,7 +110,8 @@
         "new": "Add a new user.",
         "delete": "Are you sure you want to delete the user?",
         "chooseRole": "Choose a role for the user.",
-        "roleDescription": "Choosing administrator, you give full access and control over your website. Be careful!"
+        "roleDescription": "Choosing administrator, you give full access and control over your website. Be careful!",
+        "passwordDescription": "If you don't want to change the password, leave the field empty.\nWARNING: Password must contain: at least 8 characters, 1 lowercase letter, 1 uppercase letter and 1 digit."
       },
       "settings": {
         "index": "Here you can manage your website's settings."

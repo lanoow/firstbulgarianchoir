@@ -23,8 +23,8 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -37,7 +37,6 @@ export function UsersTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-	const [rowSelection, setRowSelection] = useState({})
 	const t = useTranslations()
 
 	const table = useReactTable({
@@ -49,11 +48,9 @@ export function UsersTable<TData, TValue>({
 		getSortedRowModel: getSortedRowModel(),
 		onColumnFiltersChange: setColumnFilters,
 		getFilteredRowModel: getFilteredRowModel(),
-		onRowSelectionChange: setRowSelection,
 		state: {
 			sorting,
 			columnFilters,
-			rowSelection,
 		},
 	})
 
@@ -91,11 +88,7 @@ export function UsersTable<TData, TValue>({
 					<TableBody>
 						{table.getRowModel().rows?.length ? (
 							table.getRowModel().rows.map((row) => (
-								<TableRow
-									key={row.id}
-									onClick={() => row.toggleSelected()}
-									data-state={row.getIsSelected() && "selected"}
-								>
+								<TableRow key={row.id}>
 									{row.getVisibleCells().map((cell) => (
 										<TableCell key={cell.id}>
 											{flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -114,14 +107,7 @@ export function UsersTable<TData, TValue>({
 				</Table>
 			</div>
 
-			<div className="flex items-center justify-between space-x-2">
-				<div className="flex-1 text-sm text-muted-foreground">
-					{t("general.rowsSelected", {
-						count: table.getFilteredSelectedRowModel().rows.length,
-						total: table.getFilteredRowModel().rows.length
-					})}
-				</div>
-
+			<div className="flex items-center justify-center space-x-2">
 				<div className="flex items-center space-x-2">
 					<Button
 						variant="outline"

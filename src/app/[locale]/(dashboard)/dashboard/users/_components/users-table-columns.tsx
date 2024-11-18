@@ -1,37 +1,14 @@
 "use client";
 
 import UserDeleteDialog from "./user-delete-dialog";
-import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
+import UserEditDialog from "./user-edit-dialog";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import UserDialog from "./user-dialog";
 import { SafeUser } from "@/types";
-import UserEditDialog from "./user-edit-dialog";
 
 export const columns: ColumnDef<SafeUser>[] = [
-	{
-		id: "select",
-		header: ({ table }) => (
-			<Checkbox
-				checked={
-					table.getIsAllPageRowsSelected() ||
-					(table.getIsSomePageRowsSelected() && "indeterminate")
-				}
-				onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-				aria-label="Select all"
-			/>
-		),
-		cell: ({ row }) => (
-			<Checkbox
-				checked={row.getIsSelected()}
-				onCheckedChange={(value) => row.toggleSelected(!!value)}
-				aria-label="Select row"
-			/>
-		),
-		enableSorting: false,
-		enableHiding: false,
-	},
 	{
 		accessorKey: "name",
 		header: ({ column }) => {

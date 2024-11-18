@@ -9,31 +9,72 @@ import { Input } from "@/components/ui/input";
 import { useTranslations } from "next-intl";
 import { UserRole } from "@prisma/client";
 import { useForm } from "react-hook-form";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { SafeUser } from "@/types";
 import { Pen } from "lucide-react";
+import { PasswordInput } from "@/components/ui/password-input";
+import { changeDetails } from "@/lib/actions";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const UserEditDialog: React.FC<{ user: SafeUser; }> = ({ user }) => {
-	const t = useTranslations();
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [isPending, startTransition] = useTransition();
+	const t = useTranslations();
+	const router = useRouter();
 
 	const form = useForm<EditUserSchemaType>({
 		resolver: zodResolver(EditUserSchema),
 		defaultValues: {
 			name: user.name,
 			email: user.email,
-			role: user.role
+			role: user.role,
+			password: ""
 		}
 	});
 
 	const onSubmit = async (data: EditUserSchemaType) => {
 		startTransition(() => {
-			console.log(data);
+			toast.promise(changeDetails(user, data), {
+				loading: t("general.loading"),
+				success: t("success.changed_successfully"),
+				error: (data) => {
+					let errorMessage = t("errors.unknown_error");
+
+					switch (data.error) {
+						case "NOT_AUTHENTICATED":
+							errorMessage = t("errors.not_authenticated");
+							break;
+						case "INVALID_FIELDS":
+							errorMessage = t("errors.invalid_fields");
+							break;
+						case "NO_CHANGES":
+							errorMessage = t("errors.no_changes");
+							break;
+						case "EMAIL_ALREADY_IN_USE":
+							errorMessage = t("errors.email_already_in_use");
+							break;
+						case "UNKNOWN_ERROR":
+							errorMessage = t("errors.unknown_error");
+							break;
+
+						default:
+							errorMessage = t("errors.unknown_error");
+							break;
+					}
+
+					return errorMessage;
+				},
+				finally: () => {
+					setIsOpen(false);
+					router.refresh();
+				}
+			});
 		});
 	};
 
 	return (
-		<Sheet>
+		<Sheet open={isOpen} onOpenChange={setIsOpen}>
 			<SheetTrigger>
 				<TooltipProvider>
 					<Tooltip>
@@ -109,6 +150,27 @@ const UserEditDialog: React.FC<{ user: SafeUser; }> = ({ user }) => {
 										</Select>
 										<FormDescription>
 											{t("dashboard.descriptions.users.roleDescription")}
+										</FormDescription>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="password"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>{t("general.password")}</FormLabel>
+										<FormControl>
+											<PasswordInput
+												disabled={isPending}
+												placeholder="********"
+												{...field}
+											/>
+										</FormControl>
+										<FormDescription>
+											{t("dashboard.descriptions.users.passwordDescription")}
 										</FormDescription>
 										<FormMessage />
 									</FormItem>

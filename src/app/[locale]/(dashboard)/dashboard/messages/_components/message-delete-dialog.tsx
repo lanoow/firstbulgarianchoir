@@ -2,7 +2,6 @@
 
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Button } from "@/components/ui/button";
 import { deleteMessage } from "@/lib/actions";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -34,7 +33,7 @@ const MessageDeleteDialog: React.FC<{ message: SafeMessage; }> = ({ message }) =
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<Trash className="w-5 h-5 hover:text-danger hover:opacity-70 transition" />
+							<Trash className="w-5 h-5 hover:text-destructive hover:opacity-70 transition" />
 						</TooltipTrigger>
 						<TooltipContent>{t("general.delete")}</TooltipContent>
 					</Tooltip>
@@ -49,10 +48,8 @@ const MessageDeleteDialog: React.FC<{ message: SafeMessage; }> = ({ message }) =
 					<AlertDialogCancel disabled={isPending}>
 						{t("general.cancel")}
 					</AlertDialogCancel>
-					<AlertDialogAction asChild>
-						<Button onClick={() => handleDelete(message.id)} variant="destructive" disabled={isPending}>
-							{t("general.delete")}
-						</Button>
+					<AlertDialogAction onClick={() => handleDelete(message.id)} variant="destructive" disabled={isPending}>
+						{t("general.delete")}
 					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>

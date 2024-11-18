@@ -22,13 +22,6 @@ export const SignUpSchema = z.object({
 
 export type SignUpSchemaType = z.infer<typeof SignUpSchema>;
 
-export const UpdateProfileSchema = z.object({
-	name: z.string().optional(),
-	email: z.string().email().optional(),
-});
-
-export type UpdateProfileSchemaType = z.infer<typeof UpdateProfileSchema>;
-
 export const ChangePasswordSchema = z.object({
 	oldPassword: z.string(),
 	newPassword: z.string().regex(passwordRegex, 'Your password should contain at least one uppercase letter, one lowercase letter, and one number.').min(8),
@@ -62,7 +55,8 @@ export type ContactUsSchemaType = z.infer<typeof ContactUsSchema>;
 export const EditUserSchema = z.object({
 	name: z.string(),
 	email: z.string().email(),
-	role: z.enum([UserRole.ADMIN, UserRole.USER])
+	role: z.enum([UserRole.ADMIN, UserRole.USER]),
+	password: z.string().optional()
 });
 
 export type EditUserSchemaType = z.infer<typeof EditUserSchema>;

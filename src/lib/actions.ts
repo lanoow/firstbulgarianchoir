@@ -15,8 +15,6 @@ import {
   ChangePasswordSchema,
   ChangePasswordSchemaType,
   SignUpSchema,
-  UpdateProfileSchema,
-  UpdateProfileSchemaType,
   EventSchemaType,
   EventSchema,
   ContactUsSchemaType,
@@ -25,6 +23,8 @@ import {
   ForgotPasswordSchema,
   ResetPasswordSchemaType,
   ResetPasswordSchema,
+  EditUserSchemaType,
+  EditUserSchema,
 } from "@/schemas";
 import { historyObject } from "@/app/[locale]/(dashboard)/dashboard/content/history/client";
 import { MediaType } from "@prisma/client";
@@ -289,22 +289,28 @@ export const register = async (data: any) => {
 };
 
 export const changeDetails = async (
-  currentUser: SafeUser,
-  values: UpdateProfileSchemaType
+  user: SafeUser,
+  values: EditUserSchemaType
 ) => {
-  const validatedFields = UpdateProfileSchema.safeParse(values);
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
+    return { error: "NOT_AUTHENTICATED" };
+  }
+
+  const validatedFields = EditUserSchema.safeParse(values);
 
   if (!validatedFields.success) {
     return { error: "INVALID_FIELDS" };
   }
 
-  const { name, email } = validatedFields.data;
+  const { name, email, role, password } = validatedFields.data;
 
-  if (name === currentUser.name && email === currentUser.email) {
+  if (name === user.name && email === user.email && role === user.role) {
     return { error: "NO_CHANGES" };
   }
 
-  if (email !== currentUser.email) {
+  if (email !== user.email) {
     const existingUser = await prisma.user.findUnique({ where: { email } });
 
     if (existingUser) {
@@ -312,12 +318,25 @@ export const changeDetails = async (
     }
   }
 
-  await prisma.user.update({
-    where: { id: currentUser.id },
-    data: { name, email },
-  });
-
-  return { success: "CHANGED_SUCCESSFULLY" };
+  try {
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 12);
+  
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { name, email, role, password: hashedPassword },
+      });
+    } else {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { name, email, role },
+      });
+    }
+  
+    return { success: "CHANGED_SUCCESSFULLY" };
+  } catch {
+    return { error: "UNKNOWN_ERROR" };
+  }
 };
 
 export const getHistory = async (language: Locale) => {
