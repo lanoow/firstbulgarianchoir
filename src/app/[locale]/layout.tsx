@@ -6,15 +6,16 @@ import { notFound } from "next/navigation";
 
 // @ts-nocheck
 export default async function LocaleLayout(
-	// @ts-nocheck
 	props: Readonly<{
-		// @ts-nocheck
-		children: React.ReactNode;
-		// @ts-nocheck
-		params: { locale: string };
-	}>
+    children: React.ReactNode;
+    params: Promise<{ locale: string }>;
+  }>
 ) {
-	const { children, params: { locale } } = props;
+  const params = await props.params;
+
+  const { locale } = params;
+
+  const { children } = props;
 
 	if (!routing.locales.includes(locale as any)) {
 		notFound();
