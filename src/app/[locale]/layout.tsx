@@ -4,13 +4,14 @@ import { NextIntlClientProvider } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 
-export default async function LocaleLayout({
-	locale,
-	children,
-}: {
-	locale: string;
-	children: React.ReactNode;
-}) {
+export default async function LocaleLayout(
+	props: Readonly<{
+		children: React.ReactNode;
+		params: { locale: string };
+	}>
+) {
+	const { children, params: { locale } } = props;
+
 	if (!routing.locales.includes(locale as any)) {
     notFound();
   }
