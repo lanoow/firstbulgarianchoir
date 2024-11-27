@@ -13,11 +13,12 @@ import { UserRole } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { useState, useTransition } from "react";
 import { SafeUser } from "@/types";
-import { Pen } from "lucide-react";
+import { Mail, Pen } from "lucide-react";
 import { PasswordInput } from "@/components/ui/password-input";
 import { changeDetails } from "@/lib/actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const UserEditDialog: React.FC<{ user: SafeUser; }> = ({ user }) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -119,7 +120,7 @@ const UserEditDialog: React.FC<{ user: SafeUser; }> = ({ user }) => {
 								control={form.control}
 								name="email"
 								render={({ field }) => (
-									<FormItem>
+									<FormItem className="relative">
 										<FormLabel>{t("general.email")}</FormLabel>
 										<FormControl>
 											<Input
@@ -130,6 +131,20 @@ const UserEditDialog: React.FC<{ user: SafeUser; }> = ({ user }) => {
 											/>
 										</FormControl>
 										<FormMessage />
+										<TooltipProvider>
+											<Tooltip>
+												<TooltipTrigger asChild>
+													<Button className="absolute right-0 top-6" variant="link" asChild>
+														<Link href={`mailto:${user.email}`}>
+															<Mail className="w-5 h-5" />
+														</Link>
+													</Button>
+												</TooltipTrigger>
+												<TooltipContent>
+													{t("general.send_email")}
+												</TooltipContent>
+											</Tooltip>
+										</TooltipProvider>
 									</FormItem>
 								)}
 							/>

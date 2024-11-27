@@ -54,7 +54,8 @@
     "event": "Събитие",
     "role": "Роля",
     "code": "Код",
-    "newPassword": "Нова парола"
+    "newPassword": "Нова парола",
+    "send_email": "Изпрати имейл"
   },
   "contacts": {
     "writeUs": "Пишете ни"

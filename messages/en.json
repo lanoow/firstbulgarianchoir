@@ -54,7 +54,8 @@
     "event": "Event",
     "role": "Role",
     "code": "Code",
-    "newPassword": "New password"
+    "newPassword": "New password",
+    "send_email": "Send email"
   },
   "contacts": {
     "writeUs": "Write us"
