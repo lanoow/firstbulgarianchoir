@@ -3,17 +3,14 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { getTranslations } from "next-intl/server";
 import { ChevronDown } from "lucide-react";
-// import { getHistory } from "@/lib/actions";
-// import HistoryClient from "./client";
+import { getHistory } from "@/lib/actions";
+import HistoryClient from "./client";
 import Link from "next/link";
 
 const DashboardHistory = async () => {
 	const t = await getTranslations();
-	// const contentBG = await getHistory("bg");
-	// const contentEN = await getHistory("en");
-
-	// const historyBGContent = "";
-	// const historyENContent = "";
+	const bgContent = await getHistory("bg").then((data) => data?.content || "");
+	const enContent = await getHistory("en").then((data) => data?.content || "");
 
 	return (
 		<TooltipProvider>
@@ -50,10 +47,10 @@ const DashboardHistory = async () => {
 				</BreadcrumbList>
 			</Breadcrumb>
 
-			{/* <HistoryClient
-				historyBGContent={historyBGContent}
-				historyENContent={historyENContent}
-			/> */}
+			<HistoryClient
+				bulgarian={bgContent}
+				english={enContent}
+			/>
 		</TooltipProvider>
 	)
 }

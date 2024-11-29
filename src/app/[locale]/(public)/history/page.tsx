@@ -6,9 +6,10 @@ import { Locale } from "@/types";
 export default async function History() {
 	const locale = await getLocale();
 	const history = await getHistory(locale as Locale);
-	const content = "test";
 
-  return (
-		<HistoryClient content={content} />
-  )
+	return (
+		<>
+			{history ? <HistoryClient history={history} /> : <div>No history available</div>}
+		</>
+	)
 }

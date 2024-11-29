@@ -356,18 +356,16 @@ export const updateHistory = async (content: historyObject[]) => {
 
   try {
     content.forEach(async (c: historyObject) => {
-      const content = JSON.stringify(c.content);
-
       await prisma.history.upsert({
         where: {
           language: c.language,
         },
         create: {
           language: c.language,
-          content,
+          content: c.content,
         },
         update: {
-          content,
+          content: c.content,
         },
       });
     });

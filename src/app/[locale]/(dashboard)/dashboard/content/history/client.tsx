@@ -1,30 +1,34 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { MinimalTiptapEditor } from "@/components/minimal-tiptap";
 import DashboardHeader from "@/components/dashboard-header";
 import { Button } from "@/components/ui/button";
+import { useState, useTransition } from "react";
 import { updateHistory } from "@/lib/actions";
 import { useTranslations } from "next-intl";
-import { useTransition } from "react";
+import { Content } from "@tiptap/react";
 import { toast } from "sonner";
 
 export type historyObject = {
 	language: string;
-	content: any;
+	content: string;
 }
 
-const HistoryClient = () => {
+const HistoryClient: React.FC<{ bulgarian: string; english: string }> = ({ bulgarian, english }) => {
 	const [isPending, startTransition] = useTransition();
+	const [bgContent, setBgContent] = useState<Content>(bulgarian);
+	const [enContent, setEnContent] = useState<Content>(english);
 	const t = useTranslations();
 
 	const content = [
 		{
 			language: "bg",
-			content: "bg",
+			content: bgContent,
 		},
 		{
 			language: "en",
-			content: "en",
+			content: enContent,
 		}
 	] as historyObject[];
 
@@ -76,10 +80,34 @@ const HistoryClient = () => {
 					</TabsTrigger>
 				</TabsList>
 				<TabsContent value="historyBG">
-					bg
+					<MinimalTiptapEditor
+						output="html"
+						editable={true}
+						autofocus={true}
+						injectCSS={true}
+						value={bgContent}
+						onChange={setBgContent}
+						throttleDelay={500}
+						className="w-full bg-white"
+						editorClassName="focus:outline-none"
+						editorContentClassName="p-5 [&_.ProseMirror]:min-h-72"
+						placeholder={t("dashboard.startTyping")}
+					/>
 				</TabsContent>
 				<TabsContent value="historyEN">
-					en
+					<MinimalTiptapEditor
+						output="html"
+						editable={true}
+						autofocus={true}
+						injectCSS={true}
+						value={enContent}
+						onChange={setEnContent}
+						throttleDelay={500}
+						className="w-full bg-white"
+						editorClassName="focus:outline-none"
+						editorContentClassName="p-5 [&_.ProseMirror]:min-h-72"
+						placeholder={t("dashboard.startTyping")}
+					/>
 				</TabsContent>
 			</Tabs>
 		</div>
