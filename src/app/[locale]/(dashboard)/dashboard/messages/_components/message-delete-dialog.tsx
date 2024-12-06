@@ -33,7 +33,7 @@ const MessageDeleteDialog: React.FC<{ message: SafeMessage; }> = ({ message }) =
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<Trash className="w-5 h-5 hover:text-destructive hover:opacity-70 transition" />
+							<Trash className="size-5 hover:text-destructive hover:opacity-70 transition" />
 						</TooltipTrigger>
 						<TooltipContent>{t("general.delete")}</TooltipContent>
 					</Tooltip>

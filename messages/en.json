@@ -58,7 +58,12 @@
     "send_email": "Send email"
   },
   "contacts": {
-    "writeUs": "Write us"
+    "writeUs": "Write us",
+    "enterYourName": "Enter your name",
+    "enterYourEmail": "Enter your email",
+    "enterYourPhone": "Enter your phone",
+    "enterSubject": "Enter subject",
+    "enterMessage": "Enter message"
   },
   "navigation": {
     "home": "Home",
@@ -205,6 +210,7 @@
     "post_deleted": "Post deleted successfully!",
     "event_deleted": "Event deleted successfully!",
     "user_deleted": "User deleted successfully!",
-    "email_sent": "Email sent successfully!"
+    "email_sent": "Email sent successfully!",
+    "event_edited": "Event edited successfully!"
   }
 }

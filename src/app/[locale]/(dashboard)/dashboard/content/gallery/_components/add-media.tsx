@@ -83,14 +83,14 @@ const AddMedia = () => {
 						setVideoDialogOpen(false);
 						setImageDialogOpen(true);
 					}} className="flex items-center space-x-1 cursor-pointer">
-						<IconPhoto className="flex-shrink-0 w-5 h-5" />
+						<IconPhoto className="flex-shrink-0 size-5" />
 						<span>{t("dashboard.mediaTypes.image")}</span>
 					</DropdownMenuItem>
 					<DropdownMenuItem onClick={() => {
 						setImageDialogOpen(false);
 						setVideoDialogOpen(true);
 					}} className="flex items-center space-x-1 cursor-pointer">
-						<IconVideo className="flex-shrink-0 w-5 h-5" />
+						<IconVideo className="flex-shrink-0 size-5" />
 						<span>{t("dashboard.mediaTypes.video")}</span>
 					</DropdownMenuItem>
 				</DropdownMenuContent>

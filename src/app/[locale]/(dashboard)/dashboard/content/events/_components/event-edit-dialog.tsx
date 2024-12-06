@@ -6,27 +6,30 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FileUploader } from '@/components/uploader/file-uploader';
 import { MinimalTiptapEditor } from '@/components/minimal-tiptap';
-import { TooltipProvider } from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { EventSchema, EventSchemaType } from '@/schemas';
 import { TimePicker } from '@/components/ui/time-picker';
 import { useUploadFile } from '@/hooks/use-upload-file';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Calendar } from '@/components/ui/calendar';
 import { Button } from '@/components/ui/button';
-import { useState, useTransition } from 'react';
+import React, { useState, useTransition } from 'react';
 import { Input } from '@/components/ui/input';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { CalendarIcon } from 'lucide-react';
-import { eventCreate } from '@/lib/actions';
+import { CalendarIcon, Pen, Trash } from 'lucide-react';
+import { eventEdit, utDeleteFile } from '@/lib/actions';
 import { useForm } from 'react-hook-form';
+import { SafeEvent } from '@/types';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import Image from 'next/image';
 
-const AddEvent = () => {
+const EventEditDialog: React.FC<{ event: SafeEvent }> = ({ event }) => {
 	const [isPending, startTransition] = useTransition();
 	const [isSheetOpen, setSheetOpen] = useState<boolean>(false);
+	const [showUpload, setShowUpload] = useState<boolean>(false);
 	const { onUpload, uploadedFiles, progresses, isUploading } = useUploadFile("imageUploader",
 		{
 			defaultUploadedFiles: [],
@@ -38,34 +41,42 @@ const AddEvent = () => {
 	const form = useForm<EventSchemaType>({
 		resolver: zodResolver(EventSchema),
 		defaultValues: {
-			titleBG: "",
-			titleEN: "",
-			contentBG: "",
-			contentEN: "",
-			locationBG: "",
-			locationEN: "",
-			date: new Date(),
-			cover: ""
+			titleBG: event.titleBG,
+			titleEN: event.titleEN ?? "",
+			contentBG: event.contentBG,
+			contentEN: event.contentEN ?? "",
+			locationBG: event.locationBG,
+			locationEN: event.locationEN ?? "",
+			date: new Date(event.date),
+			cover: undefined,
 		}
 	});
 
+	const cover = event.cover;
+
 	const handleUpload = async (data: any) => {
-		await onUpload(data.cover)
-			.then(() => {
-				data.cover = uploadedFiles[0].key;
-				return eventCreate(data);
-			});
+		if (showUpload) {
+			await utDeleteFile(cover);
+			await onUpload(data.cover)
+				.then(() => {
+					data.cover = uploadedFiles[0].key;
+					return eventEdit(event.id, data);
+				});
+		} else {
+			data.cover = cover;
+			return eventEdit(event.id, data);
+		}
 	}
 
 	const onSubmit = async (data: any) => {
 		startTransition(() => {
 			toast.promise(handleUpload(data), {
 				loading: t("general.loading"),
-				success: t("success.event_created"),
+				success: t("success.event_edited"),
 				error: t("errors.unknown_error"),
 				finally: () => {
 					setSheetOpen(false);
-					form.reset();
+					setShowUpload(false);
 					router.refresh();
 				}
 			});
@@ -74,10 +85,15 @@ const AddEvent = () => {
 
 	return (
 		<Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
-			<SheetTrigger asChild>
-				<Button>
-					{t("dashboard.nav.newEvent")}
-				</Button>
+			<SheetTrigger>
+				<TooltipProvider>
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<Pen className="size-5 hover:opacity-70 transition" />
+						</TooltipTrigger>
+						<TooltipContent>{t("general.edit")}</TooltipContent>
+					</Tooltip>
+				</TooltipProvider>
 			</SheetTrigger>
 			<SheetContent>
 				<Form {...form}>
@@ -291,16 +307,46 @@ const AddEvent = () => {
 										<FormItem className="w-full">
 											<FormLabel>{t("general.image")}</FormLabel>
 											<FormControl>
-												<FileUploader
-													value={field.value}
-													onValueChange={field.onChange}
-													maxFileCount={1}
-													maxSize={8 * 1024 * 1024}
-													progresses={progresses}
-													// pass the onUpload function here for direct upload
-													// onUpload={uploadFiles}
-													disabled={isUploading || isPending}
-												/>
+												{cover && !showUpload ? (
+													<div className="relative">
+														<Image
+															src={`https://utfs.io/f/${cover}`}
+															alt={event.titleBG}
+															width={1000}
+															height={500}
+															className="w-full rounded-lg"
+														/>
+
+														<div className="absolute top-2 right-2">
+															<TooltipProvider>
+																<Tooltip>
+																	<TooltipTrigger asChild>
+																		<Button
+																			size="sm"
+																			variant="flag"
+																			className="opacity-50 hover:opacity-100 hover:text-destructive"
+																			onClick={() => setShowUpload(true)}
+																		>
+																			<Trash className="size-5" />
+																		</Button>
+																	</TooltipTrigger>
+																	<TooltipContent>{t("general.delete")}</TooltipContent>
+																</Tooltip>
+															</TooltipProvider>
+														</div>
+													</div>
+												) : (
+													<FileUploader
+														value={field.value}
+														onValueChange={field.onChange}
+														maxFileCount={1}
+														maxSize={8 * 1024 * 1024}
+														progresses={progresses}
+														// pass the onUpload function here for direct upload
+														// onUpload={uploadFiles}
+														disabled={isUploading || isPending}
+													/>
+												)}
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -315,7 +361,7 @@ const AddEvent = () => {
 								</Button>
 							</SheetClose>
 							<Button type="submit" disabled={isUploading || isPending}>
-								{t("general.create")}
+								{t("general.save")}
 							</Button>
 						</SheetFooter>
 					</form>
@@ -325,4 +371,4 @@ const AddEvent = () => {
 	)
 }
 
-export default AddEvent;
+export default EventEditDialog;

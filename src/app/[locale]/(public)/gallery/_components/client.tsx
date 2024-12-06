@@ -1,11 +1,11 @@
 "use client";
 
 import { PhotoProvider } from 'react-photo-view';
-import GalleryImage from './_components/image';
 import { MediaType } from '@prisma/client';
-import Video from './_components/video';
 import React, { Fragment } from 'react';
 import { SafeGallery } from '@/types';
+import GalleryImage from './image';
+import Video from './video';
 
 import 'react-photo-view/dist/react-photo-view.css';
 

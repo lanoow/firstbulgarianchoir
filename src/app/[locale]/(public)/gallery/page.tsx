@@ -1,6 +1,6 @@
 import GallerySkeleton from "../../(dashboard)/dashboard/content/gallery/_components/skeleton";
+import GalleryClient from "./_components/client";
 import { getGallery } from "@/lib/actions";
-import GalleryClient from "./client";
 import { Suspense } from "react";
 
 export default async function Gallery() {

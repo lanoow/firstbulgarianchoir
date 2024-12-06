@@ -56,7 +56,7 @@ const ContactForm = () => {
 									<Input
 										{...field}
 										disabled={isPending}
-										placeholder={t("general.name")}
+										placeholder={t("contacts.enterYourName")}
 									/>
 								</FormControl>
 								<FormMessage />
@@ -76,7 +76,7 @@ const ContactForm = () => {
 									<Input
 										{...field}
 										disabled={isPending}
-										placeholder={t("general.email")}
+										placeholder={t("contacts.enterYourEmail")}
 									/>
 								</FormControl>
 								<FormMessage />
@@ -104,7 +104,7 @@ const ContactForm = () => {
 										{...field}
 										defaultCountry="BG"
 										disabled={isPending}
-										placeholder={t("general.phone")}
+										placeholder={t("contacts.enterYourPhone")}
 									/>
 								</FormControl>
 								<FormMessage />
@@ -124,7 +124,7 @@ const ContactForm = () => {
 									<Input
 										{...field}
 										disabled={isPending}
-										placeholder={t("general.subject")}
+										placeholder={t("contacts.enterSubject")}
 									/>
 								</FormControl>
 								<FormMessage />
@@ -146,7 +146,7 @@ const ContactForm = () => {
 									rows={6}
 									{...field}
 									disabled={isPending}
-									placeholder={t("general.message")}
+									placeholder={t("contacts.enterMessage")}
 								/>
 							</FormControl>
 							<FormMessage />

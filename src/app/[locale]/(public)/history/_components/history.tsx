@@ -5,7 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { History } from "@prisma/client";
 import { Content } from "@tiptap/react";
 
-const HistoryClient: React.FC<{ history: History }> = ({ history }) => {
+const HistoryOutput: React.FC<{ history: History }> = ({ history }) => {
 	const content = history.content as Content;
 
 	return (
@@ -22,4 +22,4 @@ const HistoryClient: React.FC<{ history: History }> = ({ history }) => {
 	)
 }
 
-export default HistoryClient;
+export default HistoryOutput;

@@ -4,18 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import EventSkeleton from "./event-skeleton";
+import { SafeEvent } from "@/types";
 
-interface EventCardProps {
-	titleBG: string;
-	titleEN: string;
-	locationBG: string;
-	locationEN: string;
-	cover: string;
-	date: string;
-	slug: string;
-}
-
-const EventCard: React.FC<EventCardProps> = async ({ titleBG, titleEN, locationBG, locationEN, cover, date, slug }) => {
+const EventCard: React.FC<SafeEvent> = async ({ titleBG, titleEN, locationBG, locationEN, cover, date, slug }) => {
 	const locale = await getLocale();
 
 	return (
@@ -25,7 +16,7 @@ const EventCard: React.FC<EventCardProps> = async ({ titleBG, titleEN, locationB
 					<Image
 						width={700}
 						height={700}
-						src={cover}
+						src={`https://utfs.io/f/${cover}`}
 						alt={titleBG}
 						className="w-full rounded-md sm:h-64 aspect-video"
 					/>
@@ -36,7 +27,7 @@ const EventCard: React.FC<EventCardProps> = async ({ titleBG, titleEN, locationB
 
 				<div className="flex items-center justify-between w-full gap-2 text-sm sm:text-md">
 					<div className="flex items-center space-x-1">
-						<MapPin className="w-5 h-5 sm:h-6 sm:w-6" />
+						<MapPin className="size-5 sm:h-6 sm:w-6" />
 						<span>
 							{locale === "en" ?
 								(locationEN ? locationEN : locationBG)
@@ -46,7 +37,7 @@ const EventCard: React.FC<EventCardProps> = async ({ titleBG, titleEN, locationB
 					</div>
 
 					<div className="flex items-center space-x-1">
-						<Calendar className="w-5 h-5 sm:h-6 sm:w-6" />
+						<Calendar className="size-5 sm:h-6 sm:w-6" />
 						<span>
 							{new Date(date).toLocaleDateString(locale)}
 						</span>

@@ -31,11 +31,11 @@ export type ChangePasswordSchemaType = z.infer<typeof ChangePasswordSchema>;
 
 export const EventSchema = z.object({
 	titleBG: z.string(),
-	titleEN: z.string().optional(),
+	titleEN: z.optional(z.string()),
 	contentBG: z.string(),
-	contentEN: z.string().optional(),
+	contentEN: z.optional(z.string()),
 	locationBG: z.string(),
-	locationEN: z.string().optional(),
+	locationEN: z.optional(z.string()),
 	cover: z.any(),
 	date: z.date()
 });

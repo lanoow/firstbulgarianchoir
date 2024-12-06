@@ -90,6 +90,17 @@ export default async function Home() {
             />
           ))}
         </div>
+
+        <Button
+          size="lg"
+          variant="outline"
+          className="sm:text-lg"
+          asChild
+        >
+          <Link href="/events/">
+            {t("general.more")}
+          </Link>
+        </Button>
       </div>
 
       <div className="flex flex-col items-center space-y-8">
@@ -100,6 +111,17 @@ export default async function Home() {
         </h2>
 
         <HomeGallery gallery={gallery} />
+
+        <Button
+          size="lg"
+          variant="outline"
+          className="sm:text-lg"
+          asChild
+        >
+          <Link href="/gallery/">
+            {t("general.more")}
+          </Link>
+        </Button>
       </div>
     </div>
   )

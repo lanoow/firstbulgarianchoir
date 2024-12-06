@@ -2,10 +2,11 @@
 
 import EventDeleteDialog from "./event-delete-dialog";
 import { ColumnDef } from "@tanstack/react-table";
+import EventEditDialog from "./event-edit-dialog";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown } from "lucide-react";
-import EventDialog from "./event-dialog";
+import { ArrowUpDown, Eye } from "lucide-react";
 import { SafeEvent } from "@/types";
+import Link from "next/link";
 
 export const columns: ColumnDef<SafeEvent>[] = [
 	{
@@ -96,7 +97,10 @@ export const columns: ColumnDef<SafeEvent>[] = [
 
 			return (
 				<div className="flex items-center space-x-2">
-					<EventDialog event={event} />
+					<Link href={`/events/${event.slug}`}>
+						<Eye className="size-5 hover:opacity-70 transition" />
+					</Link>
+					<EventEditDialog event={event} />
 					<EventDeleteDialog event={event} />
 				</div>
 			)

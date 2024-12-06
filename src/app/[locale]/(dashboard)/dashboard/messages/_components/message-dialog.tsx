@@ -17,7 +17,7 @@ const MessageSheet: React.FC<{ message: SafeMessage; }> = ({ message }) => {
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<Eye className="w-5 h-5 transition hover:opacity-70" />
+							<Eye className="size-5 transition hover:opacity-70" />
 						</TooltipTrigger>
 						<TooltipContent>{t("general.read")}</TooltipContent>
 					</Tooltip>

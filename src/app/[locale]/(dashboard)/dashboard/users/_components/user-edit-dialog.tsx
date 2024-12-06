@@ -83,7 +83,7 @@ const UserEditDialog: React.FC<{ user: SafeUser; }> = ({ user }) => {
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<Pen className="w-5 h-5 hover:opacity-70 transition" />
+							<Pen className="size-5 hover:opacity-70 transition" />
 						</TooltipTrigger>
 						<TooltipContent>{t("general.edit")}</TooltipContent>
 					</Tooltip>
@@ -136,7 +136,7 @@ const UserEditDialog: React.FC<{ user: SafeUser; }> = ({ user }) => {
 												<TooltipTrigger asChild>
 													<Button className="absolute right-0 top-6" variant="link" asChild>
 														<Link href={`mailto:${user.email}`}>
-															<Mail className="w-5 h-5" />
+															<Mail className="size-5" />
 														</Link>
 													</Button>
 												</TooltipTrigger>

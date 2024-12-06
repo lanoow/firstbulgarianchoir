@@ -428,6 +428,68 @@ export const eventCreate = async (values: EventSchemaType) => {
   return { success: "EVENT_CREATED" };
 };
 
+export const eventEdit = async (id: string, values: EventSchemaType) => {
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
+    return { error: "NOT_AUTHENTICATED" };
+  }
+
+  const validatedFields = EventSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return { error: "INVALID_FIELDS" };
+  }
+
+  const {
+    titleBG,
+    titleEN,
+    contentBG,
+    contentEN,
+    locationBG,
+    locationEN,
+    date,
+    cover,
+  } = validatedFields.data;
+
+  const event = await prisma.event.findUnique({
+    where: { id }
+  });
+
+  if (!event) {
+    return { error: "EVENT_NOT_FOUND" };
+  }
+
+  let slug;
+
+  if (titleBG != event.titleBG) {
+    slug = slugify(titleBG, {
+      locale: "bg",
+      lower: true,
+      trim: true,
+    });
+  } else {
+    slug = event.slug;
+  }
+
+  await prisma.event.update({
+    where: { id },
+    data: {
+      slug,
+      titleBG,
+      contentBG,
+      locationBG,
+      date,
+      cover,
+      titleEN,
+      contentEN,
+      locationEN
+    }
+  });
+
+  return { success: "EVENT_EDITED" };
+};
+
 export async function uploadThings(fd: FormData) {
   const files = fd.getAll("files") as File[];
 
