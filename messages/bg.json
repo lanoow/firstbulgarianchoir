@@ -55,7 +55,8 @@
     "role": "Роля",
     "code": "Код",
     "newPassword": "Нова парола",
-    "send_email": "Изпрати имейл"
+    "send_email": "Изпрати имейл",
+    "usefulLinks": "Полезни връзки"
   },
   "contacts": {
     "writeUs": "Пишете ни",

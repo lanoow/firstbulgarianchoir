@@ -55,7 +55,8 @@
     "role": "Role",
     "code": "Code",
     "newPassword": "New password",
-    "send_email": "Send email"
+    "send_email": "Send email",
+    "usefulLinks": "Useful links"
   },
   "contacts": {
     "writeUs": "Write us",
