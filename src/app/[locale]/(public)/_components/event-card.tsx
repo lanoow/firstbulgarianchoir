@@ -14,8 +14,8 @@ const EventCard: React.FC<SafeEvent> = async ({ titleBG, titleEN, locationBG, lo
 			<Link href={`/events/${slug}`} className="flex flex-col items-start w-full space-y-4 transition hover:opacity-70">
 				<div className="flex flex-col w-full space-y-2">
 					<Image
-						width={700}
-						height={700}
+						width={1000}
+						height={1000}
 						src={`https://utfs.io/f/${cover}`}
 						alt={titleBG}
 						className="w-full rounded-md sm:h-64 aspect-video"

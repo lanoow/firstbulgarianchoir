@@ -27,10 +27,10 @@ import {
   EditUserSchema,
 } from "@/schemas";
 import { historyObject } from "@/app/[locale]/(dashboard)/dashboard/content/history/client";
+import { getTranslations } from "next-intl/server";
 import { MediaType } from "@prisma/client";
 import { notFound } from "next/navigation";
 import { resend } from "./mail";
-import { getTranslations } from "next-intl/server";
 
 export async function getCurrentUser() {
   try {
@@ -321,7 +321,7 @@ export const changeDetails = async (
   try {
     if (password) {
       const hashedPassword = await bcrypt.hash(password, 12);
-  
+
       await prisma.user.update({
         where: { id: user.id },
         data: { name, email, role, password: hashedPassword },
@@ -332,7 +332,7 @@ export const changeDetails = async (
         data: { name, email, role },
       });
     }
-  
+
     return { success: "CHANGED_SUCCESSFULLY" };
   } catch {
     return { error: "UNKNOWN_ERROR" };
@@ -453,7 +453,7 @@ export const eventEdit = async (id: string, values: EventSchemaType) => {
   } = validatedFields.data;
 
   const event = await prisma.event.findUnique({
-    where: { id }
+    where: { id },
   });
 
   if (!event) {
@@ -483,13 +483,36 @@ export const eventEdit = async (id: string, values: EventSchemaType) => {
       cover,
       titleEN,
       contentEN,
-      locationEN
-    }
+      locationEN,
+    },
   });
 
   return { success: "EVENT_EDITED" };
 };
 
+export async function getEvent(slug: string) {
+  const event = await prisma.event.findUnique({
+    where: { slug },
+    include: {
+      author: true,
+    },
+  });
+
+  if (!event) {
+    return null;
+  }
+
+  return {
+    ...event,
+    createdAt: event.createdAt.toISOString(),
+    updatedAt: event.updatedAt.toISOString(),
+    author: {
+      ...event.author,
+      createdAt: event.author.createdAt.toISOString(),
+      updatedAt: event.author.updatedAt.toISOString(),
+    },
+  };
+}
 export async function uploadThings(fd: FormData) {
   const files = fd.getAll("files") as File[];
 

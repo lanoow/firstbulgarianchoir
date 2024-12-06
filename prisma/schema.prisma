@@ -52,7 +52,7 @@ model Event {
   cover         String
   titleBG       String
   titleEN       String?
-  slug          String
+  slug          String    @unique
   contentBG     String
   contentEN     String?
   locationBG    String
