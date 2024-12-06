@@ -2,6 +2,7 @@ import * as React from 'react'
 import type { Editor } from '@tiptap/react'
 import type { Node } from '@tiptap/pm/model'
 import { isUrl } from '../../../utils'
+import { utDeleteFile } from '@/lib/actions'
 
 interface UseImageActionsProps {
   editor: Editor
@@ -45,6 +46,7 @@ export const useImageActions = ({ editor, node, src, onViewClick }: UseImageActi
       if (nodeAtSelection && nodeAtSelection.type.name === 'image') {
         if (dispatch) {
           tr.deleteSelection()
+          utDeleteFile(nodeAtSelection.attrs.id)
           return true
         }
       }

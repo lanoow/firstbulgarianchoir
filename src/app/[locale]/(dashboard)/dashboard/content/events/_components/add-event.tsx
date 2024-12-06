@@ -22,6 +22,8 @@ import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { eventCreate } from '@/lib/actions';
+import { MinimalTiptapEditor } from '@/components/minimal-tiptap';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 const AddEvent = () => {
 	const [isPending, startTransition] = useTransition();
@@ -143,12 +145,21 @@ const AddEvent = () => {
 												<FormItem>
 													<FormLabel>{t("general.content")}</FormLabel>
 													<FormControl>
-														<Textarea
-															required
-															disabled={isPending}
-															placeholder="Концертът ще се проведе на 24.12.2021 г. от 19:00 часа."
-															{...field}
-														/>
+														<TooltipProvider>
+															<MinimalTiptapEditor
+																output="html"
+																editable={true}
+																autofocus={false}
+																injectCSS={true}
+																value={field.value}
+																onChange={(value) => field.onChange(value)}
+																throttleDelay={1000}
+																className="w-full bg-white border border-border"
+																editorClassName="focus:outline-none"
+																editorContentClassName="p-5 [&_.ProseMirror]:min-h-72"
+																placeholder={t("dashboard.startTyping")}
+															/>
+														</TooltipProvider>
 													</FormControl>
 												</FormItem>
 											)}
@@ -228,7 +239,7 @@ const AddEvent = () => {
 												<PopoverTrigger asChild>
 													<Button
 														disabled={isPending}
-														variant="outline"
+														variant="datePicker"
 														className={cn(
 															"w-full justify-start text-left font-normal",
 															!field.value && "text-muted-foreground"

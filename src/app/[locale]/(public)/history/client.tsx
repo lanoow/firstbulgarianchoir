@@ -9,14 +9,16 @@ const HistoryClient: React.FC<{ history: History }> = ({ history }) => {
 	const content = history.content as Content;
 
 	return (
-		<TooltipProvider>
-			<MinimalTiptapEditor
-				output="json"
-				preview={true}
-				injectCSS={true}
-				value={content}
-			/>
-		</TooltipProvider>
+		<div className="w-full max-w-screen-2xl">
+			<TooltipProvider>
+				<MinimalTiptapEditor
+					output="html"
+					preview={true}
+					injectCSS={true}
+					value={content}
+				/>
+			</TooltipProvider>
+		</div>
 	)
 }
 
