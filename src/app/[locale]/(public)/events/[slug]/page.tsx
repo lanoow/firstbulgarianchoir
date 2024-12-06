@@ -10,10 +10,10 @@ import Link from "next/link";
 
 const alice = Alice({ subsets: ["latin-ext", "cyrillic-ext"], weight: "400", display: "swap" });
 
+// @ts-expect-error - This is a valid operation
 export default async function Event({ params }: { params: { slug?: string } }) {
 	const locale = await getLocale() as Locale;
 	const t = await getTranslations();
-	// @ts-expect-error - This is a valid operation
 	const { slug } = await params;
 
 	if (!slug) {
