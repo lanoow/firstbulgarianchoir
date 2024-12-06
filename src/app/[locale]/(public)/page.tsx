@@ -3,7 +3,7 @@ import HeroImage from "./_components/hero-image";
 import EventCard from "./_components/event-card";
 import { Button } from "@/components/ui/button";
 import HomeGallery from "./_components/gallery";
-import { getHomeGallery } from "@/lib/actions";
+import { getEvents, getHomeGallery } from "@/lib/actions";
 import { Alice } from "next/font/google";
 import Link from "next/link";
 
@@ -12,36 +12,7 @@ const alice = Alice({ subsets: ["latin-ext", "cyrillic-ext"], weight: "400", dis
 export default async function Home() {
   const t = await getTranslations();
   const gallery = await getHomeGallery();
-
-  const events = [
-    {
-      titleBG: "Заглавен текст на последно събитие",
-      titleEN: "Event 1",
-      slug: "sabitie-1",
-      locationBG: "Място 1",
-      locationEN: "Location 1",
-      cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxQ0UUZjrC7vTAdiXCgYcFdF3TH5_s8L8c8w&s",
-      date: new Date().toISOString()
-    },
-    {
-      titleBG: "Заглавен текст на последно събитие",
-      titleEN: "Event 1",
-      slug: "sabitie-1",
-      locationBG: "Място 1",
-      locationEN: "Location 1",
-      cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxQ0UUZjrC7vTAdiXCgYcFdF3TH5_s8L8c8w&s",
-      date: new Date().toISOString()
-    },
-    {
-      titleBG: "Заглавен текст на последно събитие",
-      titleEN: "Event 1",
-      slug: "sabitie-1",
-      locationBG: "Място 1",
-      locationEN: "Location 1",
-      cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxQ0UUZjrC7vTAdiXCgYcFdF3TH5_s8L8c8w&s",
-      date: new Date().toISOString()
-    }
-  ];
+  const events = await getEvents();
 
   return (
     <div className="flex flex-col space-y-32 max-w-screen-2xl">

@@ -3,9 +3,12 @@ import { Calendar, ChevronLeft, MapPin } from "lucide-react";
 import EventContent from "./_components/content";
 import { notFound } from "next/navigation";
 import { getEvent } from "@/lib/actions";
+import { Alice } from "next/font/google";
 import { Locale } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+
+const alice = Alice({ subsets: ["latin-ext", "cyrillic-ext"], weight: "400", display: "swap" });
 
 export default async function Event({ params }: { params: { slug?: string } }) {
 	const locale = await getLocale() as Locale;
@@ -23,15 +26,15 @@ export default async function Event({ params }: { params: { slug?: string } }) {
 	}
 
 	return (
-		<div>
-			<Link href="/events/" className="flex items-center space-x-1 no-underline hover:underline underline-offset-8 w-fit">
+		<div className="flex flex-col w-full space-y-4">
+			<Link href="/events/" className="flex items-center space-x-1 no-underline hover:underline underline-offset-4 w-fit">
 				<ChevronLeft className="size-5" />
 				<span>{t("general.back")}</span>
 			</Link>
 
 			<div className="flex flex-col w-full space-y-4">
 				<div className="flex flex-col w-full space-y-2">
-					<h1 className="text-2xl font-bold sm:text-3xl">
+					<h1 className={`text-2xl font-bold sm:text-3xl first-letter:uppercase ${alice.className}`}>
 						{locale === "bg" ? event.titleBG : (event.titleEN ? event.titleEN : event.titleBG)}
 					</h1>
 

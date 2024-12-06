@@ -1,10 +1,13 @@
 import { Calendar, MapPin } from "lucide-react";
 import { getLocale } from "next-intl/server";
+import EventSkeleton from "./event-skeleton";
+import { Alice } from "next/font/google";
+import { SafeEvent } from "@/types";
+import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
-import EventSkeleton from "./event-skeleton";
-import { SafeEvent } from "@/types";
+
+const alice = Alice({ subsets: ["latin-ext", "cyrillic-ext"], weight: "400", display: "swap" });
 
 const EventCard: React.FC<SafeEvent> = async ({ titleBG, titleEN, locationBG, locationEN, cover, date, slug }) => {
 	const locale = await getLocale();
@@ -20,7 +23,7 @@ const EventCard: React.FC<SafeEvent> = async ({ titleBG, titleEN, locationBG, lo
 						alt={titleBG}
 						className="w-full rounded-md sm:h-64 aspect-video"
 					/>
-					<h3 className="text-lg sm:text-xl">
+					<h3 className={`text-lg sm:text-xl ${alice.className}`}>
 						{locale === "en" ? (titleEN ? titleEN : titleBG) : titleBG}
 					</h3>
 				</div>
