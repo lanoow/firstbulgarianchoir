@@ -13,8 +13,8 @@ const alice = Alice({ subsets: ["latin-ext", "cyrillic-ext"], weight: "400", dis
 export default async function Event({ params }: { params: { slug?: string } }) {
 	const locale = await getLocale() as Locale;
 	const t = await getTranslations();
-	const resParams = await params;
-	const { slug } = resParams;
+	// @ts-expect-error - This is a valid operation
+	const { slug } = await params;
 
 	if (!slug) {
 		return notFound();
