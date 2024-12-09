@@ -4,8 +4,18 @@ import GalleryClient from "./_components/client";
 import { getGallery } from "@/lib/actions";
 import { Alice } from "next/font/google";
 import { Suspense } from "react";
+import { Metadata } from "next";
 
 const alice = Alice({ subsets: ["latin-ext", "cyrillic-ext"], weight: "400", display: "swap" });
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations();
+
+  return {
+    title: `${t("navigation.gallery")} | ${t("general.fbc")}`,
+    description: `${t("home.description")}`
+  }
+}
 
 export default async function Gallery() {
 	const t = await getTranslations();

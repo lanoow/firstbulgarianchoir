@@ -1,12 +1,23 @@
+import { Skeleton } from "@/components/ui/skeleton";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import ContactForm from "./_components/form";
 import { Alice } from "next/font/google";
-import Link from "next/link";
 import { Suspense } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
+import { Metadata } from "next";
 
 const alice = Alice({ weight: "400", subsets: ["cyrillic-ext", "latin-ext"], display: "swap" });
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations();
+
+  return {
+    title: `${t("navigation.contacts")} | ${t("general.fbc")}`,
+    description: `${t("home.description")}`,
+		
+  }
+}
 
 export default async function ContactsPage() {
 	const t = await getTranslations();

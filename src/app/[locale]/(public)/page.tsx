@@ -6,8 +6,23 @@ import HomeGallery from "./_components/gallery";
 import { getEvents, getHomeGallery } from "@/lib/actions";
 import { Alice } from "next/font/google";
 import Link from "next/link";
+import { Metadata } from "next";
 
 const alice = Alice({ subsets: ["latin-ext", "cyrillic-ext"], weight: "400", display: "swap" });
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations();
+
+  return {
+    title: `${t("general.fbcLg")} ${t("general.YankoMustakov")}`,
+    description: `${t("home.description")}`,
+    openGraph: {
+      images: [
+        '/home.jpg'
+      ]
+    }
+  }
+}
 
 export default async function Home() {
   const t = await getTranslations();

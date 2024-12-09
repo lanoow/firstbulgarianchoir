@@ -4,8 +4,18 @@ import HistoryOutput from "./_components/history";
 import { getHistory } from "@/lib/actions";
 import { Alice } from "next/font/google";
 import { Locale } from "@/types";
+import { Metadata } from "next";
 
 const alice = Alice({ subsets: ["latin-ext", "cyrillic-ext"], weight: "400", display: "swap" });
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations();
+
+  return {
+    title: `${t("navigation.history")} | ${t("general.fbc")}`,
+    description: `${t("home.description")}`
+  }
+}
 
 export default async function History() {
 	const t = await getTranslations();

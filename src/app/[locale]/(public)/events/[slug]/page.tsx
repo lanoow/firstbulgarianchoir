@@ -7,10 +7,47 @@ import { Alice } from "next/font/google";
 import { Locale } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
 
 const alice = Alice({ subsets: ["latin-ext", "cyrillic-ext"], weight: "400", display: "swap" });
 
-export default async function Event({ params }: { params: Promise<{ slug?: string }> }) {
+interface PageProps {
+	params: Promise<{ slug?: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+	const t = await getTranslations();
+	const slug = (await params).slug;
+	const locale = await getLocale() as Locale;
+
+	if (!slug) {
+		return {
+			title: `404 | ${t("general.fbc")}`,
+		}
+	}
+
+	const event = await getEvent(slug);
+
+	if (!event) {
+		return {
+			title: `404 | ${t("general.fbc")}`,
+		}
+	}
+
+	return {
+		title: `${locale === "bg" ? event.titleBG
+			: (event.titleEN ? event.titleEN : event.titleBG)} | ${t("general.fbc")}`,
+		description: locale === "bg" ? event.contentBG
+			: (event.contentEN ? event.contentEN : event.contentBG),
+		openGraph: {
+			images: [
+				`https://utfs.io/f/${event.cover}`
+			]
+		}
+	}
+}
+
+export default async function Event({ params }: PageProps) {
 	const locale = await getLocale() as Locale;
 	const t = await getTranslations();
 	const { slug } = await params;
@@ -66,7 +103,7 @@ export default async function Event({ params }: { params: Promise<{ slug?: strin
 					className="w-full rounded-md aspect-video"
 				/>
 
-				<EventContent locale={locale} titleBG={event.titleBG} titleEN={event.titleEN} />
+				<EventContent locale={locale} contentBG={event.contentBG} contentEN={event.contentEN} />
 			</div>
 		</div>
 	)

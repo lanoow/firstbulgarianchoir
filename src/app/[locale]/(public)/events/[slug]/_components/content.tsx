@@ -6,17 +6,20 @@ import { Locale } from '@/types';
 
 interface EventContentProps {
 	locale: Locale;
-	titleBG: string;
-	titleEN: string | null;
+	contentBG: string;
+	contentEN: string | null;
 }
 
-const EventContent: React.FC<EventContentProps> = ({ locale, titleBG, titleEN}) => {
+const EventContent: React.FC<EventContentProps> = ({ locale, contentBG, contentEN }) => {
 	return (
 		<TooltipProvider>
 			<MinimalTiptapEditor
 				output="html"
 				preview={true}
-				value={locale === "bg" ? titleBG : (titleEN ? titleEN : titleBG)}
+				value={
+					locale === "bg" ? contentBG
+						: (contentEN ? contentEN : contentBG)
+				}
 			/>
 		</TooltipProvider>
 	)
