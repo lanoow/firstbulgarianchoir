@@ -70,7 +70,6 @@ const DashboardSidebar = () => {
 
 	return (
 		<Sidebar open={open} setOpen={setOpen} animate={true}>
-			{/* @ts-expect-error className is not allowed but it is working right */}
 			<SidebarBody className="justify-between gap-10 bg-neutral-200">
 				<div className="flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
 					<Logo short link="/dashboard" />
