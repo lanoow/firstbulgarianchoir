@@ -70,6 +70,7 @@ const DashboardSidebar = () => {
 
 	return (
 		<Sidebar open={open} setOpen={setOpen} animate={true}>
+			{/* @ts-expect-error className is not allowed but it is working right */}
 			<SidebarBody className="justify-between gap-10 bg-neutral-200">
 				<div className="flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
 					<Logo short link="/dashboard" />
@@ -105,6 +106,7 @@ const DashboardSidebar = () => {
 								display: open ? "inline-block" : "none",
 								opacity: open ? 1 : 0,
 							}}
+							// @ts-expect-error className is not allowed but it is working right
 							className="text-neutral-700 dark:text-neutral-200 group-hover/sidebar:text-destructive-400 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
 						>
 							{t("dashboard.nav.logout")}

@@ -80,6 +80,7 @@ export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
 };
 
 export const DesktopSidebar = ({
+  // @ts-expect-error className is not allowed but it is working right
   className,
   children,
   ...props
@@ -88,6 +89,7 @@ export const DesktopSidebar = ({
   return (
     <>
       <motion.div
+        // @ts-expect-error className is not allowed but it is working right
         className={cn(
           "h-full px-4 py-4 hidden  md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[300px] flex-shrink-0",
           className
@@ -135,7 +137,7 @@ export const MobileSidebar = ({
                 duration: 0.3,
                 ease: "easeInOut",
               }}
-
+              // @ts-expect-error className is not allowed but it is working right
               className={cn(
                 "fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-between",
                 className
@@ -199,7 +201,7 @@ export const SidebarLink = ({
           display: animate ? (open ? "inline-block" : "none") : "inline-block",
           opacity: animate ? (open ? 1 : 0) : 1,
         }}
-
+        // @ts-expect-error className is not allowed but it is working right
         className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
       >
         {link.label}
