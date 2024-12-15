@@ -106,7 +106,7 @@ const DashboardSidebar = () => {
 								display: open ? "inline-block" : "none",
 								opacity: open ? 1 : 0,
 							}}
-							// @ts-expect-error className is not allowed but it is working right
+							
 							className="text-neutral-700 dark:text-neutral-200 group-hover/sidebar:text-destructive-400 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
 						>
 							{t("dashboard.nav.logout")}
