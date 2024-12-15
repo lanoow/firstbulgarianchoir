@@ -1,4 +1,3 @@
-import { NotFoundBoundary } from "next/dist/client/components/not-found-boundary";
 import { getLocale, getTranslations } from "next-intl/server";
 import HistoryOutput from "./_components/history";
 import { getHistory } from "@/lib/actions";
@@ -28,9 +27,7 @@ export default async function History() {
 				{t("navigation.history")}
 			</h2>
 
-			<NotFoundBoundary>
-				{history && <HistoryOutput history={history} />}
-			</NotFoundBoundary>
+			{history && <HistoryOutput history={history} />}
 		</div>
 	)
 }
