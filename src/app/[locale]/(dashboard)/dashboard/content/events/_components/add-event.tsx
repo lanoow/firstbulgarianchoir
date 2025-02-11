@@ -1,28 +1,29 @@
 "use client";
 
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { FileUploader } from '@/components/uploader/file-uploader';
-import { MinimalTiptapEditor } from '@/components/minimal-tiptap';
-import { TooltipProvider } from '@/components/ui/tooltip';
 import { EventSchema, EventSchemaType } from '@/schemas';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useState, useTransition } from 'react';
+
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { CalendarIcon } from 'lucide-react';
+import { FileUploader } from '@/components/uploader/file-uploader';
+import { Input } from '@/components/ui/input';
+import { MinimalTiptapEditor } from '@/components/minimal-tiptap';
 import { TimePicker } from '@/components/ui/time-picker';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { cn } from '@/lib/utils';
+import { eventCreate } from '@/lib/actions';
+import { format } from 'date-fns';
+import { toast } from 'sonner';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useUploadFile } from '@/hooks/use-upload-file';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Calendar } from '@/components/ui/calendar';
-import { Button } from '@/components/ui/button';
-import { useState, useTransition } from 'react';
-import { Input } from '@/components/ui/input';
-import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
-import { CalendarIcon } from 'lucide-react';
-import { eventCreate } from '@/lib/actions';
-import { useForm } from 'react-hook-form';
-import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
-import { toast } from 'sonner';
 
 const AddEvent = () => {
 	const [isPending, startTransition] = useTransition();

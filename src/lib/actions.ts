@@ -1,36 +1,36 @@
 "use server";
 
-import { auth, signIn, signOut } from "@/auth";
-import { utapi } from "@/server/uploadthing";
-import { getUserByEmail } from "@/data/user";
-import { AuthError } from "next-auth";
-import { Locale, SafeUser } from "@/types";
-import { prisma } from "./db";
-import slugify from "slugify";
-import bcrypt from "bcrypt";
-
 import {
-  LoginSchema,
-  LoginSchemaType,
   ChangePasswordSchema,
   ChangePasswordSchemaType,
-  SignUpSchema,
-  EventSchemaType,
-  EventSchema,
-  ContactUsSchemaType,
   ContactUsSchema,
-  ForgotPasswordSchemaType,
-  ForgotPasswordSchema,
-  ResetPasswordSchemaType,
-  ResetPasswordSchema,
-  EditUserSchemaType,
+  ContactUsSchemaType,
   EditUserSchema,
+  EditUserSchemaType,
+  EventSchema,
+  EventSchemaType,
+  ForgotPasswordSchema,
+  ForgotPasswordSchemaType,
+  LoginSchema,
+  LoginSchemaType,
+  ResetPasswordSchema,
+  ResetPasswordSchemaType,
+  SignUpSchema,
 } from "@/schemas";
-import { historyObject } from "@/app/[locale]/(dashboard)/dashboard/content/history/client";
-import { getTranslations } from "next-intl/server";
+import { Locale, SafeUser } from "@/types";
+import { auth, signIn, signOut } from "@/auth";
+
+import { AuthError } from "next-auth";
 import { MediaType } from "@prisma/client";
+import bcrypt from "bcrypt";
+import { getTranslations } from "next-intl/server";
+import { getUserByEmail } from "@/data/user";
+import { historyObject } from "@/app/[locale]/(dashboard)/dashboard/content/history/client";
 import { notFound } from "next/navigation";
+import { prisma } from "./db";
 import { resend } from "./mail";
+import slugify from "slugify";
+import { utapi } from "@/server/uploadthing";
 
 export async function getCurrentUser() {
   try {
@@ -406,6 +406,7 @@ export const eventCreate = async (values: EventSchemaType) => {
     locale: "bg",
     lower: true,
     trim: true,
+    strict: true,
   });
 
   console.log(cover);
@@ -467,6 +468,7 @@ export const eventEdit = async (id: string, values: EventSchemaType) => {
       locale: "bg",
       lower: true,
       trim: true,
+      strict: true,
     });
   } else {
     slug = event.slug;

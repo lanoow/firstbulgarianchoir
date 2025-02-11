@@ -1,17 +1,18 @@
 "use client";
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { FaFacebook, FaShield, FaYoutube } from "react-icons/fa6";
-import LanguageSwitcher from "../language-swicher";
-import { useTranslations } from "next-intl";
-import MobileNavigation from "./mobile";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
+import LanguageSwitcher from "../language-switcher";
 import Link from "next/link";
 import Logo from "../logo";
-import { Separator } from "../ui/separator";
-import { usePathname } from "@/i18n/routing";
-import { SafeUser } from "@/types";
-import { UserRole } from "@prisma/client";
+import MobileNavigation from "./mobile";
 import { ReactElement } from "react";
+import { SafeUser } from "@/types";
+import { Separator } from "../ui/separator";
+import { UserRole } from "@prisma/client";
+import { usePathname } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 export type NavigationProps = {
 	label: string;

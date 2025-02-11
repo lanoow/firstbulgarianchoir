@@ -2,7 +2,7 @@
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import LanguageSwitcher from "../language-swicher";
+import LanguageSwitcher from "../language-switcher";
 import { Button } from "@/components/ui/button";
 import { NavigationProps } from "./navigation";
 import { Menu } from "lucide-react";
