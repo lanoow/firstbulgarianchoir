@@ -570,7 +570,7 @@ export const getMessages = async () => {
 export const getEvents = async () => {
   const events = await prisma.event.findMany({
     orderBy: {
-      createdAt: "desc",
+      date: "desc",
     },
     include: {
       author: true,
