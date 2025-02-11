@@ -13,7 +13,7 @@ const Footer = async () => {
 	const socials = [
 		{
 			label: "Facebook",
-			href: "https://www.facebook.com/groups/135746839829291/",
+			href: "https://www.facebook.com/profile.php?id=100068113579154",
 			icon: <FaFacebook size={24} />
 		},
 		{
