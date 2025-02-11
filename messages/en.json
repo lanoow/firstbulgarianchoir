@@ -87,7 +87,7 @@
     "filesTarget": "{count, plural, =1 {1 file} other {# files}}"
   },
   "home": {
-    "description": "He laid the foundation for choral work in Bulgaria in 1868.",
+    "description": "It laid the foundation for choral work in Bulgaria in 1868.",
     "latestEvents": "Latest events"
   },
   "dashboard": {
