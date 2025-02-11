@@ -1,11 +1,12 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { getTranslations } from "next-intl/server";
-import ContactForm from "./_components/form";
+
 import { Alice } from "next/font/google";
-import { Suspense } from "react";
+import ContactForm from "./_components/form";
 import Link from "next/link";
 import { Metadata } from "next";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
 
 const alice = Alice({ weight: "400", subsets: ["cyrillic-ext", "latin-ext"], display: "swap" });
 
@@ -47,14 +48,14 @@ export default async function ContactsPage() {
 						<li>
 							<Link href="https://g.co/kgs/gR6M4CR" className="flex items-center space-x-4 text-black transition hover:opacity-70">
 								<MapPin size={24} />
-								<span>ул. &quot;Димитър Хадживасилев&quot; №2, гр. Свищов</span>
+								<span>{t("general.address")}</span>
 							</Link>
 						</li>
 					</ul>
 				</div>
 
 				<Suspense fallback={<Skeleton className="w-full rounded-md shadow-lg aspect-video max-h-96" />}>
-					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d838.5067724907321!2d25.34309690060156!3d43.619141113711414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40ae9f8065b95055%3A0xf269e8604d7d4ad7!2sTsentar%2C%20ul.%20%22Dimitar%20Hadzhivasilev%22%202%2C%205250%20Svishtov!5e0!3m2!1sen!2sbg!4v1727777396263!5m2!1sen!2sbg" className="w-full rounded-md shadow-lg aspect-video max-h-96 lg:max-w-[50%]" style={{ border: 0 }} allowFullScreen={true} loading="lazy"></iframe>
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.469701391475!2d25.3463827!3d43.617582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aea1f14cb6f28d%3A0xde566fe974be3d1f!2z0KfQuNGC0LDQu9C40YnQtSDQldC70LXQvdC60LAg0Lgg0JrQuNGA0LjQuyDQlC4g0JDQstGA0LDQvNC-0LLQuA!5e0!3m2!1sen!2sbg!4v1739300140550!5m2!1sen!2sbg" className="w-full rounded-md shadow-lg aspect-video max-h-96 lg:max-w-[50%]" style={{ border: 0 }} allowFullScreen={true} loading="lazy"></iframe>
 				</Suspense>
 			</div>
 

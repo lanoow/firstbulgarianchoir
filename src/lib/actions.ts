@@ -403,11 +403,15 @@ export const eventCreate = async (values: EventSchemaType) => {
   console.log(validatedFields.data);
 
   const slug = slugify(titleBG, {
+    replacement: "-",
     locale: "bg",
     lower: true,
     trim: true,
     strict: true,
+    remove: /[^\w\s-]/g,
   });
+
+  console.log(slug);
 
   console.log(cover);
 
@@ -465,10 +469,12 @@ export const eventEdit = async (id: string, values: EventSchemaType) => {
 
   if (titleBG != event.titleBG) {
     slug = slugify(titleBG, {
+      replacement: "-",
       locale: "bg",
       lower: true,
       trim: true,
       strict: true,
+      remove: /[^\w\s-]/g,
     });
   } else {
     slug = event.slug;

@@ -1,10 +1,11 @@
-import { NavigationProps } from "./navigation/navigation";
 import { FaFacebook, FaYoutube } from "react-icons/fa6";
-import { getTranslations } from "next-intl/server";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { Separator } from "./ui/separator";
+
 import Link from "next/link";
 import Logo from "./logo";
+import { NavigationProps } from "./navigation/navigation";
+import { Separator } from "./ui/separator";
+import { getTranslations } from "next-intl/server";
 
 const Footer = async () => {
 	const t = await getTranslations();
@@ -45,7 +46,7 @@ const Footer = async () => {
 							<li>
 								<Link href="https://g.co/kgs/gR6M4CR" className="flex items-center space-x-2 text-white transition hover:opacity-70">
 									<MapPin size={24} />
-									<span>ул. &quot;Димитър Хадживасилев&quot; №2<br /> гр. Свищов</span>
+									<span>{t("general.address")}</span>
 								</Link>
 							</li>
 						</ul>
