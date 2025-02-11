@@ -46,7 +46,7 @@
     "send": "Send",
     "read": "Read",
     "search": "Search",
-    "noResults": "No results",
+    "noResults": "No results found",
     "columns": "Columns",
     "rowsSelected": "{count, plural, =0 {No selected rows} other {# of {total} rows selected}}",
     "more": "More",
